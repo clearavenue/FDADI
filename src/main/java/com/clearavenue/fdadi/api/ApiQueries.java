@@ -20,7 +20,7 @@ public class ApiQueries {
 		String url = "https://api.fda.gov/drug/label.json?search=";
 		url += "openfda.generic_name:" + drugName;
 		try{
-			return makeQuery(url).getString(0).toString();
+			return makeQuery(url).getJSONObject(0).toString();
 		}catch (JSONException e) {
 			return "";
 		}
@@ -74,6 +74,6 @@ public class ApiQueries {
 			System.out.println(e);
 		}*/
 		
-		//System.out.println(getLabel("aspirin"));
+		System.out.println(getLabel("aspirin"));
 	}
 }
