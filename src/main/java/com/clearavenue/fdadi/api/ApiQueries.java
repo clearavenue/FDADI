@@ -43,7 +43,6 @@ public class ApiQueries {
 		url += "search=(openfda.generic_name:" + drugName + "+product_description:" + drugName + ")+AND+status:Ongoing&limit=" + limit;
 		try {
 			JSONArray results = makeQuery(url);
-			//System.out.println(results.toString(2));
 			RecallEvent[] recalls = new RecallEvent[results.length()];
 			for(int i = 0; i < results.length(); i++){
 				recalls[i] = new RecallEvent(results.getJSONObject(i));
@@ -65,13 +64,5 @@ public class ApiQueries {
 		HttpResponse<JsonNode> response = Unirest.get(url).asJson();
 		JSONArray result = response.getBody().getObject().getJSONArray("results");
 		return result;
-	}
-	
-	
-	public static void main(String[] args) throws UnirestException {
-		RecallEvent[] results = getRecallStatus("Dextrose", 20);
-		for(RecallEvent e : results){
-			System.out.println(e.toString() + "\n\n");
-		}
 	}
 }
