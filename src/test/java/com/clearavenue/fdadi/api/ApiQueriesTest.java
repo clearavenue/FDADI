@@ -1,11 +1,8 @@
 package com.clearavenue.fdadi.api;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
-
-import java.nio.charset.Charset;
 
 import org.junit.Test;
 
@@ -53,7 +50,10 @@ public class ApiQueriesTest {
 			e.printStackTrace();
 			fail("Unirest exception when testing ApiQueries.getRecallStatus()");
 		}
-		
+	}
+	
+	@Test
+	public void getRecallStatusNotExistTest(){
 		try {
 			RecallEvent[] results = ApiQueries.getRecallStatus("drugThatDoesntExist", 4);
 			assertNull(results);
