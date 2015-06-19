@@ -13,7 +13,7 @@ public class RecallEvent {
 	public RecallEvent(JSONObject recall){
 		reason = recall.getString("reason_for_recall");
 		distributionPattern = recall.getString("distribution_pattern");
-		productDescription = recall.getString("product_desctiption");
+		productDescription = recall.getString("product_description");
 	}
 
 	/**

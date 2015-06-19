@@ -20,6 +20,7 @@ public class ApiQueries {
 		String url = "https://api.fda.gov/drug/label.json?search=";
 		url += "openfda.generic_name:" + drugName;
 		try{
+			
 			return makeQuery(url).getJSONObject(0).toString();
 		}catch (JSONException e) {
 			return "";
@@ -45,7 +46,6 @@ public class ApiQueries {
 			//System.out.println(results.toString(2));
 			RecallEvent[] recalls = new RecallEvent[results.length()];
 			for(int i = 0; i < results.length(); i++){
-				System.out.println(results.getJSONObject(i));
 				recalls[i] = new RecallEvent(results.getJSONObject(i));
 			}
 			return recalls;
@@ -69,11 +69,9 @@ public class ApiQueries {
 	
 	
 	public static void main(String[] args) throws UnirestException {
-		/*RecallEvent[] results = getRecallStatus("Dextrose", 20);
+		RecallEvent[] results = getRecallStatus("Dextrose", 20);
 		for(RecallEvent e : results){
-			System.out.println(e);
-		}*/
-		
-		System.out.println(getLabel("aspirin"));
+			System.out.println(e.toString() + "\n\n");
+		}
 	}
 }
