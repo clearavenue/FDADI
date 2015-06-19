@@ -47,8 +47,7 @@ public class ApiQueriesTest {
 			assertEquals(expectedDescription, actualRecalls[1].getProductDescription());
 			assertEquals(expectedLength, actualRecalls.length);
 		} catch (UnirestException e) {
-			e.printStackTrace();
-			fail("Unirest exception when testing ApiQueries.getRecallStatus()");
+			fail("Unirest exception when testing ApiQueries.getRecallStatus(): " + e.getMessage());
 		}
 	}
 	
