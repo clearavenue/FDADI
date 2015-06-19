@@ -15,8 +15,8 @@ public class MongoDB {
 	private Datastore datastore;
 
 	public static final String DB_NAME = "fdadi";
-	private final String dbIP = "54.158.46.50";
-	private final int dbPort = 27000;
+	private static final String dbIP = "54.158.46.50";
+	private static final int dbPort = 27000;
 
 	private MongoDB() {
 		try {

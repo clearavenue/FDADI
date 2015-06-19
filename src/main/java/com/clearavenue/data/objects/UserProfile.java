@@ -23,6 +23,12 @@ public class UserProfile {
 		medications = new ArrayList<UserMedication>();
 	}
 
+	public UserProfile(String username, String password) {
+		setUserId(username);
+		setPassword(password);
+		medications = new ArrayList<UserMedication>();
+	}
+
 	public String getUserId() {
 		return userId;
 	}

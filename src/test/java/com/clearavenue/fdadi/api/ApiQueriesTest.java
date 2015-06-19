@@ -1,7 +1,6 @@
 package com.clearavenue.fdadi.api;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -34,12 +33,12 @@ public class ApiQueriesTest {
 	}
 
 	@Test
-	public void getRecallStatusTest(){
+	public void getRecallStatusTest() {
 		String expectedReason = "Lack of Assurance of Sterility";
 		String expectedDistribution = "Nationwide";
 		String expectedDescription = "Lidocaine/Dextrose 5%/7.5% PF, manufactured by New England Compounding Center, Framingham, MA";
 		int expectedLength = 10;
-		
+
 		try {
 			RecallEvent[] actualRecalls = ApiQueries.getRecallStatus("Dextrose", 10);
 			assertEquals(expectedReason, actualRecalls[1].getReason());
@@ -50,15 +49,14 @@ public class ApiQueriesTest {
 			fail("Unirest exception when testing ApiQueries.getRecallStatus(): " + e.getMessage());
 		}
 	}
-	
+
 	@Test
-	public void getRecallStatusNotExistTest(){
+	public void getRecallStatusNotExistTest() {
 		try {
 			RecallEvent[] results = ApiQueries.getRecallStatus("drugThatDoesntExist", 4);
-			assertNull(results);
+			assertEquals(0, results.length);
 		} catch (UnirestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail("UnirestException should not have been thrown: " + e.getMessage());
 		}
 	}
 }

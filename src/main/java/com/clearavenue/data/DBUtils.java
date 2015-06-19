@@ -29,6 +29,14 @@ public class DBUtils {
 		return user;
 	}
 
+	public static void addUserProfile(final String userId, final String pwd) {
+		if (StringUtils.isBlank(userId) || StringUtils.isBlank(pwd)) {
+			return;
+		}
+
+		ds.save(new UserProfile(userId, pwd));
+	}
+
 	public static void addUserMedication(final String userId, final String medicationName) {
 		UserProfile user = findUserProfile(userId);
 
