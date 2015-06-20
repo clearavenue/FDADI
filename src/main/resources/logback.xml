@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
@@ -8,6 +7,10 @@
 			<level>TRACE</level>
 		</filter>
 	</appender>
+	
+	<logger name="com.gargoylesoftware.htmlunit.DefaultCssErrorHandler" level="OFF" />
+	<logger name="com.gargoylesoftware.htmlunit.javascript.StrictErrorReporter" level="OFF" />
+	<logger name="com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleSheet" level="OFF" />
  
 	<root>
 		<level value="INFO" />
