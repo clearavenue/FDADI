@@ -29,12 +29,16 @@ public class DBUtils {
 		return user;
 	}
 
-	public static void addUserProfile(final String userId, final String pwd) {
+	public static boolean addUserProfile(final String userId, final String pwd) {
 		if (StringUtils.isBlank(userId) || StringUtils.isBlank(pwd)) {
-			return;
+			return false;
 		}
 
-		ds.save(new UserProfile(userId, pwd));
+		UserProfile newUser = new UserProfile(userId, pwd);
+		ds.save(newUser);
+
+		UserProfile user = DBUtils.findUserProfile(userId);
+		return user == null ? false : user.getPassword().equals(pwd) && user.getUserId().equals(userId);
 	}
 
 	public static void addUserMedication(final String userId, final String medicationName) {

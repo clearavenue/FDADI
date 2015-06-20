@@ -8,12 +8,27 @@
 
 	<properties>
 		<spring.version>4.1.6.RELEASE</spring.version>
+		<logback.version>1.1.3</logback.version>
+		<jcloverslf4j.version>1.7.12</jcloverslf4j.version>
 		<file.encoding>ISO-8859-1</file.encoding>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>ISO-8859-1</project.reporting.outputEncoding>
 	</properties>
 
 	<dependencies>
+
+		<!-- LogBack dependencies -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${jcloverslf4j.version}</version>
+		</dependency>
+
 		<!-- Unirest API -->
 		<dependency>
 			<groupId>com.mashape.unirest</groupId>
@@ -83,6 +98,7 @@
 			<version>3.4</version>
 		</dependency>
 
+
 		<!-- SPRING MVC -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -93,16 +109,34 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- xerces impl -->
