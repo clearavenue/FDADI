@@ -18,10 +18,12 @@ public class UserMedication {
 
 	@Override
 	public boolean equals(Object that) {
-		if (!(that instanceof UserMedication))
+		if (!(that instanceof UserMedication)) {
 			return false;
-		if (that == this)
+		}
+		if (that == this) {
 			return true;
+		}
 
 		UserMedication rhs = (UserMedication) that;
 		return new EqualsBuilder().append(medicationName, rhs.medicationName).isEquals();
@@ -37,6 +39,11 @@ public class UserMedication {
 	}
 
 	public void setMedicationName(String name) {
-		this.medicationName = name;
+		medicationName = name;
+	}
+
+	@Override
+	public String toString() {
+		return medicationName;
 	}
 }

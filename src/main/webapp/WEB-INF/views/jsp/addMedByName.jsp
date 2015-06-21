@@ -8,7 +8,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<c:url value="/" var="index" />
+<c:url value="/processAddMedByName" var="processAddMedByName" />
 <c:url value="/resources" var="resources" />
+
 <link href="${resources}/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
 <link href="${resources}/css/fdadi.css" rel="stylesheet" type="text/css" media="screen">
 
@@ -33,7 +36,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-info">
-					<div class="panel-heading">Medication List</div>
+					<div class="panel-heading">All Medication List</div>
 					<div class="panel-body">
 						<ul id="medListBox" class="list-group checked-list-box">
 						</ul>
@@ -41,7 +44,8 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<button type="button" id="addMedByNameButton" class="btn btn-primary">Add Medication by Name</button>
+				<button type="button" id="addButton" class="btn btn-primary">Add</button>
+				<button type="button" id="cancelButton" class="btn btn-primary">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -52,39 +56,54 @@
 
 
 	<script>
-		var meds = [
-	                  <c:forEach var="medication" items="${medList}" varStatus="loop">
-	                    "${medication.medicationName}" 
-	                    <c:if test="${!loop.last}">,</c:if>
-	                  </c:forEach>
-	                ]
 
-		$(document).ready(function() {
+	var meds = [
+					<c:forEach var="medication" items="${allMeds}" varStatus="loop">
+					"${medication}" 
+					<c:if test="${!loop.last}">,</c:if>
+					</c:forEach>
+              ]
 
-			$.each(meds, function(i, med) {
-				if (med) {
-					$('#medListBox').append('<li class="list-group-item" data-color="info">' + med + '</li>');
-				}
-			});
+	$(document).ready(function() {
 
-			makeCheckedListBox();
-			
-			$('#addMedByNameButton').click(function() {
-				window.location.href = 'addMedByName';
-			});
-
+		$.each(meds, function(i, med) {
+			if (med) {
+				$('#medListBox').append('<li class="list-group-item" data-color="info">' + med + '</li>');
+			}
 		});
+
+		makeCheckedListBox();
+		
+		$('#addButton').click(function() {
+			var checkedItems = [];
+	        $("#medListBox li.active").each(function(idx, li) {
+	            checkedItems.push($(li).text());
+	        });
+
+	        var form = document.createElement("form");
+		    form.setAttribute("method", "post");
+		    form.setAttribute("action", '${processAddMedByName}');
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", "meds");
+            hiddenField.setAttribute("value", checkedItems.toString());
+            form.appendChild(hiddenField);
+    	    document.body.appendChild(form);
+    	    form.submit();
+		});
+		
+		$('#cancelButton').click(function() {
+			window.location.href = ${index};
+		});
+
+
+	});
 	</script>
 
 </body>
 </html>
 
 <!-- 
-var checkedItems = {}
-		        $("#check-list-box li.active").each(function(idx, li) {
-		            checkedItems[counter] = $(li).text();
-		            counter++;
-		        });
 				
 				$.post( "test" );
 

@@ -1,10 +1,14 @@
 package com.clearavenue.fdadi;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.QueryResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,8 +16,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.clearavenue.data.AllMedicationsDAO;
 import com.clearavenue.data.MongoDB;
 import com.clearavenue.data.UserProfileDAO;
+import com.clearavenue.data.objects.AllMedications;
+import com.clearavenue.data.objects.UserMedication;
 import com.clearavenue.data.objects.UserProfile;
 
 @Controller
@@ -22,6 +29,7 @@ public class FDADIController {
 	private static final Logger logger = LoggerFactory.getLogger(FDADIController.class);
 	private static final Datastore mongo = MongoDB.instance().getDatabase();
 	private static final UserProfileDAO userDAO = new UserProfileDAO(mongo);
+	private static final AllMedicationsDAO allmedDAO = new AllMedicationsDAO(mongo);
 
 	public String errMsg = "";
 
@@ -32,6 +40,10 @@ public class FDADIController {
 		if (StringUtils.isBlank(loggedInUsername)) {
 			return "redirect:/login";
 		}
+
+		UserProfile user = userDAO.findByUserId(loggedInUsername);
+		List<UserMedication> medications = user.getMedications();
+		map.addAttribute("medList", medications);
 
 		return "index";
 	}
@@ -58,7 +70,8 @@ public class FDADIController {
 			logger.info("login passed");
 			HttpSession session = req.getSession();
 			session.setAttribute("username", username);
-			view = "index";
+
+			view = "redirect:/";
 		} else {
 			logger.info("login failed");
 			errMsg = "Invalid login/password";
@@ -81,7 +94,7 @@ public class FDADIController {
 			logger.info("register passed");
 			HttpSession session = req.getSession();
 			session.setAttribute("username", username);
-			view = "index";
+			view = "redirect:/";
 		} else {
 			logger.info("register failed");
 			errMsg = "Failed to register";
@@ -91,8 +104,35 @@ public class FDADIController {
 		return view;
 	}
 
+	@RequestMapping(value = "/addMedByName", method = RequestMethod.GET)
+	public String addMedByName(HttpServletRequest req, final ModelMap map) {
+
+		QueryResults<AllMedications> all = allmedDAO.find();
+		map.addAttribute("allMeds", all.asList().get(0).getMedicationNames());
+
+		return "addMedByName";
+	}
+
+	@RequestMapping(value = "/processAddMedByName", method = RequestMethod.POST)
+	public String processAddMedByName(HttpServletRequest req, final ModelMap map) {
+		HttpSession session = req.getSession();
+		String loggedInUsername = (String) session.getAttribute("username");
+		UserProfile user = userDAO.findByUserId(loggedInUsername);
+
+		String medParam = req.getParameter("meds");
+		List<String> meds = Arrays.asList(medParam);
+
+		for (String medication : meds) {
+			userDAO.addUserMedication(user, new UserMedication(medication));
+		}
+
+		return "redirect:/";
+	}
+
 	private boolean register(String username, String pwd) {
-		return userDAO.save(new UserProfile(username, pwd)) == null;
+		userDAO.save(new UserProfile(username, pwd));
+		UserProfile user = userDAO.findByUserId(username);
+		return user.getUserId().equals(username);
 	}
 
 	private boolean validate(String username, String pwd) {

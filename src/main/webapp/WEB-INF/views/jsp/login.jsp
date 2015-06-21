@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,27 +10,13 @@
 
 <c:url value="/resources" var="resources"/>
 <link href="${resources}/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="${resources}/css/fdadi.css" rel="stylesheet" media="screen">
 
 <!--[if lt IE 9]>
 	<script src="${resources}/js/html5shiv.min.js"></script>
 	<script src="${resources}/js/respond.min.js"></script>
 <![endif]-->
 
-<style type="text/css">
-.center-text {
-	height: 100%;
-	width: 100%;
-	text-align: center;
-}
-.required::after {
-	content: "*";
-	padding-left:1%;
-}
-.form-control {
-	width:97%;
-	float:left;
-}
-</style>
 </head>
 <body>
 	<div class="container">
@@ -79,7 +64,6 @@
 	<script src="${resources}/js/validator.js"></script>
 
 	<script>                     
-
 		$(document).ready(function() {
 
 			var noError = "<%= request.getParameter("loginError") %>";
@@ -95,7 +79,6 @@
 			$('#loginButton').click(function() {
 			    $('#loginForm').attr("action", "processLogin");       
 			});
-			
 		});
 	</script>
 </body>
