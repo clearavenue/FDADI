@@ -12,7 +12,7 @@ import com.clearavenue.data.DBUtils;
 import com.clearavenue.data.MongoDB;
 import com.clearavenue.data.objects.UserProfile;
 
-public class DBUtilsTest {
+public class DBUserTests {
 
 	private final Datastore mongo = MongoDB.instance().getDatabase();
 
@@ -21,7 +21,6 @@ public class DBUtilsTest {
 	@Before
 	public void init() {
 		mongo.findAndDelete(mongo.createQuery(UserProfile.class).field("userId").equal(testUser.getUserId()));
-
 	}
 
 	@Test

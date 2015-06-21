@@ -17,16 +17,14 @@ public class UserProfile {
 	private String password;
 
 	@Embedded
-	private final List<UserMedication> medications;
+	private final List<UserMedication> medications = new ArrayList<UserMedication>();
 
 	public UserProfile() {
-		medications = new ArrayList<UserMedication>();
 	}
 
 	public UserProfile(String username, String password) {
 		setUserId(username);
 		setPassword(password);
-		medications = new ArrayList<UserMedication>();
 	}
 
 	public String getUserId() {
