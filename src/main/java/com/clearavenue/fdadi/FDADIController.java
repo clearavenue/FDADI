@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.mongodb.morphia.Datastore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -11,13 +12,16 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.clearavenue.data.DBUtils;
+import com.clearavenue.data.MongoDB;
+import com.clearavenue.data.UserProfileDAO;
 import com.clearavenue.data.objects.UserProfile;
 
 @Controller
 public class FDADIController {
 
 	private static final Logger logger = LoggerFactory.getLogger(FDADIController.class);
+	private static final Datastore mongo = MongoDB.instance().getDatabase();
+	private static final UserProfileDAO userDAO = new UserProfileDAO(mongo);
 
 	public String errMsg = "";
 
@@ -88,11 +92,11 @@ public class FDADIController {
 	}
 
 	private boolean register(String username, String pwd) {
-		return DBUtils.addUserProfile(username, pwd);
+		return userDAO.save(new UserProfile(username, pwd)) == null;
 	}
 
 	private boolean validate(String username, String pwd) {
-		UserProfile user = DBUtils.findUserProfile(username);
+		UserProfile user = userDAO.findByUserId(username);
 		return user == null ? false : user.getPassword().equals(pwd);
 	}
 }

@@ -13,6 +13,7 @@ public class UserProfile {
 
 	@Id
 	private ObjectId id;
+
 	private String userId;
 	private String password;
 
