@@ -23,7 +23,7 @@ public class AllMedicationsDAOTest {
 		meds.add("advil");
 
 		AllMedicationsDAO dao = new AllMedicationsDAO(mongo);
-		List<String> actual = dao.all();
+		List<String> actual = dao.findAll();
 		assertTrue(actual.containsAll(meds));
 	}
 

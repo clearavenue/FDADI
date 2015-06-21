@@ -4,18 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 
-import com.clearavenue.data.AllMedicationsDAO;
 import com.clearavenue.data.DBUtils;
 import com.clearavenue.data.MongoDB;
-import com.clearavenue.data.objects.AllMedications;
 import com.clearavenue.data.objects.UserMedication;
 import com.clearavenue.data.objects.UserProfile;
 
@@ -117,19 +112,6 @@ public class DBMedicationsTest {
 
 		assertEquals(1, updatedUser.getMedications().size());
 		assertTrue(updatedUser.getMedications().contains(med2));
-	}
-
-	@Test
-	public void getAllMedications() {
-		List<String> meds = new ArrayList<String>();
-		meds.add("tylenol");
-		meds.add("alcohol");
-		meds.add("advil");
-		meds.add("find");
-
-		AllMedicationsDAO dao = new AllMedicationsDAO(mongo);
-		AllMedications actual = dao.find().asList().get(0);
-		assertTrue(actual.getMedicationNames().containsAll(meds));
 	}
 
 	@AfterClass

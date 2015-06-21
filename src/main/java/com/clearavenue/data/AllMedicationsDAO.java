@@ -13,7 +13,7 @@ public class AllMedicationsDAO extends BasicDAO<AllMedications, String> {
 		super(ds);
 	}
 
-	public List<String> all() {
+	public List<String> findAll() {
 		return find().asList().get(0).getMedicationNames();
 	}
 
