@@ -4,6 +4,7 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
 import com.clearavenue.data.objects.AllMedications;
+import com.clearavenue.data.objects.AllPharmClasses;
 import com.clearavenue.data.objects.UserMedication;
 import com.clearavenue.data.objects.UserProfile;
 import com.mongodb.MongoClient;
@@ -24,7 +25,7 @@ public class MongoDB {
 			final MongoClient mongoClient = new MongoClient(dbIP, dbPort);
 			mongoClient.setWriteConcern(WriteConcern.ACKNOWLEDGED);
 
-			datastore = new Morphia().map(UserProfile.class, UserMedication.class, AllMedications.class).createDatastore(mongoClient, DB_NAME);
+			datastore = new Morphia().map(UserProfile.class, UserMedication.class, AllMedications.class, AllPharmClasses.class).createDatastore(mongoClient, DB_NAME);
 			datastore.ensureIndexes();
 			System.out.println(String.format("Connection to database '%s' initialized", DB_NAME));
 		} catch (final Exception e) {
