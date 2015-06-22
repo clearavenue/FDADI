@@ -35,5 +35,4 @@ public class DrugInteractions {
 		}
 		return out;
 	}
-
 }
