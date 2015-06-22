@@ -14,13 +14,14 @@ public class ApiQueries {
 	 * Queries the FDA Drug Label API to find a drug with the given name
 	 *
 	 * @param drugName
-	 *            Generic name of the drug
+	 *            Generic name OR Brand name of the drug
 	 * @return Entire contents of drug label, in JSON format, or an empty string if the drug was not found.
 	 * @throws UnirestException
 	 */
 	public static String getLabel(String drugName) throws UnirestException {
 		String url = "https://api.fda.gov/drug/label.json?search=";
 		url += "openfda.generic_name:" + drugName;
+		url += "+openfda.brand_name:" + drugName;
 		try {
 
 			return makeQuery(url).getJSONObject(0).toString();
