@@ -23,6 +23,7 @@ import com.clearavenue.data.UserProfileDAO;
 import com.clearavenue.data.objects.AllMedications;
 import com.clearavenue.data.objects.UserMedication;
 import com.clearavenue.data.objects.UserProfile;
+import com.clearavenue.fdadi.api.Drug;
 
 @Controller
 public class FDADIController {
@@ -36,14 +37,14 @@ public class FDADIController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(HttpServletRequest req, final ModelMap map) {
-		HttpSession session = req.getSession();
-		String loggedInUsername = (String) session.getAttribute("username");
+		final HttpSession session = req.getSession();
+		final String loggedInUsername = (String) session.getAttribute("username");
 		if (StringUtils.isBlank(loggedInUsername)) {
 			return "redirect:/login";
 		}
 
-		UserProfile user = userDAO.findByUserId(loggedInUsername);
-		List<UserMedication> medications = user.getMedications();
+		final UserProfile user = userDAO.findByUserId(loggedInUsername);
+		final List<UserMedication> medications = user.getMedications();
 		map.addAttribute("medList", medications);
 
 		return "index";
@@ -69,7 +70,7 @@ public class FDADIController {
 
 		if (validate(username, pwd)) {
 			logger.info("login passed");
-			HttpSession session = req.getSession();
+			final HttpSession session = req.getSession();
 			session.setAttribute("username", username);
 
 			view = "redirect:/";
@@ -93,7 +94,7 @@ public class FDADIController {
 
 		if (register(username, pwd)) {
 			logger.info("register passed");
-			HttpSession session = req.getSession();
+			final HttpSession session = req.getSession();
 			session.setAttribute("username", username);
 			view = "redirect:/";
 		} else {
@@ -108,7 +109,7 @@ public class FDADIController {
 	@RequestMapping(value = "/addMedByName", method = RequestMethod.GET)
 	public String addMedByName(HttpServletRequest req, final ModelMap map) {
 
-		QueryResults<AllMedications> all = allmedDAO.find();
+		final QueryResults<AllMedications> all = allmedDAO.find();
 		map.addAttribute("allMeds", all.asList().get(0).getMedicationNames());
 
 		return "addMedByName";
@@ -116,28 +117,37 @@ public class FDADIController {
 
 	@RequestMapping(value = "/processAddMedByName", method = RequestMethod.POST)
 	public String processAddMedByName(HttpServletRequest req, final ModelMap map) {
-		HttpSession session = req.getSession();
-		String loggedInUsername = (String) session.getAttribute("username");
-		UserProfile user = userDAO.findByUserId(loggedInUsername);
+		final HttpSession session = req.getSession();
+		final String loggedInUsername = (String) session.getAttribute("username");
+		final UserProfile user = userDAO.findByUserId(loggedInUsername);
 
-		String medParam = req.getParameter("meds");
-		List<String> meds = Arrays.asList(medParam);
+		final String medParam = req.getParameter("meds");
+		final List<String> meds = Arrays.asList(medParam);
 
-		for (String medication : meds) {
+		for (final String medication : meds) {
 			userDAO.addUserMedication(user, new UserMedication(medication));
 		}
 
 		return "redirect:/";
 	}
 
+	@RequestMapping(value = "/medDetails", method = RequestMethod.POST)
+	public String medDetails(HttpServletRequest req, ModelMap map) {
+		final String medlist = StringUtils.defaultString(req.getParameter("medlist"));
+		final String[] drugNames = medlist.split(",");
+		final List<Drug> drugs = Drug.getDrugs(drugNames);
+		map.addAttribute("medList", drugs);
+		return "medDetails";
+	}
+
 	private boolean register(String username, String pwd) {
 		userDAO.save(new UserProfile(username, pwd));
-		UserProfile user = userDAO.findByUserId(username);
+		final UserProfile user = userDAO.findByUserId(username);
 		return user.getUserId().equals(username);
 	}
 
 	private boolean validate(String username, String pwd) {
-		UserProfile user = userDAO.findByUserId(username);
+		final UserProfile user = userDAO.findByUserId(username);
 		return user == null ? false : user.getPassword().equals(pwd);
 	}
 
