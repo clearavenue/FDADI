@@ -3,6 +3,7 @@ package com.clearavenue.fdadi;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -138,5 +139,11 @@ public class FDADIController {
 	private boolean validate(String username, String pwd) {
 		UserProfile user = userDAO.findByUserId(username);
 		return user == null ? false : user.getPassword().equals(pwd);
+	}
+
+	@PreDestroy
+	public void cleanUp() throws Exception {
+		logger.info("Disconnecting MongoDB");
+		MongoDB.instance().close();
 	}
 }
