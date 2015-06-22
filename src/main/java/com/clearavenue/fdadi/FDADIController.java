@@ -135,10 +135,10 @@ public class FDADIController {
 		return "redirect:/";
 	}
 
-    @RequestMapping(value = "/addMedByPharmClass", method = RequestMethod.GET)
+	@RequestMapping(value = "/addMedByPharmClass", method = RequestMethod.GET)
 	public String addMedByPharmClass(HttpServletRequest req, final ModelMap map) {
 
-		QueryResults<AllPharmClasses> all = allpharmDAO.find();
+		final QueryResults<AllPharmClasses> all = allpharmDAO.find();
 		map.addAttribute("allPharmClasses", all.asList().get(0).getPharmClassNames());
 
 		return "addMedByPharmClass";
@@ -158,8 +158,8 @@ public class FDADIController {
 
 		return "addMedByName";
 	}
-	
-	@RequestMapping(value = "/medDetails", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/medDetails", method = RequestMethod.GET)
 	public String medDetails(HttpServletRequest req, ModelMap map) {
 		final String medlist = StringUtils.defaultString(req.getParameter("medlist"));
 		final String[] drugNames = medlist.split(",");
