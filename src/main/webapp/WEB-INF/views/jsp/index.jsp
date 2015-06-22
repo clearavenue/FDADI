@@ -35,8 +35,10 @@
 				<div class="panel panel-info">
 					<div class="panel-heading">Medication List</div>
 					<div class="panel-body">
-						<ul id="medListBox" class="list-group checked-list-box">
-						</ul>
+						<div style="max-height: 500px;overflow: auto">
+							<ul id="medListBox" class="list-group checked-list-box">
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>

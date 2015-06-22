@@ -32,14 +32,16 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container fdadi-template" style="max-height: 300px;overflow: auto;">
+	<div class="container fdadi-template">
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-info">
 					<div class="panel-heading">All Pharmaceutical Class List</div>
 					<div class="panel-body">
-						<ul id="medListBox" class="list-group checked-list-box">
-						</ul>
+						<div style="max-height: 500px;overflow: auto">
+							<ul id="medListBox" class="list-group checked-list-box">
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
