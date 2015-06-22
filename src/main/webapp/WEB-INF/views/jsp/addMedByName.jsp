@@ -36,7 +36,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-info">
-					<div class="panel-heading">All Medication List</div>
+					<div class="panel-heading">Medication List</div>
 					<div class="panel-body">
 						<ul id="medListBox" class="list-group checked-list-box">
 						</ul>
