@@ -20,7 +20,7 @@ public class MongoDB {
 	private Datastore datastore;
 
 	public static final String DB_NAME = "fdadi";
-	private static final String dbIP = "54.158.46.50";
+	private static final String dbIP = "AgileBPA-0.clearavenue.0553.mongodbdns.com";
 	private static final int dbPort = 27000;
 
 	protected MongoClient mongoClient;

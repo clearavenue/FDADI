@@ -32,7 +32,7 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container fdadi-template">
+	<div class="container fdadi-template" style="max-height: 300px;overflow: auto;">
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-info">
@@ -44,7 +44,7 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<button type="button" id="addButton" class="btn btn-primary">Add</button>
+				<button type="button" id="addButton" class="btn btn-primary">Get Medications</button>
 				<button type="button" id="cancelButton" class="btn btn-primary">Cancel</button>
 			</div>
 		</div>
