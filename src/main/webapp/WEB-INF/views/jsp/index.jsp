@@ -78,14 +78,3 @@
 
 </body>
 </html>
-
-<!-- 
-var checkedItems = {}
-		        $("#check-list-box li.active").each(function(idx, li) {
-		            checkedItems[counter] = $(li).text();
-		            counter++;
-		        });
-				
-				$.post( "test" );
-
- -->
