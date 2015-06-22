@@ -32,8 +32,6 @@ public class LoginHttpTest {
 	@Test
 	public void validLoginPageTest() {
 
-		driver.get("http://52.0.199.20:8080/FDADI");
-
 		String expected = "FDADI Login";
 		String actual = driver.getTitle();
 
@@ -42,8 +40,6 @@ public class LoginHttpTest {
 
 	@Test
 	public void validLoginTest() {
-
-		driver.get("http://52.0.199.20:8080/FDADI");
 
 		WebElement element = driver.findElement(By.name("username"));
 		element.sendKeys("bill");
