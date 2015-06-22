@@ -1,9 +1,12 @@
 package com.clearavenue.fdadi.api;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -63,11 +66,13 @@ public class ApiQueriesTest {
 
 	@Test
 	public void pharmClassTest() {
-		final String[] expectedNames = { "SUCCIMER", "PENTETIC ACID" };
+		final List<String> expectedNames = new ArrayList<String>(2);
+		expectedNames.add("SUCCIMER");
+		expectedNames.add("PENTETIC ACID");
 		final String pharmClass = "Lead Chelator";
 		try {
-			final String[] actualNames = ApiQueries.findByPharmClass(pharmClass, 1000);
-			assertArrayEquals(expectedNames, actualNames);
+			final List<String> actualNames = ApiQueries.findByPharmClass(pharmClass, 1000);
+			Assert.assertArrayEquals(expectedNames.toArray(), actualNames.toArray());
 		} catch (final UnirestException e) {
 			fail("Unirest exception when testing findByPharmClass: " + e.getMessage());
 		}
@@ -77,8 +82,8 @@ public class ApiQueriesTest {
 	public void pharmClassNotExistTest() {
 		final String pharmClass = "Pharm class that doesn't exist";
 		try {
-			final String[] results = ApiQueries.findByPharmClass(pharmClass, 1000);
-			assertEquals(0, results.length);
+			final List<String> results = ApiQueries.findByPharmClass(pharmClass, 1000);
+			assertEquals(0, results.size());
 		} catch (final UnirestException e) {
 			fail("Unirest exception while testing findByPharmClass: " + e.getMessage());
 		}

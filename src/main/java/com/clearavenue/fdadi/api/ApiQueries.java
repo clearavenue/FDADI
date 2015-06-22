@@ -1,5 +1,8 @@
 package com.clearavenue.fdadi.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -38,10 +41,14 @@ public class ApiQueries {
 	 *            Pharmacologic class
 	 * @param limit
 	 *            Max number of results to be returned. Must be less than or equal to 1000
-	 * @return Array of drug generic names with given pharmacologic class, or a zero-length array if no drugs of the given class were found.
+	 * @return List of drug generic names with given pharmacologic class, or an empty list if no drugs of the given class were found.
 	 * @throws UnirestException
 	 */
-	public static String[] findByPharmClass(String pharmClass, int limit) throws UnirestException {
+	public static List<String> findByPharmClass(String pharmClass, int limit) throws UnirestException {
+		if (limit > 1000) {
+			limit = 1000;
+		}
+
 		String url = "https://api.fda.gov/drug/label.json?search=";
 		pharmClass = pharmClass.replace(' ', '+');
 		url += "openfda.pharm_class_epc%22:" + pharmClass;
@@ -49,14 +56,26 @@ public class ApiQueries {
 		url += "&limit=" + limit;
 		try {
 			final JSONArray results = makeQuery(url);
-			final String[] out = new String[results.length()];
-			for (int i = 0; i < out.length; i++) {
-				out[i] = results.getJSONObject(i).getString("term");
+			final List<String> out = new ArrayList<String>(results.length());
+			for (int i = 0; i < results.length(); i++) {
+				out.add(results.getJSONObject(i).getString("term"));
 			}
 			return out;
 		} catch (final JSONException e) {
-			return new String[0];
+			return new ArrayList<String>();
 		}
+	}
+
+	/**
+	 * Returns value of findByPharmClass with default limit of 1000
+	 *
+	 * @param pharmClass
+	 *            Pharmocological class
+	 * @return Result of findByPharmClass(pharmClass, 1000)
+	 * @throws UnirestException
+	 */
+	public static List<String> findByPharmClass(String pharmClass) throws UnirestException {
+		return findByPharmClass(pharmClass, 1000);
 	}
 
 	/**
