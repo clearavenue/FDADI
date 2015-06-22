@@ -42,6 +42,7 @@
 			</div>
 			<div class="col-md-6">
 				<button type="button" id="addMedByNameButton" class="btn btn-primary">Add Medication by Name</button>
+				<button type="button" id="addMedByPClassButton" class="btn btn-primary">Add Medication by PharmClass</button>
 			</div>
 		</div>
 	</div>
@@ -72,20 +73,13 @@
 			$('#addMedByNameButton').click(function() {
 				window.location.href = 'addMedByName';
 			});
+			
+			$('#addMedByPClassButton').click(function() {
+				window.location.href = 'addMedByPharmClass';
+			});
 
 		});
 	</script>
 
 </body>
 </html>
-
-<!-- 
-var checkedItems = {}
-		        $("#check-list-box li.active").each(function(idx, li) {
-		            checkedItems[counter] = $(li).text();
-		            counter++;
-		        });
-				
-				$.post( "test" );
-
- -->

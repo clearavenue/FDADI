@@ -73,6 +73,15 @@
 				$('#warning').show();
 			}
 			
+			// disable form submit on enter
+			$('#loginForm').on("keyup keypress", function(e) {
+				  var code = e.keyCode || e.which; 
+				  if (code  == 13) {               
+				    e.preventDefault();
+				    return false;
+				  }
+				});
+			
 			$('#registerButton').click(function() {
 			    $('#loginForm').attr("action", "register");     
 			});

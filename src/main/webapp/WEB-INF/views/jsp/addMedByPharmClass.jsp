@@ -4,12 +4,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>FDADI - ${username} - Add Med By Name</title>
+<title>FDADI - ${username} - Add Med By PharmClass</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <c:url value="/" var="index" />
-<c:url value="/processAddMedByName" var="processAddMedByName" />
+<c:url value="/processAddMedByPharmClass" var="processAddMedByPharmClass" />
 <c:url value="/resources" var="resources" />
 
 <link href="${resources}/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
@@ -32,11 +32,11 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container fdadi-template">
+	<div class="container fdadi-template" style="max-height: 300px;overflow: auto;">
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-info">
-					<div class="panel-heading">Medication List</div>
+					<div class="panel-heading">All Pharmaceutical Class List</div>
 					<div class="panel-body">
 						<ul id="medListBox" class="list-group checked-list-box">
 						</ul>
@@ -44,7 +44,7 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<button type="button" id="addButton" class="btn btn-primary">Add</button>
+				<button type="button" id="addButton" class="btn btn-primary">Get Medications</button>
 				<button type="button" id="cancelButton" class="btn btn-primary">Cancel</button>
 			</div>
 		</div>
@@ -57,18 +57,18 @@
 
 	<script>
 
-	var meds = [
-					<c:forEach var="medication" items="${allMeds}" varStatus="loop">
-					"${medication}" 
+	var pharmClasses = [
+					<c:forEach var="pharmClass" items="${allPharmClasses}" varStatus="loop">
+					"${pharmClass}" 
 					<c:if test="${!loop.last}">,</c:if>
 					</c:forEach>
               ]
 
 	$(document).ready(function() {
 
-		$.each(meds, function(i, med) {
-			if (med) {
-				$('#medListBox').append('<li class="list-group-item" data-color="info">' + med + '</li>');
+		$.each(pharmClasses, function(i, pc) {
+			if (pc) {
+				$('#medListBox').append('<li class="list-group-item" data-color="info">' + pc + '</li>');
 			}
 		});
 
@@ -82,10 +82,10 @@
 
 	        var form = document.createElement("form");
 		    form.setAttribute("method", "post");
-		    form.setAttribute("action", '${processAddMedByName}');
+		    form.setAttribute("action", '${processAddMedByPharmClass}');
             var hiddenField = document.createElement("input");
             hiddenField.setAttribute("type", "hidden");
-            hiddenField.setAttribute("name", "meds");
+            hiddenField.setAttribute("name", "pharmclasses");
             hiddenField.setAttribute("value", checkedItems.toString());
             form.appendChild(hiddenField);
     	    document.body.appendChild(form);

@@ -18,12 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.clearavenue.data.AllMedicationsDAO;
+import com.clearavenue.data.AllPharmClassesDAO;
 import com.clearavenue.data.MongoDB;
 import com.clearavenue.data.UserProfileDAO;
 import com.clearavenue.data.objects.AllMedications;
+import com.clearavenue.data.objects.AllPharmClasses;
 import com.clearavenue.data.objects.UserMedication;
 import com.clearavenue.data.objects.UserProfile;
 import com.clearavenue.fdadi.api.Drug;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 @Controller
 public class FDADIController {
@@ -32,6 +35,7 @@ public class FDADIController {
 	private static final Datastore mongo = MongoDB.instance().getDatabase();
 	private static final UserProfileDAO userDAO = new UserProfileDAO(mongo);
 	private static final AllMedicationsDAO allmedDAO = new AllMedicationsDAO(mongo);
+	private static final AllPharmClassesDAO allpharmDAO = new AllPharmClassesDAO(mongo);
 
 	public String errMsg = "";
 
@@ -131,6 +135,30 @@ public class FDADIController {
 		return "redirect:/";
 	}
 
+    @RequestMapping(value = "/addMedByPharmClass", method = RequestMethod.GET)
+	public String addMedByPharmClass(HttpServletRequest req, final ModelMap map) {
+
+		QueryResults<AllPharmClasses> all = allpharmDAO.find();
+		map.addAttribute("allPharmClasses", all.asList().get(0).getPharmClassNames());
+
+		return "addMedByPharmClass";
+	}
+
+	@RequestMapping(value = "/processAddMedByPharmClass", method = RequestMethod.POST)
+	public String processAddMedByPharmClass(HttpServletRequest req, final ModelMap map) throws UnirestException {
+		// HttpSession session = req.getSession();
+		// String loggedInUsername = (String) session.getAttribute("username");
+		// UserProfile user = userDAO.findByUserId(loggedInUsername);
+
+		// String pharmClassesParam = req.getParameter("pharmclasses");
+		// List<String> pharmClasses = Arrays.asList(pharmClassesParam);
+
+		// List<String> medications = ApiQueries.findByPharmClass(pharmClasses.get(0)));
+		// map.addAttribute("allMeds", medications);
+
+		return "addMedByName";
+	}
+	
 	@RequestMapping(value = "/medDetails", method = RequestMethod.POST)
 	public String medDetails(HttpServletRequest req, ModelMap map) {
 		final String medlist = StringUtils.defaultString(req.getParameter("medlist"));
