@@ -25,6 +25,7 @@ import com.clearavenue.data.objects.AllMedications;
 import com.clearavenue.data.objects.AllPharmClasses;
 import com.clearavenue.data.objects.UserMedication;
 import com.clearavenue.data.objects.UserProfile;
+import com.clearavenue.fdadi.api.ApiQueries;
 import com.clearavenue.fdadi.api.Drug;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
@@ -146,15 +147,11 @@ public class FDADIController {
 
 	@RequestMapping(value = "/processAddMedByPharmClass", method = RequestMethod.POST)
 	public String processAddMedByPharmClass(HttpServletRequest req, final ModelMap map) throws UnirestException {
-		// HttpSession session = req.getSession();
-		// String loggedInUsername = (String) session.getAttribute("username");
-		// UserProfile user = userDAO.findByUserId(loggedInUsername);
+		String pharmClassesParam = req.getParameter("pharmclasses");
+		List<String> pharmClasses = Arrays.asList(pharmClassesParam);
 
-		// String pharmClassesParam = req.getParameter("pharmclasses");
-		// List<String> pharmClasses = Arrays.asList(pharmClassesParam);
-
-		// List<String> medications = ApiQueries.findByPharmClass(pharmClasses.get(0)));
-		// map.addAttribute("allMeds", medications);
+		List<String> medications = ApiQueries.findByPharmClass(pharmClasses.get(0));
+		map.addAttribute("allMeds", medications);
 
 		return "addMedByName";
 	}
