@@ -54,7 +54,7 @@
 	<script src="${resources}/js/jquery-2.1.4.min.js" type="text/javascript"></script>
 	<script src="${resources}/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="${resources}/js/checklistbox.js" type="text/javascript"></script>
-
+	<script src="${resources}/js/bootbox.min.js" type="text/javascript"></script>
 
 	<script>
 		var meds = [
@@ -94,8 +94,19 @@
 	    	    document.body.appendChild(form);
 	    	    form.submit();
 			});
+			
+			checkForRecallsOrDrugInteractions();
 
 		});
+		
+		function checkForRecallsOrDrugInteractions() {
+			if (${recallsOrInteractions}) {
+				bootbox.dialog({
+					  message: "The following was recalled: ${recalledMeds}",
+					  title: "Drug Recall or Interaction Found"
+					});
+			}
+		};
 	</script>
 
 </body>

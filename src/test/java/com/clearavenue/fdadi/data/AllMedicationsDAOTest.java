@@ -21,9 +21,9 @@ public class AllMedicationsDAOTest {
 	@Test
 	public void getAllMedications() {
 		List<String> meds = new ArrayList<String>();
-		meds.add("Tylenol");
-		meds.add("Morphine");
-		meds.add("Advil");
+		meds.add("BENZOCAINE");
+		meds.add("ABILIFY");
+		meds.add("Ibuprofen");
 
 		List<String> actual = dao.findAll();
 		assertTrue(actual.containsAll(meds));
@@ -32,9 +32,9 @@ public class AllMedicationsDAOTest {
 	@Test
 	public void getNotFoundMedications() {
 		List<String> meds = new ArrayList<String>();
-		meds.add("Tylenol");
-		meds.add("Morphine");
-		meds.add("Advil");
+		meds.add("BENZOCAINE");
+		meds.add("ABILIFY");
+		meds.add("Ibuprofen");
 		meds.add("notfound");
 
 		List<String> actual = dao.findAll();

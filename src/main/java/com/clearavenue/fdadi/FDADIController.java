@@ -52,6 +52,9 @@ public class FDADIController {
 		final List<UserMedication> medications = user.getMedications();
 		map.addAttribute("medList", medications);
 
+		map.addAttribute("recallsOrInteractions", false);
+		map.addAttribute("recalledMeds", "tylenol, advil");
+
 		return "index";
 	}
 
