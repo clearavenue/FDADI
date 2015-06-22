@@ -159,7 +159,7 @@ public class FDADIController {
 		return "addMedByName";
 	}
 
-	@RequestMapping(value = "/medDetails", method = RequestMethod.GET)
+	@RequestMapping(value = "/medDetails", method = RequestMethod.POST)
 	public String medDetails(HttpServletRequest req, ModelMap map) {
 		final String medlist = StringUtils.defaultString(req.getParameter("medlist"));
 		final String[] drugNames = medlist.split(",");

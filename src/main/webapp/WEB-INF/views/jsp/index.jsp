@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <c:url value="/resources" var="resources" />
+<c:url value="/medDetails" var="medDetails"/>
 <link href="${resources}/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
 <link href="${resources}/css/fdadi.css" rel="stylesheet" type="text/css" media="screen">
 
@@ -43,6 +44,7 @@
 			<div class="col-md-6">
 				<button type="button" id="addMedByNameButton" class="btn btn-primary">Add Medication by Name</button>
 				<button type="button" id="addMedByPClassButton" class="btn btn-primary">Add Medication by PharmClass</button>
+				<button type="button" id="medDetails" class="btn btn-primary">Medicine Details</button>
 			</div>
 		</div>
 	</div>
@@ -76,6 +78,19 @@
 			
 			$('#addMedByPClassButton').click(function() {
 				window.location.href = 'addMedByPharmClass';
+			});
+			
+			$('#medDetails').click(function() {
+		        var form = document.createElement("form");
+			    form.setAttribute("method", "post");
+			    form.setAttribute("action", '${medDetails}');
+	            var hiddenField = document.createElement("input");
+	            hiddenField.setAttribute("type", "hidden");
+	            hiddenField.setAttribute("name", "medlist");
+	            hiddenField.setAttribute("value", "tylenol,aspirin,Glimepiride,CEFPROZIL");
+	            form.appendChild(hiddenField);
+	    	    document.body.appendChild(form);
+	    	    form.submit();
 			});
 
 		});

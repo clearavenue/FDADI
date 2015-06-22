@@ -1,16 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>FDADI - Medication information}</title>
+<title>FDADI - Medication information</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <c:url value="/resources" var="resources" />
-<link href="${resources}/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
-<link href="${resources}/css/fdadi.css" rel="stylesheet" type="text/css" media="screen">
+<link href="${resources}/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" media="screen">
+<link href="${resources}/css/fdadi.css" rel="stylesheet" type="text/css"
+	media="screen">
 
 <!--[if lt IE 9]>
 	<script src="${resources}/js/html5shiv.min.js"></script>
@@ -22,53 +25,67 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">FDADI - ${username}</a>
+				<a class="navbar-brand" href="#">FDADI - Medication Info</a>
 			</div>
 		</div>
 	</nav>
 	<div class="container fdadi-template">
 		<div class="row">
+			<c:forEach var="med" items="${medList}" varStatus="loop">
 			<div class="panel panel-default">
-				<div class="panel-heading">${medList.get(0).getBrandName() }</div>
+				<div class="panel-heading">${med.getBrandName() }</div>
 				<div class="panel-body">
-					${medList.get(0).getUsage() }
+					<c:if test="${not empty med.getSideEffects()}">
+						<div class="panel panel-warning">
+							<div class="panel-heading">Side Effects</div>
+							<div class="panel-body">${med.getSideEffects() }</div>
+						</div>
+					</c:if>
+
+					<c:if test="${not empty med.getUsage()}">
+						<div class="panel panel-default">
+							<div class="panel-heading">Usage</div>
+							<div class="panel-body">${med.getUsage() }</div>
+						</div>
+					</c:if>
+
+					<c:if test="${not empty med.getInteractions()}">
+						<div class="panel panel-default">
+							<div class="panel-heading">Drug Interactions</div>
+							<div class="panel-body">${med.getInteractions() }</div>
+						</div>
+					</c:if>
+
+					<c:if test="${not empty med.getIndications()}">
+						<div class="panel panel-default">
+							<div class="panel-heading">Usage Indications</div>
+							<div class="panel-body">${med.getIndications() }</div>
+						</div>
+					</c:if>
+
+					<c:if test="${not empty med.getCounterindications()}">
+						<div class="panel panel-warning">
+							<div class="panel-heading">Counter-indications</div>
+							<div class="panel-body">${med.getCounterindications() }</div>
+						</div>
+					</c:if>
+
 				</div>
 			</div>
+			</c:forEach>
 		</div>
 	</div>
 
-	<script src="${resources}/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+	<script src="${resources}/js/jquery-2.1.4.min.js"
+		type="text/javascript"></script>
 	<script src="${resources}/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="${resources}/js/checklistbox.js" type="text/javascript"></script>
-
-
-	<script>
-		var meds = [
-	                  <c:forEach var="medication" items="${medList}" varStatus="loop">
-	                    "${medication.medicationName}" 
-	                    <c:if test="${!loop.last}">,</c:if>
-	                  </c:forEach>
-	                ]
-
-		$(document).ready(function() {
-
-			$.each(meds, function(i, med) {
-				if (med) {
-					$('#medListBox').append('<li class="list-group-item" data-color="info">' + med + '</li>');
-				}
-			});
-
-			makeCheckedListBox();
-			
-			$('#addMedByNameButton').click(function() {
-				window.location.href = 'addMedByName';
-			});
-
-		});
-	</script>
 
 </body>
 </html>
