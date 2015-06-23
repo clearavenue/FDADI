@@ -21,15 +21,13 @@
 <body>
 	<div class="container">
 		<div class="jumbotron">
-			<div class="center-text">
-				<h1>FDADI Login</h1>
-			</div>
+			<h1 class="text-center">FDADI Login</h1>
 		</div>
 		<div class="row">
 			<p class="text-center bg-warning">Please enter a userId and password, then click 'Login' to enter site or 'Register' to register the provided userId/password.</p>
 		</div>
-		<div class="row">
-			<div class="panel panel-info col-sm-10 center-text">
+		<div class="row loginDiv">
+			<div class="panel panel-info col-sm-10">
 				<div class="panel-body">
 					<form data-toggle="validator" class="form-horizontal"  method="post" id="loginForm" role="form">
 						<div class="form-group" id="usernameGroup">
@@ -48,8 +46,14 @@
 						</div>
 
 						<div class="col-sm-offset-2 col-sm-10">
-							<div><input class="form-control btn btn-primary" type="submit" id="loginButton" value="Login"></div>
-							<div><input class="form-control btn btn-primary" type="submit" id="registerButton" value="Register"></div>
+							<div>
+								<table>
+									<tr>
+										<td><input class="form-control btn btn-primary loginButton" type="submit" id="registerButton" value="Register" ></td>
+										<td><input class="form-control btn btn-primary loginButton" type="submit" id="loginButton" ></td>
+									</tr>
+								</table>
+							</div>
 						</div>
 					</form>
 				</div>
