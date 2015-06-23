@@ -99,7 +99,7 @@
 				message = message.substring(0, message.length - 2);
 			}
 
-			if(message.length > 15){
+			if(message.length > 15 && ${justLoggedIn}){
 		        bootbox.dialog({
 			        message: message,
 				    title: "Warning"
