@@ -35,13 +35,15 @@
 						<div class="form-group">
 							<label class="control-label col-sm-2" for="username">Username:</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control required" id="username" name="username" placeholder="Enter username" required>
+								<input type="text" pattern="^[a-zA-Z0-9_\.]+$" data-error="Valid characters include letters, numbers, underscore (_), and period (.)" class="form-control required" id="username" name="username" placeholder="Enter username" required>
+								<div class="help-block with-errors"></div>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="control-label col-sm-2" for="pwd">Password:</label>
 							<div class="col-sm-10">
-								<input type="password" class="form-control required" id="pwd" name="pwd" placeholder="Enter password" required>
+								<input type="password" data-minlength="6" data-error="Minimum of 6 characters" class="form-control required" id="pwd" name="pwd" placeholder="Enter password" required>
+								<div class="help-block with-errors"></div>
 							</div>
 						</div>
 
