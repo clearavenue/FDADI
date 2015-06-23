@@ -10,6 +10,8 @@
 
 <c:url value="/resources" var="resources" />
 <c:url value="/medDetails" var="medDetails"/>
+<c:url value="/recalls" var="recalls"/>
+
 <link href="${resources}/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
 <link href="${resources}/css/fdadi.css" rel="stylesheet" type="text/css" media="screen">
 
@@ -50,6 +52,7 @@
 				<button type="button" id="medDetails" class="btn btn-primary btn-block">Medicine Details</button>
 				<button type="button" id="adverseDetails" class="btn btn-primary btn-block">Adverse Reactions</button>
 				<button type="button" id="interactionDetails" class="btn btn-primary btn-block">Drug Interactions</button>
+				<button type="button" id="recalls" class="btn btn-primary btn-block">Recalls</button>
 			</div>
 		</div>
 	</div>
@@ -195,6 +198,28 @@
 
 	            showDetails(form);
 			});
+			
+			$('#recalls').click(function(){
+				var form = document.createElement("form");
+			    form.setAttribute("method", "post");
+			    form.setAttribute("action", '${recalls}');
+			    
+			    var hiddenField = document.createElement("input");
+	            hiddenField.setAttribute("type", "hidden");
+	            hiddenField.setAttribute("name", "medlist");
+	            checkedMeds = '';
+	            $("#medListBox li.active").each(function(idx, li) {
+					checkedMeds += $(li).text() + ',';
+		        });
+
+	            if(checkedMeds.length > 1){
+	                hiddenField.setAttribute("value", checkedMeds);
+	                form.appendChild(hiddenField);
+	    	        document.body.appendChild(form);
+	    	        form.submit();
+	            }
+	            
+			})
 		});
 		
 	</script>

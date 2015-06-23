@@ -94,6 +94,7 @@ public class ApiQueries {
 	 * @throws UnirestException
 	 */
 	public static List<RecallEvent> getRecallStatus(String drugName, int limit) throws UnirestException {
+		final String drugNameBeforeFormatting = drugName;
 		drugName = drugName.replace(' ', '+');
 		String url = "https://api.fda.gov/drug/enforcement.json?";
 		url += "search=(openfda.generic_name:%22" + drugName + "%22+openfda.brand_name:%22" + drugName + "%22+product_description:%22" + drugName
@@ -103,7 +104,7 @@ public class ApiQueries {
 			final List<RecallEvent> recalls = new ArrayList<RecallEvent>();
 			final JSONArray results = makeQuery(url);
 			for (int i = 0; i < results.length(); i++) {
-				recalls.add(new RecallEvent(results.getJSONObject(i)));
+				recalls.add(new RecallEvent(drugNameBeforeFormatting, results.getJSONObject(i)));
 			}
 			return recalls;
 		} catch (final JSONException e) {
@@ -114,7 +115,7 @@ public class ApiQueries {
 
 	/**
 	 * Returns the same thing as getRecallStatus(String, int) with default value of 10 as limit argument.
-	 * 
+	 *
 	 * @param drugName
 	 *            Generic or brand name of drug
 	 * @return Value of getRecallStatus(drugName, 10)
