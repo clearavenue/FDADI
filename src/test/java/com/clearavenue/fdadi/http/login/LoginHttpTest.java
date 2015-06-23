@@ -26,7 +26,7 @@ public class LoginHttpTest {
 		driver = new HtmlUnitDriver(capabilities);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
-		driver.get("http://52.0.199.20:8080/FDADI");
+		driver.get("https://agile.clearavenue.com/FDADI");
 	}
 
 	@Test
