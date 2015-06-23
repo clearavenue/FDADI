@@ -32,14 +32,14 @@
 			<div class="panel panel-info col-sm-10 center-text">
 				<div class="panel-body">
 					<form data-toggle="validator" class="form-horizontal"  method="post" id="loginForm" role="form">
-						<div class="form-group">
+						<div class="form-group" id="usernameGroup">
 							<label class="control-label col-sm-2" for="username">Username:</label>
 							<div class="col-sm-10">
 								<input type="text" pattern="^[a-zA-Z0-9_\.]+$" data-error="Valid characters include letters, numbers, underscore (_), and period (.)" class="form-control required" id="username" name="username" placeholder="Enter username" required>
 								<div class="help-block with-errors"></div>
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group" id="pwdGroup">
 							<label class="control-label col-sm-2" for="pwd">Password:</label>
 							<div class="col-sm-10">
 								<input type="password" data-minlength="4" data-error="Minimum of 6 characters" class="form-control required" id="pwd" name="pwd" placeholder="Enter password" required>

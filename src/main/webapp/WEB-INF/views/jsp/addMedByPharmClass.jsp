@@ -39,14 +39,15 @@
 					<div class="panel-heading">All Pharmaceutical Class List</div>
 					<div class="panel-body">
 						<div style="max-height: 500px;overflow: auto">
-							<ul id="medListBox" class="list-group checked-list-box">
+							<ul id="pharmListBox" class="list-group checked-list-box">
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-6">
-				<button type="button" id="addButton" class="btn btn-primary">Get Medications</button>
+				<button type="button" id="getButton" class="btn btn-primary">Get Medications</button>
+				<button type="button" id="clearButton" class="btn btn-primary">Clear</button>
 				<button type="button" id="cancelButton" class="btn btn-primary">Cancel</button>
 			</div>
 		</div>
@@ -70,15 +71,15 @@
 
 		$.each(pharmClasses, function(i, pc) {
 			if (pc) {
-				$('#medListBox').append('<li class="list-group-item" data-color="info">' + pc + '</li>');
+				$('#pharmListBox').append('<li class="list-group-item" data-color="info">' + pc + '</li>');
 			}
 		});
 
 		makeCheckedListBox();
 		
-		$('#addButton').click(function() {
+		$('#getButton').click(function() {
 			var checkedItems = [];
-	        $("#medListBox li.active").each(function(idx, li) {
+	        $("#pharmListBox li.active").each(function(idx, li) {
 	            checkedItems.push($(li).text());
 	        });
 
@@ -98,6 +99,11 @@
 			window.location.href = ${index};
 		});
 
+		$('#clearButton').click(function() {
+			$("#pharmListBox li.active").each(function(idx, li) {
+				$(li).trigger('click');
+	        });
+		});
 
 	});
 	</script>

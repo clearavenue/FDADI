@@ -40,6 +40,7 @@
 							<ul id="medListBox" class="list-group checked-list-box">
 							</ul>
 						</div>
+						<button type="button" id="clearButton" class="btn btn-sm btn-info">Clear</button>
 					</div>
 				</div>
 			</div>
@@ -74,6 +75,12 @@
 			});
 
 			makeCheckedListBox();
+
+			$('#clearButton').click(function() {
+				$("#medListBox li.active").each(function(idx, li) {
+					$(li).trigger('click');
+		        });
+			});
 			
 			$('#addMedByNameButton').click(function() {
 				window.location.href = 'addMedByName';

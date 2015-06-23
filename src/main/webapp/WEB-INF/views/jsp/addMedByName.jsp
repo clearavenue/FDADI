@@ -46,8 +46,9 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<button type="button" id="addButton" class="btn btn-primary">Add</button>
-				<button type="button" id="cancelButton" class="btn btn-primary">Cancel</button>
+				<button type="button" id="addButton" class="btn btn-primary btn-block">Add Medication</button>
+				<button type="button" id="clearButton" class="btn btn-primary btn-block">Clear</button>
+				<button type="button" id="cancelButton" class="btn btn-primary btn-block">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -97,7 +98,12 @@
 		$('#cancelButton').click(function() {
 			window.location.href = ${index};
 		});
-
+		
+		$('#clearButton').click(function() {
+			$("#medListBox li.active").each(function(idx, li) {
+				$(li).trigger('click');
+	        });
+		});
 
 	});
 	</script>
