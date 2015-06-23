@@ -49,6 +49,7 @@
 				<button type="button" id="addMedByPClassButton" class="btn btn-primary btn-block">Add Medication by PharmClass</button>
 				<button type="button" id="medDetails" class="btn btn-primary btn-block">Medicine Details</button>
 				<button type="button" id="adverseDetails" class="btn btn-primary btn-block">Adverse Reactions</button>
+				<button type="button" id="interactionDetails" class="btn btn-primary btn-block">Drug Interactions</button>
 			</div>
 		</div>
 	</div>
@@ -178,7 +179,22 @@
 	            showDetails(form);
 			});
 			
+			$('#interactionDetails').click(function() {
+		        var form = document.createElement("form");
+			    form.setAttribute("method", "post");
+			    form.setAttribute("action", '${medDetails}');
+			    
+			    var attributes = ["showSideEffects", "showUsage", "showIndications", "showInteractions", "showCounterindications"];
+	            for(att in attributes){
+	            	var newHiddenField = document.createElement("input");
+	            	newHiddenField.setAttribute("type", "hidden");
+	            	newHiddenField.setAttribute("name", attributes[att]);
+	            	newHiddenField.setAttribute("value", attributes[att] == 'showInteractions');
+	            	form.appendChild(newHiddenField);
+	            }
 
+	            showDetails(form);
+			});
 		});
 		
 	</script>

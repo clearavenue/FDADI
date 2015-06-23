@@ -84,10 +84,10 @@ public class ApiQueries {
 	}
 
 	/**
-	 * Queries the FDA API to determine whether the drug with the given generic name is in an ongoing recall. Also searches the "product_description" field for drugName
+	 * Queries the FDA API to determine whether the drug with the given generic or brand name is in an ongoing recall. Also searches the "product_description" field for drugName
 	 *
 	 * @param drugName
-	 *            Generic name of drug
+	 *            Generic or brand name of drug
 	 * @param limit
 	 *            Max number of recalls to return
 	 * @return RecallStatus object List giving information about each recall, or an empty list if no ongoing recalls were found.
@@ -96,7 +96,8 @@ public class ApiQueries {
 	public static List<RecallEvent> getRecallStatus(String drugName, int limit) throws UnirestException {
 		drugName = drugName.replace(' ', '+');
 		String url = "https://api.fda.gov/drug/enforcement.json?";
-		url += "search=(openfda.generic_name:%22" + drugName + "%22+product_description:%22" + drugName + "%22)+AND+status:Ongoing&limit=" + limit;
+		url += "search=(openfda.generic_name:%22" + drugName + "%22+openfda.brand_name:%22" + drugName + "%22+product_description:%22" + drugName
+				+ "%22)+AND+status:Ongoing&limit=" + limit;
 		logger.info(url);
 		try {
 			final List<RecallEvent> recalls = new ArrayList<RecallEvent>();
@@ -109,6 +110,18 @@ public class ApiQueries {
 			return new ArrayList<RecallEvent>();
 		}
 
+	}
+
+	/**
+	 * Returns the same thing as getRecallStatus(String, int) with default value of 10 as limit argument.
+	 * 
+	 * @param drugName
+	 *            Generic or brand name of drug
+	 * @return Value of getRecallStatus(drugName, 10)
+	 * @throws UnirestException
+	 */
+	public static List<RecallEvent> getRecallStatus(String drugName) throws UnirestException {
+		return getRecallStatus(drugName, 10);
 	}
 
 	/**
