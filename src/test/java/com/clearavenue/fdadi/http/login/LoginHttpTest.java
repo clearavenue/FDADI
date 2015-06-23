@@ -62,7 +62,31 @@ public class LoginHttpTest {
 		element.sendKeys("bill");
 
 		element = driver.findElement(By.name("pwd"));
-		element.sendKeys("bad");
+		element.sendKeys("badpassword");
+
+		element.submit();
+
+		String url = driver.getCurrentUrl();
+		assertTrue(url.contains("loginError"));
+	}
+
+	public void validateUsernameTest() {
+
+		WebElement element = driver.findElement(By.name("username"));
+		element.sendKeys("bi&ll");
+
+		element = driver.findElement(By.id("usernameGroup"));
+		String clazz = element.getAttribute("class");
+		System.out.println(clazz);
+	}
+
+	public void validatePasswordTest() {
+
+		WebElement element = driver.findElement(By.name("username"));
+		element.sendKeys("bill");
+
+		element = driver.findElement(By.name("pwd"));
+		element.sendKeys("badpassword");
 
 		element.submit();
 

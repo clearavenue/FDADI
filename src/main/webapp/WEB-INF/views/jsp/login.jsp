@@ -26,25 +26,30 @@
 			</div>
 		</div>
 		<div class="row">
+			<p class="text-center bg-warning">Please enter a userId and password, then click 'Login' to enter site or 'Register' to register the provided userId/password.</p>
+		</div>
+		<div class="row">
 			<div class="panel panel-info col-sm-10 center-text">
 				<div class="panel-body">
 					<form data-toggle="validator" class="form-horizontal"  method="post" id="loginForm" role="form">
-						<div class="form-group">
+						<div class="form-group" id="usernameGroup">
 							<label class="control-label col-sm-2" for="username">Username:</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control required" id="username" name="username" placeholder="Enter username" required>
+								<input type="text" pattern="^[a-zA-Z0-9_\.]+$" data-error="Valid characters include letters, numbers, underscore (_), and period (.)" class="form-control required" id="username" name="username" placeholder="Enter username" required>
+								<div class="help-block with-errors"></div>
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group" id="pwdGroup">
 							<label class="control-label col-sm-2" for="pwd">Password:</label>
 							<div class="col-sm-10">
-								<input type="password" class="form-control required" id="pwd" name="pwd" placeholder="Enter password" required>
+								<input type="password" data-minlength="4" data-error="Minimum of 6 characters" class="form-control required" id="pwd" name="pwd" placeholder="Enter password" required>
+								<div class="help-block with-errors"></div>
 							</div>
 						</div>
 
 						<div class="col-sm-offset-2 col-sm-10">
-							<div><input class="form-control btn btn-success" type="submit" id="loginButton" value="Login"></div>
-							<div><input class="form-control btn btn-success" type="submit" id="registerButton" value="Register"></div>
+							<div><input class="form-control btn btn-primary" type="submit" id="loginButton" value="Login"></div>
+							<div><input class="form-control btn btn-primary" type="submit" id="registerButton" value="Register"></div>
 						</div>
 					</form>
 				</div>

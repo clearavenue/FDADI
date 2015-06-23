@@ -40,13 +40,15 @@
 							<ul id="medListBox" class="list-group checked-list-box">
 							</ul>
 						</div>
+						<button type="button" id="clearButton" class="btn btn-sm btn-info">Clear</button>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
-				<button type="button" id="addMedByNameButton" class="btn btn-primary">Add Medication by Name</button>
-				<button type="button" id="addMedByPClassButton" class="btn btn-primary">Add Medication by PharmClass</button>
-				<button type="button" id="medDetails" class="btn btn-primary">Medicine Details</button>
+			<div class="col-md-6" style="display: inline-block">
+				<button type="button" id="addMedByNameButton" class="btn btn-primary btn-block">Add Medication by Name</button>
+				<button type="button" id="addMedByPClassButton" class="btn btn-primary btn-block">Add Medication by PharmClass</button>
+				<button type="button" id="medDetails" class="btn btn-primary btn-block">Medicine Details</button>
+				<button type="button" id="adverseDetails" class="btn btn-primary btn-block">Adverse Reactions</button>
 			</div>
 		</div>
 	</div>
@@ -106,6 +108,12 @@
 			});
 
 			makeCheckedListBox();
+
+			$('#clearButton').click(function() {
+				$("#medListBox li.active").each(function(idx, li) {
+					$(li).trigger('click');
+		        });
+			});
 			
 			$('#addMedByNameButton').click(function() {
 				window.location.href = 'addMedByName';
@@ -127,8 +135,19 @@
 	    	    document.body.appendChild(form);
 	    	    form.submit();
 			});
+			
+			checkForRecallsOrDrugInteractions();
 
 		});
+		
+		function checkForRecallsOrDrugInteractions() {
+			if (${recallsOrInteractions}) {
+				bootbox.dialog({
+					  message: "The following was recalled: ${recalledMeds}",
+					  title: "Drug Recall or Interaction Found"
+					});
+			}
+		};
 	</script>
 
 </body>
