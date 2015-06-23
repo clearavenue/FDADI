@@ -127,23 +127,55 @@
 				window.location.href = 'addMedByPharmClass';
 			});
 			
-			$('#medDetails').click(function() {
-		        var form = document.createElement("form");
-			    form.setAttribute("method", "post");
-			    form.setAttribute("action", '${medDetails}');
-	            var hiddenField = document.createElement("input");
+			function showDetails(form){
+				var hiddenField = document.createElement("input");
 	            hiddenField.setAttribute("type", "hidden");
 	            hiddenField.setAttribute("name", "medlist");
 	            checkedMeds = '';
 	            $("#medListBox li.active").each(function(idx, li) {
 					checkedMeds += $(li).text() + ',';
 		        });
+
 	            if(checkedMeds.length > 1){
 	                hiddenField.setAttribute("value", checkedMeds);
 	                form.appendChild(hiddenField);
 	    	        document.body.appendChild(form);
 	    	        form.submit();
 	            }
+			}
+			
+			$('#medDetails').click(function() {
+		        var form = document.createElement("form");
+			    form.setAttribute("method", "post");
+			    form.setAttribute("action", '${medDetails}');
+			    
+			    var attributes = ["showSideEffects", "showUsage", "showIndications", "showInteractions", "showCounterindications"];
+	            for(att in attributes){
+	            	var newHiddenField = document.createElement("input");
+	            	newHiddenField.setAttribute("type", "hidden");
+	            	newHiddenField.setAttribute("name", attributes[att]);
+	            	newHiddenField.setAttribute("value", "true");
+	            	form.appendChild(newHiddenField);
+	            }
+
+	            showDetails(form);
+			});
+			
+			$('#adverseDetails').click(function() {
+		        var form = document.createElement("form");
+			    form.setAttribute("method", "post");
+			    form.setAttribute("action", '${medDetails}');
+			    
+			    var attributes = ["showSideEffects", "showUsage", "showIndications", "showInteractions", "showCounterindications"];
+	            for(att in attributes){
+	            	var newHiddenField = document.createElement("input");
+	            	newHiddenField.setAttribute("type", "hidden");
+	            	newHiddenField.setAttribute("name", attributes[att]);
+	            	newHiddenField.setAttribute("value", attributes[att] == 'showSideEffects');
+	            	form.appendChild(newHiddenField);
+	            }
+
+	            showDetails(form);
 			});
 			
 

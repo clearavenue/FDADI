@@ -183,6 +183,11 @@ public class FDADIController {
 		final String[] drugNames = medlist.split(",");
 		final List<Drug> drugs = Drug.getDrugs(drugNames);
 		map.addAttribute("medList", drugs);
+
+		final String[] attributes = { "showSideEffects", "showUsage", "showIndications", "showInteractions", "showCounterindications" };
+		for (final String s : attributes) {
+			map.addAttribute(s, StringUtils.defaultString(req.getParameter(s), "false"));
+		}
 		return "medDetails";
 	}
 
