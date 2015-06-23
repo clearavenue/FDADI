@@ -136,25 +136,15 @@
 	            $("#medListBox li.active").each(function(idx, li) {
 					checkedMeds += $(li).text() + ',';
 		        });
-	            alert(checkedMeds);
 	            hiddenField.setAttribute("value", checkedMeds);
 	            form.appendChild(hiddenField);
 	    	    document.body.appendChild(form);
 	    	    form.submit();
 			});
 			
-			checkForRecallsOrDrugInteractions();
 
 		});
 		
-		function checkForRecallsOrDrugInteractions() {
-			if (${recallsOrInteractions}) {
-				bootbox.dialog({
-					  message: "The following was recalled: ${recalledMeds}",
-					  title: "Drug Recall or Interaction Found"
-					});
-			}
-		};
 	</script>
 
 </body>
