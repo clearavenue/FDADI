@@ -26,7 +26,7 @@ public class LoginHttpTest {
 		driver = new HtmlUnitDriver(capabilities);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
-		driver.get("http://52.0.199.20:8080/FDADI");
+		driver.get("https://agile.clearavenue.com/FDADI");
 	}
 
 	@Test
@@ -57,30 +57,6 @@ public class LoginHttpTest {
 
 	@Test
 	public void invalidLoginTest() {
-
-		WebElement element = driver.findElement(By.name("username"));
-		element.sendKeys("bill");
-
-		element = driver.findElement(By.name("pwd"));
-		element.sendKeys("badpassword");
-
-		element.submit();
-
-		String url = driver.getCurrentUrl();
-		assertTrue(url.contains("loginError"));
-	}
-
-	public void validateUsernameTest() {
-
-		WebElement element = driver.findElement(By.name("username"));
-		element.sendKeys("bi&ll");
-
-		element = driver.findElement(By.id("usernameGroup"));
-		String clazz = element.getAttribute("class");
-		System.out.println(clazz);
-	}
-
-	public void validatePasswordTest() {
 
 		WebElement element = driver.findElement(By.name("username"));
 		element.sendKeys("bill");
