@@ -55,14 +55,13 @@ public class FDADIController {
 		final List<UserMedication> medications = user.getMedications();
 		map.addAttribute("medList", medications);
 
-        map.addAttribute("recallsOrInteractions", false);
+		map.addAttribute("recallsOrInteractions", false);
 		map.addAttribute("recalledMeds", "tylenol, advil");
-		
+
 		final List<String> medList = new ArrayList<String>();
 		for (final UserMedication med : medications) {
 			medList.add(med.getMedicationName());
 		}
-		@SuppressWarnings("unchecked")
 		final List<String> interactions = new ArrayList<String>(DrugInteractions.findInteractions(medList).keySet());
 		map.addAttribute("interactionList", interactions);
 		final List<String> recalls = new ArrayList<String>();
@@ -70,6 +69,7 @@ public class FDADIController {
 			final List<RecallEvent> recallList = ApiQueries.getRecallStatus(med, 1);
 			if (recallList.size() > 0) {
 				recalls.add(med);
+				logger.debug("Adding " + med + " to recall list.");
 			}
 		}
 		map.addAttribute("recallList", recalls);

@@ -68,7 +68,7 @@
 		
 		$(document).ready(function() {
 
-			<c:if test="(not empty recallList) || (not empty interactionList)">
+			
 			recalls = [
 			                  <c:forEach var="recall" items="${recallList}" varStatus="loop">
 			                    "${recall}" 
@@ -86,21 +86,23 @@
 		    if(recalls.length > 0){
 				message += 'The following medications have ongoing recalls: ';
 				for(med in recalls){
-					message += med + ", ";
+					message += recalls[med] + ", ";
 				}
 			}
+			message += "<br />";
 			if(interactions.length > 0){
 				message += 'The following medications have interactions with others that you take: ';
 				for(interaction in interactions){
-					message += interaction + ', ';
+					message += interactions[interaction] + ', ';
 				}
 			}
-		    bootbox.dialog({
-			    message: message,
-				title: "Warning"
-			});
-			</c:if>
-			
+
+			if(message.length > 15){
+		        bootbox.dialog({
+			        message: message,
+				    title: "Warning"
+			    });
+			}
 			$.each(meds, function(i, med) {
 				if (med) {
 					$('#medListBox').append('<li class="list-group-item" data-color="info">' + med + '</li>');
@@ -130,7 +132,12 @@
 	            var hiddenField = document.createElement("input");
 	            hiddenField.setAttribute("type", "hidden");
 	            hiddenField.setAttribute("name", "medlist");
-	            hiddenField.setAttribute("value", "tylenol,aspirin,Glimepiride,CEFPROZIL");
+	            checkedMeds = '';
+	            $("#medListBox li.active").each(function(idx, li) {
+					checkedMeds += $(li).text() + ',';
+		        });
+	            alert(checkedMeds);
+	            hiddenField.setAttribute("value", checkedMeds);
 	            form.appendChild(hiddenField);
 	    	    document.body.appendChild(form);
 	    	    form.submit();
