@@ -88,6 +88,7 @@
 				for(med in recalls){
 					message += recalls[med] + ", ";
 				}
+				message = message.substring(0, message.length - 2);
 			}
 			message += "<br />";
 			if(interactions.length > 0){
@@ -95,6 +96,7 @@
 				for(interaction in interactions){
 					message += interactions[interaction] + ', ';
 				}
+				message = message.substring(0, message.length - 2);
 			}
 
 			if(message.length > 15){
