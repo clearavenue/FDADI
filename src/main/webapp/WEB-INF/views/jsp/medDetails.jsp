@@ -9,6 +9,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<c:url value="/" var="index" />
 <c:url value="/resources" var="resources" />
 <link href="${resources}/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" media="screen">
@@ -41,35 +42,35 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">${med.getBrandName() }</div>
 				<div class="panel-body">
-					<c:if test="${not empty med.getSideEffects()}">
+					<c:if test="${not empty med.getSideEffects() && showSideEffects}">
 						<div class="panel panel-warning">
 							<div class="panel-heading">Side Effects</div>
 							<div class="panel-body">${med.getSideEffects() }</div>
 						</div>
 					</c:if>
 
-					<c:if test="${not empty med.getUsage()}">
+					<c:if test="${not empty med.getUsage() && showUsage}">
 						<div class="panel panel-default">
 							<div class="panel-heading">Usage</div>
 							<div class="panel-body">${med.getUsage() }</div>
 						</div>
 					</c:if>
 
-					<c:if test="${not empty med.getInteractions()}">
+					<c:if test="${not empty med.getInteractions() && showInteractions}">
 						<div class="panel panel-default">
 							<div class="panel-heading">Drug Interactions</div>
 							<div class="panel-body">${med.getInteractions() }</div>
 						</div>
 					</c:if>
 
-					<c:if test="${not empty med.getIndications()}">
+					<c:if test="${not empty med.getIndications() && showIndications}">
 						<div class="panel panel-default">
 							<div class="panel-heading">Usage Indications</div>
 							<div class="panel-body">${med.getIndications() }</div>
 						</div>
 					</c:if>
 
-					<c:if test="${not empty med.getCounterindications()}">
+					<c:if test="${not empty med.getCounterindications() && showCounterindications}">
 						<div class="panel panel-warning">
 							<div class="panel-heading">Counter-indications</div>
 							<div class="panel-body">${med.getCounterindications() }</div>
@@ -79,6 +80,8 @@
 				</div>
 			</div>
 			</c:forEach>
+			
+			<button type="button" id="backButton" class="btn btn-primary btn-block">Back</button>
 		</div>
 	</div>
 
@@ -86,7 +89,12 @@
 		type="text/javascript"></script>
 	<script src="${resources}/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="${resources}/js/checklistbox.js" type="text/javascript"></script>
-
+	
+	<script>
+	    $('#backButton').click(function() {
+		    window.location.href = ${index};
+	    });
+	</script>
 </body>
 </html>
 

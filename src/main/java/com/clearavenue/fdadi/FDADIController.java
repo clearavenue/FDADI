@@ -148,7 +148,8 @@ public class FDADIController {
 		final UserProfile user = userDAO.findByUserId(loggedInUsername);
 
 		final String medParam = req.getParameter("meds");
-		final List<String> meds = Arrays.asList(medParam);
+		logger.info("MedParam: " + medParam);
+		final String[] meds = medParam.split(",");
 
 		for (final String medication : meds) {
 			userDAO.addUserMedication(user, new UserMedication(medication));
@@ -183,6 +184,11 @@ public class FDADIController {
 		final String[] drugNames = medlist.split(",");
 		final List<Drug> drugs = Drug.getDrugs(drugNames);
 		map.addAttribute("medList", drugs);
+
+		final String[] attributes = { "showSideEffects", "showUsage", "showIndications", "showInteractions", "showCounterindications" };
+		for (final String s : attributes) {
+			map.addAttribute(s, StringUtils.defaultString(req.getParameter(s), "false"));
+		}
 		return "medDetails";
 	}
 
