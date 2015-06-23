@@ -199,9 +199,12 @@ public class FDADIController {
 	}
 
 	private boolean register(String username, String pwd) {
-		userDAO.save(new UserProfile(username, pwd));
-		final UserProfile user = userDAO.findByUserId(username);
-		return user.getUserId().equals(username);
+		boolean result = false;
+		if (userDAO.save(new UserProfile(username, pwd)) != null) {
+			final UserProfile user = userDAO.findByUserId(username);
+			result = user.getUserId().equals(username);
+		}
+		return result;
 	}
 
 	private boolean validate(String username, String pwd) {
