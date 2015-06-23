@@ -1,5 +1,6 @@
 package com.clearavenue.fdadi;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,6 +28,8 @@ import com.clearavenue.data.objects.UserMedication;
 import com.clearavenue.data.objects.UserProfile;
 import com.clearavenue.fdadi.api.ApiQueries;
 import com.clearavenue.fdadi.api.Drug;
+import com.clearavenue.fdadi.api.DrugInteractions;
+import com.clearavenue.fdadi.api.RecallEvent;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 @Controller
@@ -41,7 +44,7 @@ public class FDADIController {
 	public String errMsg = "";
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(HttpServletRequest req, final ModelMap map) {
+	public String index(HttpServletRequest req, final ModelMap map) throws UnirestException {
 		final HttpSession session = req.getSession();
 		final String loggedInUsername = (String) session.getAttribute("username");
 		if (StringUtils.isBlank(loggedInUsername)) {
@@ -52,6 +55,21 @@ public class FDADIController {
 		final List<UserMedication> medications = user.getMedications();
 		map.addAttribute("medList", medications);
 
+		final List<String> medList = new ArrayList<String>();
+		for (final UserMedication med : medications) {
+			medList.add(med.getMedicationName());
+		}
+		@SuppressWarnings("unchecked")
+		final List<String> interactions = new ArrayList<String>(DrugInteractions.findInteractions(medList).keySet());
+		map.addAttribute("interactionList", interactions);
+		final List<String> recalls = new ArrayList<String>();
+		for (final String med : medList) {
+			final List<RecallEvent> recallList = ApiQueries.getRecallStatus(med, 1);
+			if (recallList.size() > 0) {
+				recalls.add(med);
+			}
+		}
+		map.addAttribute("recallList", recalls);
 		return "index";
 	}
 
@@ -147,10 +165,10 @@ public class FDADIController {
 
 	@RequestMapping(value = "/processAddMedByPharmClass", method = RequestMethod.POST)
 	public String processAddMedByPharmClass(HttpServletRequest req, final ModelMap map) throws UnirestException {
-		String pharmClassesParam = req.getParameter("pharmclasses");
-		List<String> pharmClasses = Arrays.asList(pharmClassesParam);
+		final String pharmClassesParam = req.getParameter("pharmclasses");
+		final List<String> pharmClasses = Arrays.asList(pharmClassesParam);
 
-		List<String> medications = ApiQueries.findByPharmClass(pharmClasses.get(0));
+		final List<String> medications = ApiQueries.findByPharmClass(pharmClasses.get(0));
 		map.addAttribute("allMeds", medications);
 
 		return "addMedByName";

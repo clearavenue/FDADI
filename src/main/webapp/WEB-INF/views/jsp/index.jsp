@@ -54,7 +54,7 @@
 	<script src="${resources}/js/jquery-2.1.4.min.js" type="text/javascript"></script>
 	<script src="${resources}/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="${resources}/js/checklistbox.js" type="text/javascript"></script>
-
+    <script src="${resources}/js/bootbox.min.js" type="text/javascript"></script>
 
 	<script>
 		var meds = [
@@ -63,9 +63,42 @@
 	                    <c:if test="${!loop.last}">,</c:if>
 	                  </c:forEach>
 	                ]
-
+		
 		$(document).ready(function() {
 
+			<c:if test="(not empty recallList) || (not empty interactionList)">
+			recalls = [
+			                  <c:forEach var="recall" items="${recallList}" varStatus="loop">
+			                    "${recall}" 
+			                    <c:if test="${!loop.last}">,</c:if>
+			                  </c:forEach>
+			              ];
+		    interactions = [
+			                  <c:forEach var="interaction" items="${interactionList}" varStatus="loop">
+			                      "${interaction}" 
+			                      <c:if test="${!loop.last}">,</c:if>
+			                  </c:forEach>
+			              ];
+		    
+			message = 'Warning: '
+		    if(recalls.length > 0){
+				message += 'The following medications have ongoing recalls: ';
+				for(med in recalls){
+					message += med + ", ";
+				}
+			}
+			if(interactions.length > 0){
+				message += 'The following medications have interactions with others that you take: ';
+				for(interaction in interactions){
+					message += interaction + ', ';
+				}
+			}
+		    bootbox.dialog({
+			    message: message,
+				title: "Warning"
+			});
+			</c:if>
+			
 			$.each(meds, function(i, med) {
 				if (med) {
 					$('#medListBox').append('<li class="list-group-item" data-color="info">' + med + '</li>');
