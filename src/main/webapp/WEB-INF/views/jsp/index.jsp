@@ -43,11 +43,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
-				<button type="button" id="addMedByNameButton" class="btn btn-lg btn-primary">Add Medication by Name</button>
-				<button type="button" id="addMedByPClassButton" class="btn btn-lg btn-primary">Add Medication by PharmClass</button>
-				<button type="button" id="medDetails" class="btn btn-lg btn-primary">Medicine Details</button>
-				<button type="button" id="adverseDetails" class="btn btn-lg btn-primary">Adverse Reactions</button>
+			<div class="col-md-6" style="display: inline-block">
+				<button type="button" id="addMedByNameButton" class="btn btn-primary btn-block">Add Medication by Name</button>
+				<button type="button" id="addMedByPClassButton" class="btn btn-primary btn-block">Add Medication by PharmClass</button>
+				<button type="button" id="medDetails" class="btn btn-primary btn-block">Medicine Details</button>
+				<button type="button" id="adverseDetails" class="btn btn-primary btn-block">Adverse Reactions</button>
 			</div>
 		</div>
 	</div>
