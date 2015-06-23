@@ -1,7 +1,19 @@
-.navbar-brand {
+/** .navbar-brand {
 	margin: 0;
 	padding: 0;
+} **/
+
+/**
+.navbar-brand
+{
+    position: absolute;
+    width: 100%;
+    left: 10;
+    top: 0;
+    text-align: center;
+    margin: auto;
 }
+**/
 
 .navbar-brand img {
 	max-height: 100%;

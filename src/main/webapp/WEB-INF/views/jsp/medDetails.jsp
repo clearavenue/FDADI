@@ -24,15 +24,15 @@
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
+		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" rel="home" href="#" title="clearAvenue">
-					<img class="img-responsive" src="${resources}/img/clearAvenue_highres.jpg" alt="clearAvenue logo"/>
-					FDADI - ${username}
-				</a>
+				<a class="navbar-brand" href="#"><img class="img-responsive" src="${resources}/img/clearAvenue_highres.jpg" alt="clearAvenue logo"/></a>
 			</div>
 		</div>
 	</nav>
@@ -97,14 +97,3 @@
 	</script>
 </body>
 </html>
-
-<!-- 
-var checkedItems = {}
-		        $("#check-list-box li.active").each(function(idx, li) {
-		            checkedItems[counter] = $(li).text();
-		            counter++;
-		        });
-				
-				$.post( "test" );
-
- -->

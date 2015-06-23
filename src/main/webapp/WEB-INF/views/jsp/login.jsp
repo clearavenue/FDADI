@@ -20,24 +20,25 @@
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
+		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" rel="home" href="#" title="clearAvenue">
-					<img class="img-responsive" src="${resources}/img/clearAvenue_highres.jpg" alt="clearAvenue logo"/>
-					FDADI
-				</a>
+				<a class="navbar-brand" href="#"><img class="img-responsive" src="${resources}/img/clearAvenue_highres.jpg" alt="clearAvenue logo"/></a>
 			</div>
 		</div>
 	</nav>
 	<div class="container fdadi-template">
 		<div class="jumbotron">
-			<h1 class="text-center">FDADI Login</h1>
+			<h1 class="text-center">myMedications Login</h1>
 		</div>
-		<div class="row">
-			<p class="text-center bg-warning">Please enter a userId and password, then click 'Login' to enter site or 'Register' to register the provided userId/password.</p>
+		<div class="row" class="bg-warning">
+			<p class="text-center">To login, please enter a username and password, then click 'Login' to enter site.</p>
+			<p class="text-center">To register, please enter a username and password, then click 'Register' to register the provided username and password.</p>
 		</div>
 		<div class="row loginDiv">
 			<div class="panel panel-info col-sm-10">
