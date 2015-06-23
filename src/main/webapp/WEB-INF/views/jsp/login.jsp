@@ -26,6 +26,9 @@
 			</div>
 		</div>
 		<div class="row">
+			<p class="text-center bg-warning">Please enter a userId and password, then click 'Login' to enter site or 'Register' to register the provided userId/password.</p>
+		</div>
+		<div class="row">
 			<div class="panel panel-info col-sm-10 center-text">
 				<div class="panel-body">
 					<form data-toggle="validator" class="form-horizontal"  method="post" id="loginForm" role="form">
