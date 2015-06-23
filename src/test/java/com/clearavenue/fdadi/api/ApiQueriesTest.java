@@ -44,11 +44,11 @@ public class ApiQueriesTest {
 		final int expectedLength = 10;
 
 		try {
-			final RecallEvent[] actualRecalls = ApiQueries.getRecallStatus("Dextrose", 10);
-			assertEquals(expectedReason, actualRecalls[1].getReason());
-			assertEquals(expectedDistribution, actualRecalls[1].getDistributionPattern());
-			assertEquals(expectedDescription, actualRecalls[1].getProductDescription());
-			assertEquals(expectedLength, actualRecalls.length);
+			final List<RecallEvent> actualRecalls = ApiQueries.getRecallStatus("Dextrose", 10);
+			assertEquals(expectedReason, actualRecalls.get(1).getReason());
+			assertEquals(expectedDistribution, actualRecalls.get(1).getDistributionPattern());
+			assertEquals(expectedDescription, actualRecalls.get(1).getProductDescription());
+			assertEquals(expectedLength, actualRecalls.size());
 		} catch (final UnirestException e) {
 			fail("Unirest exception when testing ApiQueries.getRecallStatus(): " + e.getMessage());
 		}
@@ -57,8 +57,8 @@ public class ApiQueriesTest {
 	@Test
 	public void getRecallStatusNotExistTest() {
 		try {
-			final RecallEvent[] results = ApiQueries.getRecallStatus("drugThatDoesntExist", 4);
-			assertEquals(0, results.length);
+			final List<RecallEvent> results = ApiQueries.getRecallStatus("drugThatDoesntExist", 4);
+			assertEquals(0, results.size());
 		} catch (final UnirestException e) {
 			fail("UnirestException should not have been thrown: " + e.getMessage());
 		}

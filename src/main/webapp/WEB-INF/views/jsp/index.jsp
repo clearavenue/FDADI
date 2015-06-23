@@ -56,7 +56,7 @@
 	<script src="${resources}/js/jquery-2.1.4.min.js" type="text/javascript"></script>
 	<script src="${resources}/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="${resources}/js/checklistbox.js" type="text/javascript"></script>
-	<script src="${resources}/js/bootbox.min.js" type="text/javascript"></script>
+    <script src="${resources}/js/bootbox.min.js" type="text/javascript"></script>
 
 	<script>
 		var meds = [
@@ -65,9 +65,44 @@
 	                    <c:if test="${!loop.last}">,</c:if>
 	                  </c:forEach>
 	                ]
-
+		
 		$(document).ready(function() {
 
+			
+			recalls = [
+			                  <c:forEach var="recall" items="${recallList}" varStatus="loop">
+			                    "${recall}" 
+			                    <c:if test="${!loop.last}">,</c:if>
+			                  </c:forEach>
+			              ];
+		    interactions = [
+			                  <c:forEach var="interaction" items="${interactionList}" varStatus="loop">
+			                      "${interaction}" 
+			                      <c:if test="${!loop.last}">,</c:if>
+			                  </c:forEach>
+			              ];
+		    
+			message = 'Warning: '
+		    if(recalls.length > 0){
+				message += 'The following medications have ongoing recalls: ';
+				for(med in recalls){
+					message += recalls[med] + ", ";
+				}
+			}
+			message += "<br />";
+			if(interactions.length > 0){
+				message += 'The following medications have interactions with others that you take: ';
+				for(interaction in interactions){
+					message += interactions[interaction] + ', ';
+				}
+			}
+
+			if(message.length > 15){
+		        bootbox.dialog({
+			        message: message,
+				    title: "Warning"
+			    });
+			}
 			$.each(meds, function(i, med) {
 				if (med) {
 					$('#medListBox').append('<li class="list-group-item" data-color="info">' + med + '</li>');
@@ -97,24 +132,19 @@
 	            var hiddenField = document.createElement("input");
 	            hiddenField.setAttribute("type", "hidden");
 	            hiddenField.setAttribute("name", "medlist");
-	            hiddenField.setAttribute("value", "tylenol,aspirin,Glimepiride,CEFPROZIL");
+	            checkedMeds = '';
+	            $("#medListBox li.active").each(function(idx, li) {
+					checkedMeds += $(li).text() + ',';
+		        });
+	            hiddenField.setAttribute("value", checkedMeds);
 	            form.appendChild(hiddenField);
 	    	    document.body.appendChild(form);
 	    	    form.submit();
 			});
 			
-			checkForRecallsOrDrugInteractions();
 
 		});
 		
-		function checkForRecallsOrDrugInteractions() {
-			if (${recallsOrInteractions}) {
-				bootbox.dialog({
-					  message: "The following was recalled: ${recalledMeds}",
-					  title: "Drug Recall or Interaction Found"
-					});
-			}
-		};
 	</script>
 
 </body>
