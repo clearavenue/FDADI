@@ -73,6 +73,11 @@ public class FDADIController {
 			}
 		}
 		map.addAttribute("recallList", recalls);
+		final boolean justLoggedIn = Boolean.parseBoolean(StringUtils.defaultString((String) session.getAttribute("justLoggedIn"), "true"));
+		if (justLoggedIn) {
+			session.setAttribute("justLoggedIn", "false");
+		}
+		map.addAttribute("justLoggedIn", justLoggedIn);
 		return "index";
 	}
 
@@ -106,6 +111,7 @@ public class FDADIController {
 			view = "redirect:/login?loginError";
 		}
 
+		req.getSession().setAttribute("justLoggedIn", "true");
 		return view;
 	}
 
