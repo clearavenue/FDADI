@@ -50,7 +50,7 @@
 								<table>
 									<tr>
 										<td><input class="form-control btn btn-primary loginButton" type="submit" id="registerButton" value="Register" ></td>
-										<td><input class="form-control btn btn-primary loginButton" type="submit" id="loginButton" ></td>
+										<td><input class="form-control btn btn-primary loginButton" type="submit" id="loginButton" value="Login"></td>
 									</tr>
 								</table>
 							</div>
