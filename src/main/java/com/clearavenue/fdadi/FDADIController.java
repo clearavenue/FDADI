@@ -55,29 +55,27 @@ public class FDADIController {
 		final List<UserMedication> medications = user.getMedications();
 		map.addAttribute("medList", medications);
 
-		map.addAttribute("recallsOrInteractions", false);
-		map.addAttribute("recalledMeds", "tylenol, advil");
-
-		final List<String> medList = new ArrayList<String>();
-		for (final UserMedication med : medications) {
-			medList.add(med.getMedicationName());
-		}
-		final List<String> interactions = new ArrayList<String>(DrugInteractions.findInteractions(medList).keySet());
-		map.addAttribute("interactionList", interactions);
-		final List<String> recalls = new ArrayList<String>();
-		for (final String med : medList) {
-			final List<RecallEvent> recallList = ApiQueries.getRecallStatus(med, 1);
-			if (recallList.size() > 0) {
-				recalls.add(med);
-				logger.debug("Adding [" + med + "] to recall list.");
+		final boolean showAlert = Boolean.parseBoolean(StringUtils.defaultString((String) session.getAttribute("showAlert"), "true"));
+		if (showAlert) {
+			final List<String> medList = new ArrayList<String>();
+			for (final UserMedication med : medications) {
+				medList.add(med.getMedicationName());
 			}
+			final List<String> interactions = new ArrayList<String>(DrugInteractions.findInteractions(medList).keySet());
+			map.addAttribute("interactionList", interactions);
+			final List<String> recalls = new ArrayList<String>();
+			for (final String med : medList) {
+				final List<RecallEvent> recallList = ApiQueries.getRecallStatus(med, 1);
+				if (recallList.size() > 0) {
+					recalls.add(med);
+					logger.debug("Adding [" + med + "] to recall list.");
+				}
+			}
+			map.addAttribute("recallList", recalls);
+
+			session.setAttribute("showAlert", "false");
 		}
-		map.addAttribute("recallList", recalls);
-		final boolean justLoggedIn = Boolean.parseBoolean(StringUtils.defaultString((String) session.getAttribute("justLoggedIn"), "true"));
-		if (justLoggedIn) {
-			session.setAttribute("justLoggedIn", "false");
-		}
-		map.addAttribute("justLoggedIn", justLoggedIn);
+		map.addAttribute("showAlert", showAlert);
 		return "index";
 	}
 
@@ -111,7 +109,7 @@ public class FDADIController {
 			view = "redirect:/login?loginError";
 		}
 
-		req.getSession().setAttribute("justLoggedIn", "true");
+		req.getSession().setAttribute("showAlert", "true");
 		return view;
 	}
 

@@ -40,7 +40,7 @@
 		<div class="row">
 			<c:forEach var="med" items="${medList}" varStatus="loop">
 			<div class="panel panel-default">
-				<div class="panel-heading">${med.getBrandName() }</div>
+				<div class="panel-heading">${med.getBrandName() } (Generic name: ${med.getGenericName()})</div>
 				<div class="panel-body">
 					<c:if test="${not empty med.getSideEffects() && showSideEffects}">
 						<div class="panel panel-warning">
