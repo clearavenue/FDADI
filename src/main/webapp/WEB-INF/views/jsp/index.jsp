@@ -136,10 +136,12 @@
 	            $("#medListBox li.active").each(function(idx, li) {
 					checkedMeds += $(li).text() + ',';
 		        });
-	            hiddenField.setAttribute("value", checkedMeds);
-	            form.appendChild(hiddenField);
-	    	    document.body.appendChild(form);
-	    	    form.submit();
+	            if(checkedMeds.length > 1){
+	                hiddenField.setAttribute("value", checkedMeds);
+	                form.appendChild(hiddenField);
+	    	        document.body.appendChild(form);
+	    	        form.submit();
+	            }
 			});
 			
 

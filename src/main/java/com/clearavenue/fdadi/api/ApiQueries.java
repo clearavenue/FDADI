@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -12,6 +14,8 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class ApiQueries {
+
+	private static final Logger logger = LoggerFactory.getLogger(ApiQueries.class);
 
 	/**
 	 * Queries the FDA Drug Label API to find a drug with the given name
@@ -93,6 +97,7 @@ public class ApiQueries {
 		drugName = drugName.replace(' ', '+');
 		String url = "https://api.fda.gov/drug/enforcement.json?";
 		url += "search=(openfda.generic_name:" + drugName + "+product_description:" + drugName + ")+AND+status:Ongoing&limit=" + limit;
+		logger.info(url);
 		try {
 			final List<RecallEvent> recalls = new ArrayList<RecallEvent>();
 			final JSONArray results = makeQuery(url);
