@@ -1,17 +1,7 @@
-.center-text {
-	height: 100%;
-	width: 100%;
-	text-align: center;
-}
 
 .required::after {
 	content: "*";
 	padding-left: 1%;
-}
-
-.form-control {
-	width: 97%;
-	float: left;
 }
 
 .state-icon {
@@ -29,4 +19,14 @@ body {
 
 .fdadi-template {
 	padding: 40px 15px;
+}
+
+.loginButton {
+	width:80px;
+	margin-right:15px;
+}
+
+.loginDiv {
+    margin: 0 auto !important;
+    max-width: 700px !important;
 }
