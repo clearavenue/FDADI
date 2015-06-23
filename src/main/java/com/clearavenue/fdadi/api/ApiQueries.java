@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -15,11 +13,9 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class ApiQueries {
 
-	private static final Logger logger = LoggerFactory.getLogger(ApiQueries.class);
-
 	/**
 	 * Queries the FDA Drug Label API to find a drug with the given name
-	 *
+	 * 
 	 * @param drugName
 	 *            Generic name OR Brand name of the drug
 	 * @return Entire contents of drug label, in JSON format, or an empty string if the drug was not found.
@@ -31,7 +27,6 @@ public class ApiQueries {
 		url += "openfda.generic_name:%22" + drugName;
 		url += "%22+openfda.brand_name:%22" + drugName + "%22";
 		try {
-
 			return makeQuery(url).getJSONObject(0).toString();
 		} catch (final JSONException e) {
 			return "";
@@ -41,7 +36,7 @@ public class ApiQueries {
 
 	/**
 	 * Queries the FDA Drug Label API to find a drug with the given pharmacologic class
-	 *
+	 * 
 	 * @param pharmClass
 	 *            Pharmacologic class
 	 * @param limit
@@ -73,7 +68,7 @@ public class ApiQueries {
 
 	/**
 	 * Returns value of findByPharmClass with default limit of 1000
-	 *
+	 * 
 	 * @param pharmClass
 	 *            Pharmocological class
 	 * @return Result of findByPharmClass(pharmClass, 1000)
@@ -85,7 +80,7 @@ public class ApiQueries {
 
 	/**
 	 * Queries the FDA API to determine whether the drug with the given generic name is in an ongoing recall. Also searches the "product_description" field for drugName
-	 *
+	 * 
 	 * @param drugName
 	 *            Generic name of drug
 	 * @param limit
@@ -97,7 +92,6 @@ public class ApiQueries {
 		drugName = drugName.replace(' ', '+');
 		String url = "https://api.fda.gov/drug/enforcement.json?";
 		url += "search=(openfda.generic_name:%22" + drugName + "%22+product_description:%22" + drugName + "%22)+AND+status:Ongoing&limit=" + limit;
-		logger.info(url);
 		try {
 			final List<RecallEvent> recalls = new ArrayList<RecallEvent>();
 			final JSONArray results = makeQuery(url);
@@ -113,7 +107,7 @@ public class ApiQueries {
 
 	/**
 	 * Returns JSON array of all results of query
-	 *
+	 * 
 	 * @param url
 	 *            URL to be queried
 	 * @return JSONArray of all results returned by the query
