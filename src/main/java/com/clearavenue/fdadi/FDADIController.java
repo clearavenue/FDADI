@@ -69,7 +69,7 @@ public class FDADIController {
 			final List<RecallEvent> recallList = ApiQueries.getRecallStatus(med, 1);
 			if (recallList.size() > 0) {
 				recalls.add(med);
-				logger.debug("Adding " + med + " to recall list.");
+				logger.debug("Adding [" + med + "] to recall list.");
 			}
 		}
 		map.addAttribute("recallList", recalls);
