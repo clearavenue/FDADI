@@ -41,7 +41,12 @@ public class UserProfileDAO extends BasicDAO<UserProfile, String> {
 			return null;
 		}
 
-		return super.save(entity);
+		UserProfile existingUser = findByUserId(entity.getUserId());
+		if (existingUser == null) {
+			return super.save(entity);
+		} else {
+			return null;
+		}
 	}
 
 	public void addUserMedication(UserProfile entity, final UserMedication... medications) {

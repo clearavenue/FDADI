@@ -62,4 +62,10 @@ public class UserProfileDAOUserTest {
 		user = dao.findByUserId(testUserId);
 		assertNull(user);
 	}
+
+	@Test
+	public void findByUserIdNoExistTest() {
+		UserProfile user = dao.findByUserId(testUserId);
+		assertNull(user);
+	}
 }
