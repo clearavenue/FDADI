@@ -42,14 +42,14 @@
 						<div class="form-group">
 							<label class="control-label col-sm-2" for="pwd">Password:</label>
 							<div class="col-sm-10">
-								<input type="password" data-minlength="6" data-error="Minimum of 6 characters" class="form-control required" id="pwd" name="pwd" placeholder="Enter password" required>
+								<input type="password" data-minlength="4" data-error="Minimum of 6 characters" class="form-control required" id="pwd" name="pwd" placeholder="Enter password" required>
 								<div class="help-block with-errors"></div>
 							</div>
 						</div>
 
 						<div class="col-sm-offset-2 col-sm-10">
-							<div><input class="form-control btn btn-success" type="submit" id="loginButton" value="Login"></div>
-							<div><input class="form-control btn btn-success" type="submit" id="registerButton" value="Register"></div>
+							<div><input class="form-control btn btn-primary" type="submit" id="loginButton" value="Login"></div>
+							<div><input class="form-control btn btn-primary" type="submit" id="registerButton" value="Register"></div>
 						</div>
 					</form>
 				</div>
