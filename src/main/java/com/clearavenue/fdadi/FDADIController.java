@@ -224,7 +224,22 @@ public class FDADIController {
 		return "medDetails";
 	}
 
-	@RequestMapping(value = "/removeMeds", method = RequestMethod.POST)
+	@RequestMapping(value = "/recalls", method = RequestMethod.POST)
+	public String recalls(HttpServletRequest req, ModelMap map) throws UnirestException {
+		final String medlist = StringUtils.defaultString(req.getParameter("medlist"));
+		final String[] drugNames = medlist.split(",");
+		final List<List<RecallEvent>> list = new ArrayList<List<RecallEvent>>();
+		for (final String drug : drugNames) {
+			final List<RecallEvent> recalls = ApiQueries.getRecallStatus(drug);
+			if (recalls.size() > 0) {
+				list.add(recalls);
+			}
+		}
+		map.addAttribute("recallList", list);
+		return "recalls";
+	}
+
+    @RequestMapping(value = "/removeMeds", method = RequestMethod.POST)
 	public String removeMeds(HttpServletRequest req, ModelMap map) {
 		// check if logged in and if not redirect to login
 		final HttpSession session = req.getSession();
@@ -250,7 +265,7 @@ public class FDADIController {
 		session.removeAttribute("username");
 		return "redirect:/";
 	}
-
+	
 	private boolean register(String username, String pwd) {
 		boolean result = false;
 		if (userDAO.save(new UserProfile(username, pwd)) != null) {

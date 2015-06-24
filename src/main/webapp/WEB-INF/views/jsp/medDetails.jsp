@@ -40,38 +40,47 @@
 	<div class="container fdadi-template">
 		<div class="row">
 			<c:forEach var="med" items="${medList}" varStatus="loop">
+			    <c:set var="shouldShowSideEffects" value="${not empty med.getSideEffects() && showSideEffects}"></c:set>
+			    <c:set var="shouldShowUsage" value="${not empty med.getUsage() && showUsage}"></c:set>
+			    <c:set var="shouldShowInteractions" value="${not empty med.getInteractions() && showInteractions}"></c:set>
+			    <c:set var="shouldShowIndications" value="${not empty med.getIndications() && showIndications}"></c:set>
+			    <c:set var="shouldShowCounterindications" value="${not empty med.getCounterindications() && showCounterindications}"></c:set>
+			    
+				
 				<div class="panel panel-primary">
 					<div class="panel-heading">${med.getBrandName() }(Generic name: ${med.getGenericName()})</div>
+					<c:choose>
+					<c:when test="${ shouldShowsideEffects || shouldShowUsage || shouldShowInteractions || shouldShowIndications || shouldShowCounterindications}">
 					<div class="panel-body">
-						<c:if test="${not empty med.getSideEffects() && showSideEffects}">
+						<c:if test="${shouldShowSideEffects == true}">
 							<div class="panel panel-warning">
 								<div class="panel-heading">Side Effects</div>
 								<div class="panel-body">${med.getSideEffects() }</div>
 							</div>
 						</c:if>
 
-						<c:if test="${not empty med.getUsage() && showUsage}">
+						<c:if test="${shouldShowUsage}">
 							<div class="panel panel-default">
 								<div class="panel-heading">Usage</div>
 								<div class="panel-body">${med.getUsage() }</div>
 							</div>
 						</c:if>
 
-						<c:if test="${not empty med.getInteractions() && showInteractions}">
+						<c:if test="${shouldShowInteractions}">
 							<div class="panel panel-default">
 								<div class="panel-heading">Drug Interactions</div>
 								<div class="panel-body">${med.getInteractions() }</div>
 							</div>
 						</c:if>
 
-						<c:if test="${not empty med.getIndications() && showIndications}">
+						<c:if test="${shouldShowIndications}">
 							<div class="panel panel-default">
 								<div class="panel-heading">Usage Indications</div>
 								<div class="panel-body">${med.getIndications() }</div>
 							</div>
 						</c:if>
 
-						<c:if test="${not empty med.getCounterindications() && showCounterindications}">
+						<c:if test="${shouldShowCounterindications}">
 							<div class="panel panel-warning">
 								<div class="panel-heading">Counter-indications</div>
 								<div class="panel-body">${med.getCounterindications() }</div>
@@ -79,7 +88,13 @@
 						</c:if>
 
 					</div>
+					</c:when>
+					<c:otherwise>
+					    No information.
+					</c:otherwise>
+					</c:choose>
 				</div>
+				
 			</c:forEach>
 
 			<button type="button" id="backButton" class="btn btn-primary">Back</button>

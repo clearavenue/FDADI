@@ -10,6 +10,7 @@
 
 <c:url value="/resources" var="resources" />
 <c:url value="/medDetails" var="medDetails"/>
+<c:url value="/recalls" var="recalls"/>
 <c:url value="/removeMeds" var="removeMeds"/>
 <c:url value="/logout" var="logout" />
 
@@ -66,6 +67,8 @@
 				<button type="button" id="addMedByPClassButton" class="btn btn-primary actionButton">Add Medication by PharmClass</button>
 				<button type="button" id="medDetails" class="btn btn-primary actionButton">Medicine Details</button>
 				<button type="button" id="adverseDetails" class="btn btn-primary actionButton">Adverse Reactions</button>
+				<button type="button" id="interactionDetails" class="btn btn-primary actionButton">Drug Interactions</button>
+				<button type="button" id="recalls" class="btn btn-primary actionButton">Recalls</button>
 			</div>
 		</div>
 	</div>
@@ -215,7 +218,44 @@
 
 	            showDetails(form);
 			});
+			$('#interactionDetails').click(function() {
+		        var form = document.createElement("form");
+			    form.setAttribute("method", "post");
+			    form.setAttribute("action", '${medDetails}');
+			    
+			    var attributes = ["showSideEffects", "showUsage", "showIndications", "showInteractions", "showCounterindications"];
+	            for(att in attributes){
+	            	var newHiddenField = document.createElement("input");
+	            	newHiddenField.setAttribute("type", "hidden");
+	            	newHiddenField.setAttribute("name", attributes[att]);
+	            	newHiddenField.setAttribute("value", attributes[att] == 'showInteractions');
+	            	form.appendChild(newHiddenField);
+	            }
 
+	            showDetails(form);
+			});
+			
+			$('#recalls').click(function(){
+				var form = document.createElement("form");
+			    form.setAttribute("method", "post");
+			    form.setAttribute("action", '${recalls}');
+			    
+			    var hiddenField = document.createElement("input");
+	            hiddenField.setAttribute("type", "hidden");
+	            hiddenField.setAttribute("name", "medlist");
+	            checkedMeds = '';
+	            $("#medListBox li.active").each(function(idx, li) {
+					checkedMeds += $(li).text() + ',';
+		        });
+
+	            if(checkedMeds.length > 1){
+	                hiddenField.setAttribute("value", checkedMeds);
+	                form.appendChild(hiddenField);
+	    	        document.body.appendChild(form);
+	    	        form.submit();
+	            }
+	            
+			})
 		});
 		
 	</script>
