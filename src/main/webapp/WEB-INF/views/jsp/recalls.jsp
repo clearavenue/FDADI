@@ -72,6 +72,16 @@
 		</div>
 	</div>
 
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+		<div class="container">
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-center">
+					<li>DISCLAIMER: This website is for demonstration purposes. Information in this website should not be taken as medical advice.</li>
+				</ul>
+			</div>	
+		</div>
+	</nav>
+	
 	<script src="${resources}/js/jquery-2.1.4.min.js"
 		type="text/javascript"></script>
 	<script src="${resources}/js/bootstrap.min.js" type="text/javascript"></script>
