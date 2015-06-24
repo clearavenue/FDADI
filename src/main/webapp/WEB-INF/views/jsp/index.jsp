@@ -233,15 +233,13 @@
 	            if(checkedMeds.length > 1){
 	            	$.post( "${checkInteractions}", { medList: checkedMeds }, function( data ) {
 	            	    if(data == 'true'){
-	            	    	message = "The selected medications have interactions with each other.";
-	            	    	title = "Warning";
+	            	    	message = '<p class="text-danger">The selected medications have interactions with each other.</p>';
 	            	    }else{
-	            	    	message = "The selected medications do not interact with each other.";
-	            	    	title = "All clear";
+	            	    	message = '<p class="text-danger">The selected medications do not interact with each other.</p>';
 	            	    }
 	            	    bootbox.dialog({
 	    			        message: message,
-	    				    title: title
+	    				    title: "Check for Interactions Result"
 	    			    });
 	            	}).fail(function(error){
 	            		bootbox.dialog({

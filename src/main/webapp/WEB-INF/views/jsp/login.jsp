@@ -84,9 +84,8 @@
 			</div>
 		</div>
 		
-	    <div class="messageBox">
-			<!--  <img class="img-responsive" src="${resources}/img/clearAvenue_highres.jpg" alt="clearAvenue logo"/>   -->
-			<p class="text-center">DISCLAIMER: This website is for demonstration purposes. Information in this website should not be taken as medical advice.</p>
+	    <div class="messageBox">			
+			<p class="text-center"><span class="glyphicon glyphicon-warning-sign"></span> DISCLAIMER: This website is for demonstration purposes. Information in this website should not be taken as medical advice.</p>
 		</div>
 		
 	</div>
