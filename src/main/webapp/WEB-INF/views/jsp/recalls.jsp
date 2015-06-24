@@ -39,36 +39,36 @@
 	<div class="container fdadi-template">
 		<div class="row">
 			<c:forEach var="recalls" items="${recallList}" varStatus="loop">
-			<div class="panel panel-info">
-				<div class="panel-heading">${recalls.get(0).getDrugName() }</div>
-				<div class="panel-body">
-					<c:forEach var="recall" items="${recalls}">
-					<div class="panel panel-warning">
-						<div class="panel-heading">Recall</div>
-						<div class="panel-body">
-							<div class="panel panel-default">
-							    <div class="panel-heading">Drug description</div>
-							    <div class="panel-body">${recall.getProductDescription()}</div>
-							</div>
-							
-							<div class="panel panel-default">
-							    <div class="panel-heading">Reason for recall</div>
-							    <div class="panel-body">${recall.getReason()}</div>
-							</div>
-							
-							<div class="panel panel-default">
-							    <div class="panel-heading">Distribution pattern</div>
-							    <div class="panel-body">${recall.getDistributionPattern()}</div>
+				<div class="panel panel-primary">
+					<div class="panel-heading">${recalls.get(0).getDrugName() }</div>
+					<div class="panel-body">
+						<c:forEach var="recall" items="${recalls}">
+						<div class="panel panel-warning">
+							<div class="panel-heading">Recall</div>
+							<div class="panel-body">
+								<div class="panel panel-default">
+								    <div class="panel-heading">Drug description</div>
+								    <div class="panel-body">${recall.getProductDescription()}</div>
+								</div>
+								
+								<div class="panel panel-default">
+								    <div class="panel-heading">Reason for recall</div>
+								    <div class="panel-body">${recall.getReason()}</div>
+								</div>
+								
+								<div class="panel panel-default">
+								    <div class="panel-heading">Distribution pattern</div>
+								    <div class="panel-body">${recall.getDistributionPattern()}</div>
+								</div>
 							</div>
 						</div>
+						</c:forEach>
+	
 					</div>
-					</c:forEach>
-
 				</div>
-			</div>
 			</c:forEach>
 			
-			<button type="button" id="backButton" class="btn btn-primary btn-block">Back</button>
+			<button type="button" id="backButton" class="btn btn-primary">Back</button>
 		</div>
 	</div>
 
