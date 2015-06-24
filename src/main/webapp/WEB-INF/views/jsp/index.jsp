@@ -65,8 +65,8 @@
 				<button type="button" id="addMedByPClassButton" class="btn btn-primary actionButton">Add Medication by PharmClass</button>
 				<button type="button" id="medDetails" class="btn btn-primary actionButton">Medicine Details</button>
 				<button type="button" id="adverseDetails" class="btn btn-primary actionButton">Adverse Reactions</button>
-				<button type="button" id="interactionDetails" class="btn btn-primary btn-block">Drug Interactions</button>
-				<button type="button" id="recalls" class="btn btn-primary btn-block">Recalls</button>
+				<button type="button" id="interactionDetails" class="btn btn-primary actionButton">Drug Interactions</button>
+				<button type="button" id="recalls" class="btn btn-primary actionButton">Recalls</button>
 			</div>
 		</div>
 	</div>
