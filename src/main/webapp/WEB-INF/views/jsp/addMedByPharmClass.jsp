@@ -43,7 +43,7 @@
 		</div>
 	</nav>
 	<div class="container fdadi-template">
-		<div class="row centerDiv">
+		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-info">
 					<div class="panel-heading">All Pharmaceutical Class List</div>
@@ -57,7 +57,7 @@
 			</div>
 			<div class="col-md-6">
 				<button type="button" id="getButton" class="btn btn-primary actionButton">Get Medications for PharmClass</button>
-				<button type="button" id="clearButton" class="btn btn-primary actionButton">Clear</button>
+				<button type="button" id="clearButton" class="btn btn-primary actionButton">Uncheck</button>
 				<button type="button" id="cancelButton" class="btn btn-primary actionButton">Cancel</button>
 			</div>
 		</div>
