@@ -10,6 +10,7 @@
 
 <c:url value="/resources" var="resources" />
 <c:url value="/medDetails" var="medDetails"/>
+<c:url value="/removeMeds" var="removeMeds"/>
 <c:url value="/logout" var="logout" />
 
 <link href="${resources}/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
@@ -51,6 +52,7 @@
 							</ul>
 						</div>
 						<button type="button" id="clearButton" class="btn btn-sm btn-info">Clear</button>
+						<button type="button" id="removeButton" class="btn btn-sm btn-info">Remove</button>
 					</div>
 				</div>
 			</div>
@@ -129,6 +131,27 @@
 		        });
 			});
 			
+			$('#removeButton').click(function() {
+		        var form = document.createElement("form");
+			    form.setAttribute("method", "post");
+			    form.setAttribute("action", '${removeMeds}');
+			    
+			    var hiddenField = document.createElement("input");
+	            hiddenField.setAttribute("type", "hidden");
+	            hiddenField.setAttribute("name", "medlist");
+	            checkedMeds = '';
+	            $("#medListBox li.active").each(function(idx, li) {
+					checkedMeds += $(li).text() + ',';
+		        });
+
+	            if(checkedMeds.length > 1){
+	                hiddenField.setAttribute("value", checkedMeds);
+	                form.appendChild(hiddenField);
+	    	        document.body.appendChild(form);
+	    	        form.submit();
+	            }
+			});
+			
 			$('#addMedByNameButton').click(function() {
 				window.location.href = 'addMedByName';
 			});
@@ -152,7 +175,7 @@
 	    	        document.body.appendChild(form);
 	    	        form.submit();
 	            }
-			}
+			};
 			
 			$('#medDetails').click(function() {
 		        var form = document.createElement("form");

@@ -218,6 +218,26 @@ public class FDADIController {
 		return "medDetails";
 	}
 
+	@RequestMapping(value = "/removeMeds", method = RequestMethod.POST)
+	public String removeMeds(HttpServletRequest req, ModelMap map) {
+		// check if logged in and if not redirect to login
+		final HttpSession session = req.getSession();
+		final String loggedInUsername = (String) session.getAttribute("username");
+		if (StringUtils.isBlank(loggedInUsername)) {
+			return "redirect:/login";
+		}
+
+		final String medlist = StringUtils.defaultString(req.getParameter("medlist"));
+		final String[] drugNames = medlist.split(",");
+
+		UserProfile user = userDAO.findByUserId(loggedInUsername);
+		for (String drugName : drugNames) {
+			userDAO.deleteUserMedication(user, new UserMedication(drugName));
+		}
+
+		return "redirect:/";
+	}
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest req, ModelMap map) {
 		final HttpSession session = req.getSession();
