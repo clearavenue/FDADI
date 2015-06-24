@@ -36,7 +36,7 @@
 		<div class="jumbotron">
 			<h1 class="text-center">myMedications Login</h1>
 		</div>
-		<div class="row" class="bg-warning">
+		<div class="row bg-warning">
 			<p class="text-center">To login, please enter a username and password, then click 'Login' to enter site.</p>
 			<p class="text-center">To register, please enter a username and password, then click 'Register' to register the provided username and password.</p>
 		</div>
