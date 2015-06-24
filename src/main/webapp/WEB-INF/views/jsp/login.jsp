@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <c:url value="/resources" var="resources"/>
+
 <link href="${resources}/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="${resources}/css/fdadi.css" rel="stylesheet" media="screen">
 
@@ -82,17 +83,15 @@
 				</div>
 			</div>
 		</div>
+		
+	    <div class="messageBox">
+			<!--  <img class="img-responsive" src="${resources}/img/clearAvenue_highres.jpg" alt="clearAvenue logo"/>   -->
+			<p class="text-center">DISCLAIMER: This website is for demonstration purposes. Information in this website should not be taken as medical advice.</p>
+		</div>
+		
 	</div>
 
-    <nav id="footer" class="navbar navbar-default navbar-fixed-bottom">
-		<div class="container">
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-center">
-					<li>DISCLAIMER: This website is for demonstration purposes. Information in this website should not be taken as medical advice.</li>
-				</ul>
-			</div>	
-		</div>
-	</nav>
+	
 	
 	<script src="${resources}/js/jquery-2.1.4.min.js"></script>
 	<script src="${resources}/js/bootstrap.min.js"></script>

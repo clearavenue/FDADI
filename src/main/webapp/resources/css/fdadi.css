@@ -2,6 +2,11 @@
 	max-height: 100%;
 }
 
+.navbar.transparent {
+	background-color: transparent;
+	background: transparent;
+}
+
 .required::after {
 	content: "*";
 	padding-left: 1%;
@@ -46,6 +51,7 @@ body {
 	background-size: cover;
 	height: 100%;
 	background: url(../img/fdadi-bg.jpg) 0 0/cover no-repeat;
+	background-attachment: fixed;
 }
 
 .fdadi-template {

@@ -37,6 +37,7 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" id="disclaimerButton">Disclaimer</a></li>
 					<li><a href="${logout}">logout</a></li>
 				</ul>
 			</div>			
@@ -73,15 +74,7 @@
 		</div>
 	</div>
 
-    <nav id="footer" class="navbar navbar-default navbar-fixed-bottom">
-		<div class="container">
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-center">
-					<li>DISCLAIMER: This website is for demonstration purposes. Information in this website should not be taken as medical advice.</li>
-				</ul>
-			</div>	
-		</div>
-	</nav>
+	   	
 	<script src="${resources}/js/jquery-2.1.4.min.js" type="text/javascript"></script>
 	<script src="${resources}/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="${resources}/js/checklistbox.js" type="text/javascript"></script>
@@ -146,6 +139,10 @@
 				$("#medListBox li.active").each(function(idx, li) {
 					$(li).trigger('click');
 		        });
+			});
+			
+			$('#disclaimerButton').click(function() {
+				bootbox.alert("This website is for demonstration purposes. Information in this website should not be taken as medical advice.");
 			});
 			
 			$('#removeButton').click(function() {
@@ -236,13 +233,15 @@
 	            if(checkedMeds.length > 1){
 	            	$.post( "${checkInteractions}", { medList: checkedMeds }, function( data ) {
 	            	    if(data == 'true'){
-	            	    	message = '<p class="text-danger">The selected medications have interactions with each other.</p>';
-	   	            	}else{
-	            	    	message = '<p class="text-success">The selected medications do not interact with each other.</p>';
+	            	    	message = "The selected medications have interactions with each other.";
+	            	    	title = "Warning";
+	            	    }else{
+	            	    	message = "The selected medications do not interact with each other.";
+	            	    	title = "All clear";
 	            	    }
 	            	    bootbox.dialog({
 	    			        message: message,
-	    				    title: "Check Interactions Result"
+	    				    title: title
 	    			    });
 	            	}).fail(function(error){
 	            		bootbox.dialog({
