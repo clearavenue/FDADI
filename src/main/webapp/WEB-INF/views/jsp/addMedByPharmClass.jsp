@@ -55,9 +55,9 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<button type="button" id="getButton" class="btn btn-primary">Get Medications</button>
-				<button type="button" id="clearButton" class="btn btn-primary">Clear</button>
-				<button type="button" id="cancelButton" class="btn btn-primary">Cancel</button>
+				<button type="button" id="getButton" class="btn btn-primary actionButton">Get Medications for PharmClass</button>
+				<button type="button" id="clearButton" class="btn btn-primary actionButton">Clear</button>
+				<button type="button" id="cancelButton" class="btn btn-primary actionButton">Cancel</button>
 			</div>
 		</div>
 	</div>

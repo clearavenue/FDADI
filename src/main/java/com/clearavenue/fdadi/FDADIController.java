@@ -1,7 +1,6 @@
 package com.clearavenue.fdadi;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PreDestroy;
@@ -154,7 +153,6 @@ public class FDADIController {
 		final UserProfile user = userDAO.findByUserId(loggedInUsername);
 
 		final String medParam = req.getParameter("meds");
-		logger.info("MedParam: " + medParam);
 		final String[] meds = medParam.split(",");
 
 		for (final String medication : meds) {
@@ -189,9 +187,17 @@ public class FDADIController {
 		}
 
 		final String pharmClassesParam = req.getParameter("pharmclasses");
-		final List<String> pharmClasses = Arrays.asList(pharmClassesParam);
+		final String[] pharmClasses = pharmClassesParam.split(",");
 
-		final List<String> medications = ApiQueries.findByPharmClass(pharmClasses.get(0));
+		List<String> medications = new ArrayList<String>();
+
+		for (String pharmClass : pharmClasses) {
+			List<String> results = ApiQueries.findByPharmClass(pharmClass);
+			if (!results.isEmpty()) {
+				medications.addAll(results);
+			}
+		}
+
 		map.addAttribute("allMeds", medications);
 
 		return "addMedByName";

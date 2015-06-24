@@ -1,4 +1,3 @@
-
 .navbar-brand img {
 	max-height: 100%;
 }
@@ -33,4 +32,10 @@ body {
 .loginDiv {
 	margin: 0 auto !important;
 	max-width: 700px !important;
+}
+
+.actionButton {
+	width: 225px !important;
+	margin-right: 15px !important;
+	margin-top: 15px !important;
 }

@@ -36,7 +36,7 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#{logout}">logout</a></li>
+					<li><a href='${logout}'>logout</a></li>
 				</ul>
 			</div>			
 		</div>
@@ -55,9 +55,9 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<button type="button" id="addButton" class="btn btn-primary btn-block">Add Medication</button>
-				<button type="button" id="clearButton" class="btn btn-primary btn-block">Clear</button>
-				<button type="button" id="cancelButton" class="btn btn-primary btn-block">Cancel</button>
+				<button type="button" id="addButton" class="btn btn-primary actionButton">Add Medication</button>
+				<button type="button" id="clearButton" class="btn btn-primary actionButton">Clear</button>
+				<button type="button" id="cancelButton" class="btn btn-primary actionButton">Cancel</button>
 			</div>
 		</div>
 	</div>
