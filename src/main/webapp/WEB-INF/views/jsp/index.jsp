@@ -58,7 +58,7 @@
 							<ul id="medListBox" class="list-group checked-list-box">
 							</ul>
 						</div>
-						<button type="button" id="clearButton" class="btn btn-sm btn-info">Clear</button>
+						<button type="button" id="clearButton" class="btn btn-sm btn-info">Uncheck</button>
 						<button type="button" id="removeButton" class="btn btn-sm btn-info">Remove</button>
 					</div>
 				</div>
