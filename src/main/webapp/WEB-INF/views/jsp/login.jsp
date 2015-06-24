@@ -37,13 +37,13 @@
 			<h1 class="text-center">myMedications Login</h1>
 		</div>
 		<div class="row centerDiv">
-			<div class="messageBox col-sm-10">
+			<div class="messageBox">
 				<h5 class="text-center"><strong>New Users:</strong> Enter a username &amp; password and select Register.</h5>
 				<h5 class="text-center"><strong>Current Users:</strong> Enter your username &amp; password and select Login.</h5>
 			</div>
 		</div>
 		<div class="row centerDiv">
-			<div class="panel panel-info col-sm-10">
+			<div class="panel panel-info">
 				<div class="panel-body">
 					<form data-toggle="validator" class="form-horizontal"  method="post" id="loginForm" role="form">
 						<div class="form-group" id="usernameGroup">
@@ -61,7 +61,7 @@
 							</div>
 						</div>
 
-						<div class="col-sm-offset-2 col-sm-10">
+						<div class="pull-right">
 							<div>
 								<table>
 									<tr>
@@ -75,7 +75,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="warning" class="row">
+		<div id="warning" class="row centerDiv">
 			<div class="panel panel-danger">
 				<div class="panel-body">
 					<div>${errMsg}</div>
