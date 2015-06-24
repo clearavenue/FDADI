@@ -46,9 +46,11 @@
 			    <c:set var="shouldShowIndications" value="${not empty med.getIndications() && showIndications}"></c:set>
 			    <c:set var="shouldShowCounterindications" value="${not empty med.getCounterindications() && showCounterindications}"></c:set>
 			    
-				<c:if test="${ shouldShowsideEffects || shouldShowUsage || shouldShowInteractions || shouldShowIndications || shouldShowCounterindications}">
+				
 				<div class="panel panel-primary">
 					<div class="panel-heading">${med.getBrandName() }(Generic name: ${med.getGenericName()})</div>
+					<c:choose>
+					<c:when test="${ shouldShowsideEffects || shouldShowUsage || shouldShowInteractions || shouldShowIndications || shouldShowCounterindications}">
 					<div class="panel-body">
 						<c:if test="${shouldShowSideEffects == true}">
 							<div class="panel panel-warning">
@@ -86,8 +88,13 @@
 						</c:if>
 
 					</div>
+					</c:when>
+					<c:otherwise>
+					    No information.
+					</c:otherwise>
+					</c:choose>
 				</div>
-				</c:if>
+				
 			</c:forEach>
 
 			<button type="button" id="backButton" class="btn btn-primary">Back</button>
