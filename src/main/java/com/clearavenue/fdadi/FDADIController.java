@@ -119,7 +119,7 @@ public class FDADIController {
 			session.setAttribute("username", username);
 			view = "redirect:/";
 		} else {
-			errMsg = "Failed to register";
+			errMsg = "Registration failed: Username is already taken.";
 			view = "redirect:/login?loginError";
 		}
 
@@ -189,10 +189,10 @@ public class FDADIController {
 		final String pharmClassesParam = req.getParameter("pharmclasses");
 		final String[] pharmClasses = pharmClassesParam.split(",");
 
-		List<String> medications = new ArrayList<String>();
+		final List<String> medications = new ArrayList<String>();
 
-		for (String pharmClass : pharmClasses) {
-			List<String> results = ApiQueries.findByPharmClass(pharmClass);
+		for (final String pharmClass : pharmClasses) {
+			final List<String> results = ApiQueries.findByPharmClass(pharmClass);
 			if (!results.isEmpty()) {
 				medications.addAll(results);
 			}
@@ -239,7 +239,7 @@ public class FDADIController {
 		return "recalls";
 	}
 
-    @RequestMapping(value = "/removeMeds", method = RequestMethod.POST)
+	@RequestMapping(value = "/removeMeds", method = RequestMethod.POST)
 	public String removeMeds(HttpServletRequest req, ModelMap map) {
 		// check if logged in and if not redirect to login
 		final HttpSession session = req.getSession();
@@ -251,8 +251,8 @@ public class FDADIController {
 		final String medlist = StringUtils.defaultString(req.getParameter("medlist"));
 		final String[] drugNames = medlist.split(",");
 
-		UserProfile user = userDAO.findByUserId(loggedInUsername);
-		for (String drugName : drugNames) {
+		final UserProfile user = userDAO.findByUserId(loggedInUsername);
+		for (final String drugName : drugNames) {
 			userDAO.deleteUserMedication(user, new UserMedication(drugName));
 		}
 
@@ -265,7 +265,7 @@ public class FDADIController {
 		session.removeAttribute("username");
 		return "redirect:/";
 	}
-	
+
 	private boolean register(String username, String pwd) {
 		boolean result = false;
 		if (userDAO.save(new UserProfile(username, pwd)) != null) {
