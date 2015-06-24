@@ -42,6 +42,9 @@
 		</div>
 	</nav>
 	<div class="container fdadi-template">
+		<div class="row bg-info">
+			<p class="text-center">Medication Information and Drug Interactions</p>
+		</div>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-info">
