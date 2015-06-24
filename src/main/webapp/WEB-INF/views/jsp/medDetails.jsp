@@ -32,6 +32,7 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
+				    <li><a href="#" id="disclaimerButton">Disclaimer</a></li>
 					<li><a href="${logout}">logout</a></li>
 				</ul>
 			</div>
@@ -99,24 +100,18 @@
 			<button type="button" id="backButton" class="btn btn-primary">Back</button>
 		</div>
 	</div>
-
-    <nav id="footer" class="navbar navbar-default navbar-fixed-bottom">
-		<div class="container">
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-center">
-					<li>DISCLAIMER: This website is for demonstration purposes. Information in this website should not be taken as medical advice.</li>
-				</ul>
-			</div>	
-		</div>
-	</nav>
 	
 	<script src="${resources}/js/jquery-2.1.4.min.js" type="text/javascript"></script>
 	<script src="${resources}/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="${resources}/js/checklistbox.js" type="text/javascript"></script>
-
+    <script src="${resources}/js/bootbox.min.js" type="text/javascript"></script>
 	<script>
 		$('#backButton').click(function() {
 			window.location.href = '${index}';
+		});
+		
+		$('#disclaimerButton').click(function() {
+			bootbox.alert("This website is for demonstration purposes. Information in this website should not be taken as medical advice.");
 		});
 	</script>
 </body>
