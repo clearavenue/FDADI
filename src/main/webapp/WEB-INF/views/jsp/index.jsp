@@ -45,7 +45,7 @@
 	<div class="container fdadi-template">
 		<div class="row" style="padding-bottom:10px;">
 			<div class="appName">
-				<h2>Medication Information and Drug Interactions</h2>
+				<h2>Medication Information and Drug Interactions for ${username}</h2>
 			</div>
 		</div>
 		<div class="row">
