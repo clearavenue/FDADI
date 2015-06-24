@@ -42,8 +42,10 @@
 		</div>
 	</nav>
 	<div class="container fdadi-template">
-		<div class="row bg-info">
-			<p class="text-center">Medication Information and Drug Interactions</p>
+		<div class="row">
+			<div class="appName">
+				<p class="text-center">Medication Information and Drug Interactions</p>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">

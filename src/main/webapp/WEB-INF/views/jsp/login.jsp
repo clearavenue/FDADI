@@ -33,14 +33,17 @@
 		</div>
 	</nav>
 	<div class="container fdadi-template">
-		<div class="jumbotron">
+		<div class="jumbotron jumbotron-background">
 			<h1 class="text-center">myMedications Login</h1>
 		</div>
-		<div class="row bg-warning">
-			<p class="text-center">To login, please enter a username and password, then click 'Login' to enter site.</p>
-			<p class="text-center">To register, please enter a username and password, then click 'Register' to register the provided username and password.</p>
+		<div class="row centerDiv">
+			<div class="messageBox col-sm-10">
+				<h5 class="text-center">Enter a username &amp; password and click:</h5>
+				<h5 class="text-center"><strong>Login</strong> button to enter site.</h5>
+				<h5 class="text-center"><strong>Register</strong> button to automatically register and login.</h5>
+			</div>
 		</div>
-		<div class="row loginDiv">
+		<div class="row centerDiv">
 			<div class="panel panel-info col-sm-10">
 				<div class="panel-body">
 					<form data-toggle="validator" class="form-horizontal"  method="post" id="loginForm" role="form">
