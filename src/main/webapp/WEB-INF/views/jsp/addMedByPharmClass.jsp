@@ -11,6 +11,7 @@
 <c:url value="/" var="index" />
 <c:url value="/processAddMedByPharmClass" var="processAddMedByPharmClass" />
 <c:url value="/resources" var="resources" />
+<c:url value="/logout" var="logout" />
 
 <link href="${resources}/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
 <link href="${resources}/css/fdadi.css" rel="stylesheet" type="text/css" media="screen">
@@ -33,6 +34,11 @@
 				</button>
 				<a class="navbar-brand" href="#"><img class="img-responsive" src="${resources}/img/clearAvenue_highres.jpg" alt="clearAvenue logo"/></a>
 			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="${logout}">logout</a></li>
+				</ul>
+			</div>			
 		</div>
 	</nav>
 	<div class="container fdadi-template">
@@ -99,7 +105,7 @@
 		});
 		
 		$('#cancelButton').click(function() {
-			window.location.href = ${index};
+			window.location.href = "${index}";
 		});
 
 		$('#clearButton').click(function() {
