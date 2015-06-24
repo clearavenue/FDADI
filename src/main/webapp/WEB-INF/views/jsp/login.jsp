@@ -84,6 +84,9 @@
 			</div>
 		</div>
 		
+		<div class="aboutBox">
+			<p class="text-center">myMedications is an App where people can add medications to a list and find out information concerning the medications. The information included are details about the medications selected, adverse reactions, drug interactions, and recalls.</p>
+		</div>
 	    <div class="messageBox">
 			<!--  <img class="img-responsive" src="${resources}/img/clearAvenue_highres.jpg" alt="clearAvenue logo"/>   -->
 			<p class="text-center">DISCLAIMER: This website is for demonstration purposes. Information in this website should not be taken as medical advice.</p>

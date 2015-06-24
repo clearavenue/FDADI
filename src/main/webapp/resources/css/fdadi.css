@@ -25,11 +25,20 @@
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	background-color: rgb(255, 255, 187);
+	background-color: lightgoldenrodyellow;
 	padding-top: 10px;
 	padding-bottom: 5px;
 }
 
+.aboutBox {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: lightsalmon;
+	padding-top: 10px;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+}
 .appName {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
