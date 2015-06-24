@@ -84,7 +84,7 @@
 		</div>
 	</div>
 
-    <nav class="navbar navbar-default navbar-fixed-bottom">
+    <nav id="footer" class="navbar navbar-default navbar-fixed-bottom">
 		<div class="container">
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-center">
