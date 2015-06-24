@@ -38,9 +38,8 @@
 		</div>
 		<div class="row centerDiv">
 			<div class="messageBox col-sm-10">
-				<h5 class="text-center">Enter a username &amp; password and click:</h5>
-				<h5 class="text-center"><strong>Login</strong> button to enter site.</h5>
-				<h5 class="text-center"><strong>Register</strong> button to automatically register and login.</h5>
+				<h5 class="text-center"><strong>New Users:</strong> Enter a username &amp; password and select Register.</h5>
+				<h5 class="text-center"><strong>Current Users:</strong> Enter your username &amp; password and select Login.</h5>
 			</div>
 		</div>
 		<div class="row centerDiv">
