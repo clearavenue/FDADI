@@ -42,7 +42,7 @@
 		</div>
 	</nav>
 	<div class="container fdadi-template">
-		<div class="row centerDiv">
+		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-info">
 					<div class="panel-heading">Medication List</div>
