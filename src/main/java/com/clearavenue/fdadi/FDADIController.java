@@ -1,7 +1,6 @@
 package com.clearavenue.fdadi;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PreDestroy;
@@ -45,6 +44,7 @@ public class FDADIController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(HttpServletRequest req, final ModelMap map) throws UnirestException {
+		// check if logged in and if not redirect to login
 		final HttpSession session = req.getSession();
 		final String loggedInUsername = (String) session.getAttribute("username");
 		if (StringUtils.isBlank(loggedInUsername)) {
@@ -90,21 +90,16 @@ public class FDADIController {
 
 	@RequestMapping(value = "/processLogin", method = RequestMethod.POST)
 	public String processLogin(HttpServletRequest req, final ModelMap map) {
-		String view;
-
 		final String username = StringUtils.defaultString(req.getParameter("username"));
 		final String pwd = StringUtils.defaultString(req.getParameter("pwd"));
 
-		logger.info("processing Login");
-
+		String view;
 		if (validate(username, pwd)) {
-			logger.info("login passed");
 			final HttpSession session = req.getSession();
 			session.setAttribute("username", username);
 
 			view = "redirect:/";
 		} else {
-			logger.info("login failed");
 			errMsg = "Invalid login/password";
 			view = "redirect:/login?loginError";
 		}
@@ -115,20 +110,15 @@ public class FDADIController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registerUser(HttpServletRequest req, final ModelMap map) {
-		String view;
-
 		final String username = StringUtils.defaultString(req.getParameter("username"));
 		final String pwd = StringUtils.defaultString(req.getParameter("pwd"));
 
-		logger.info("registering Login");
-
+		String view;
 		if (register(username, pwd)) {
-			logger.info("register passed");
 			final HttpSession session = req.getSession();
 			session.setAttribute("username", username);
 			view = "redirect:/";
 		} else {
-			logger.info("register failed");
 			errMsg = "Failed to register";
 			view = "redirect:/login?loginError";
 		}
@@ -138,6 +128,12 @@ public class FDADIController {
 
 	@RequestMapping(value = "/addMedByName", method = RequestMethod.GET)
 	public String addMedByName(HttpServletRequest req, final ModelMap map) {
+		// check if logged in and if not redirect to login
+		final HttpSession session = req.getSession();
+		final String loggedInUsername = (String) session.getAttribute("username");
+		if (StringUtils.isBlank(loggedInUsername)) {
+			return "redirect:/login";
+		}
 
 		final QueryResults<AllMedications> all = allmedDAO.find();
 		map.addAttribute("allMeds", all.asList().get(0).getMedicationNames());
@@ -147,12 +143,16 @@ public class FDADIController {
 
 	@RequestMapping(value = "/processAddMedByName", method = RequestMethod.POST)
 	public String processAddMedByName(HttpServletRequest req, final ModelMap map) {
+		// check if logged in and if not redirect to login
 		final HttpSession session = req.getSession();
 		final String loggedInUsername = (String) session.getAttribute("username");
+		if (StringUtils.isBlank(loggedInUsername)) {
+			return "redirect:/login";
+		}
+
 		final UserProfile user = userDAO.findByUserId(loggedInUsername);
 
 		final String medParam = req.getParameter("meds");
-		logger.info("MedParam: " + medParam);
 		final String[] meds = medParam.split(",");
 
 		for (final String medication : meds) {
@@ -164,6 +164,12 @@ public class FDADIController {
 
 	@RequestMapping(value = "/addMedByPharmClass", method = RequestMethod.GET)
 	public String addMedByPharmClass(HttpServletRequest req, final ModelMap map) {
+		// check if logged in and if not redirect to login
+		final HttpSession session = req.getSession();
+		final String loggedInUsername = (String) session.getAttribute("username");
+		if (StringUtils.isBlank(loggedInUsername)) {
+			return "redirect:/login";
+		}
 
 		final QueryResults<AllPharmClasses> all = allpharmDAO.find();
 		map.addAttribute("allPharmClasses", all.asList().get(0).getPharmClassNames());
@@ -173,10 +179,25 @@ public class FDADIController {
 
 	@RequestMapping(value = "/processAddMedByPharmClass", method = RequestMethod.POST)
 	public String processAddMedByPharmClass(HttpServletRequest req, final ModelMap map) throws UnirestException {
-		final String pharmClassesParam = req.getParameter("pharmclasses");
-		final List<String> pharmClasses = Arrays.asList(pharmClassesParam);
+		// check if logged in and if not redirect to login
+		final HttpSession session = req.getSession();
+		final String loggedInUsername = (String) session.getAttribute("username");
+		if (StringUtils.isBlank(loggedInUsername)) {
+			return "redirect:/login";
+		}
 
-		final List<String> medications = ApiQueries.findByPharmClass(pharmClasses.get(0));
+		final String pharmClassesParam = req.getParameter("pharmclasses");
+		final String[] pharmClasses = pharmClassesParam.split(",");
+
+		List<String> medications = new ArrayList<String>();
+
+		for (String pharmClass : pharmClasses) {
+			List<String> results = ApiQueries.findByPharmClass(pharmClass);
+			if (!results.isEmpty()) {
+				medications.addAll(results);
+			}
+		}
+
 		map.addAttribute("allMeds", medications);
 
 		return "addMedByName";
@@ -184,6 +205,13 @@ public class FDADIController {
 
 	@RequestMapping(value = "/medDetails", method = RequestMethod.POST)
 	public String medDetails(HttpServletRequest req, ModelMap map) {
+		// check if logged in and if not redirect to login
+		final HttpSession session = req.getSession();
+		final String loggedInUsername = (String) session.getAttribute("username");
+		if (StringUtils.isBlank(loggedInUsername)) {
+			return "redirect:/login";
+		}
+
 		final String medlist = StringUtils.defaultString(req.getParameter("medlist"));
 		final String[] drugNames = medlist.split(",");
 		final List<Drug> drugs = Drug.getDrugs(drugNames);
@@ -211,6 +239,33 @@ public class FDADIController {
 		return "recalls";
 	}
 
+    @RequestMapping(value = "/removeMeds", method = RequestMethod.POST)
+	public String removeMeds(HttpServletRequest req, ModelMap map) {
+		// check if logged in and if not redirect to login
+		final HttpSession session = req.getSession();
+		final String loggedInUsername = (String) session.getAttribute("username");
+		if (StringUtils.isBlank(loggedInUsername)) {
+			return "redirect:/login";
+		}
+
+		final String medlist = StringUtils.defaultString(req.getParameter("medlist"));
+		final String[] drugNames = medlist.split(",");
+
+		UserProfile user = userDAO.findByUserId(loggedInUsername);
+		for (String drugName : drugNames) {
+			userDAO.deleteUserMedication(user, new UserMedication(drugName));
+		}
+
+		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest req, ModelMap map) {
+		final HttpSession session = req.getSession();
+		session.removeAttribute("username");
+		return "redirect:/";
+	}
+	
 	private boolean register(String username, String pwd) {
 		boolean result = false;
 		if (userDAO.save(new UserProfile(username, pwd)) != null) {

@@ -11,6 +11,8 @@
 <c:url value="/resources" var="resources" />
 <c:url value="/medDetails" var="medDetails"/>
 <c:url value="/recalls" var="recalls"/>
+<c:url value="/removeMeds" var="removeMeds"/>
+<c:url value="/logout" var="logout" />
 
 <link href="${resources}/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
 <link href="${resources}/css/fdadi.css" rel="stylesheet" type="text/css" media="screen">
@@ -25,14 +27,25 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">FDADI - ${username}</a>
+				<a class="navbar-brand" href="#"><img class="img-responsive" src="${resources}/img/clearAvenue_highres.jpg" alt="clearAvenue logo"/></a>
 			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="${logout}">logout</a></li>
+				</ul>
+			</div>			
 		</div>
 	</nav>
 	<div class="container fdadi-template">
+		<div class="row bg-info">
+			<p class="text-center">Medication Information and Drug Interactions</p>
+		</div>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-info">
@@ -43,14 +56,15 @@
 							</ul>
 						</div>
 						<button type="button" id="clearButton" class="btn btn-sm btn-info">Clear</button>
+						<button type="button" id="removeButton" class="btn btn-sm btn-info">Remove</button>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6" style="display: inline-block">
-				<button type="button" id="addMedByNameButton" class="btn btn-primary btn-block">Add Medication by Name</button>
-				<button type="button" id="addMedByPClassButton" class="btn btn-primary btn-block">Add Medication by PharmClass</button>
-				<button type="button" id="medDetails" class="btn btn-primary btn-block">Medicine Details</button>
-				<button type="button" id="adverseDetails" class="btn btn-primary btn-block">Adverse Reactions</button>
+			<div class="col-md-6">
+				<button type="button" id="addMedByNameButton" class="btn btn-primary actionButton">Add Medication by Name</button>
+				<button type="button" id="addMedByPClassButton" class="btn btn-primary actionButton">Add Medication by PharmClass</button>
+				<button type="button" id="medDetails" class="btn btn-primary actionButton">Medicine Details</button>
+				<button type="button" id="adverseDetails" class="btn btn-primary actionButton">Adverse Reactions</button>
 				<button type="button" id="interactionDetails" class="btn btn-primary btn-block">Drug Interactions</button>
 				<button type="button" id="recalls" class="btn btn-primary btn-block">Recalls</button>
 			</div>
@@ -123,6 +137,27 @@
 		        });
 			});
 			
+			$('#removeButton').click(function() {
+		        var form = document.createElement("form");
+			    form.setAttribute("method", "post");
+			    form.setAttribute("action", '${removeMeds}');
+			    
+			    var hiddenField = document.createElement("input");
+	            hiddenField.setAttribute("type", "hidden");
+	            hiddenField.setAttribute("name", "medlist");
+	            checkedMeds = '';
+	            $("#medListBox li.active").each(function(idx, li) {
+					checkedMeds += $(li).text() + ',';
+		        });
+
+	            if(checkedMeds.length > 1){
+	                hiddenField.setAttribute("value", checkedMeds);
+	                form.appendChild(hiddenField);
+	    	        document.body.appendChild(form);
+	    	        form.submit();
+	            }
+			});
+			
 			$('#addMedByNameButton').click(function() {
 				window.location.href = 'addMedByName';
 			});
@@ -146,7 +181,7 @@
 	    	        document.body.appendChild(form);
 	    	        form.submit();
 	            }
-			}
+			};
 			
 			$('#medDetails').click(function() {
 		        var form = document.createElement("form");
@@ -181,7 +216,6 @@
 
 	            showDetails(form);
 			});
-			
 			$('#interactionDetails').click(function() {
 		        var form = document.createElement("form");
 			    form.setAttribute("method", "post");

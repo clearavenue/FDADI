@@ -59,7 +59,8 @@ public class LoginHttpTest {
 		element = driver.findElement(By.name("pwd"));
 		element.sendKeys("loginhttptestpwd");
 
-		element.submit();
+		element = driver.findElement(By.id("loginButton"));
+		element.click();
 
 		String expected = "FDADI - loginhttptestuser";
 		String actual = driver.getTitle();
