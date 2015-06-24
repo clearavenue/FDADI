@@ -237,6 +237,8 @@ public class FDADIController {
 			final List<RecallEvent> recalls = ApiQueries.getRecallStatus(drug);
 			if (recalls.size() > 0) {
 				list.add(recalls);
+			} else {
+				list.add(new ArrayList<RecallEvent>());
 			}
 		}
 		map.addAttribute("recallList", list);
