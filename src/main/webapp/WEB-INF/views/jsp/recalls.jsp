@@ -44,7 +44,7 @@
 	<div class="container fdadi-template">
 		<div class="row">
 	    <c:choose>	
-			<c:when test="${not empty recalls}">
+			<c:when test="${not empty recallList}">
 			<c:forEach var="recalls" items="${recallList}" varStatus="loop">
 			
 				<div class="panel panel-primary">
