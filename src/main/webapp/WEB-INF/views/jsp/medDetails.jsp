@@ -49,12 +49,13 @@
 				
 				<div class="panel panel-primary">
 					<div class="panel-heading">${med.getBrandName() }(Generic name: ${med.getGenericName()})</div>
-					<c:choose>
-					<c:when test="${ shouldShowsideEffects || shouldShowUsage || shouldShowInteractions || shouldShowIndications || shouldShowCounterindications}">
+					
 					<div class="panel-body">
-						<c:if test="${shouldShowSideEffects == true}">
+					<c:choose>
+					    <c:when test="${ shouldShowSideEffects || shouldShowUsage || shouldShowInteractions || shouldShowIndications || shouldShowCounterindications}">
+						<c:if test="${shouldShowSideEffects}">
 							<div class="panel panel-warning">
-								<div class="panel-heading">Side Effects</div>
+								<div class="panel-heading">Adverse Reactions</div>
 								<div class="panel-body">${med.getSideEffects() }</div>
 							</div>
 						</c:if>
@@ -86,15 +87,13 @@
 								<div class="panel-body">${med.getCounterindications() }</div>
 							</div>
 						</c:if>
-
-					</div>
-					</c:when>
+                        </c:when>
 					<c:otherwise>
 					    No information.
 					</c:otherwise>
 					</c:choose>
+					</div>
 				</div>
-				
 			</c:forEach>
 
 			<button type="button" id="backButton" class="btn btn-primary">Back</button>
