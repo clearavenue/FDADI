@@ -13,7 +13,7 @@
 <c:url value="/recalls" var="recalls"/>
 <c:url value="/removeMeds" var="removeMeds"/>
 <c:url value="/logout" var="logout" />
-
+<c:url value="/checkInteractions" var="checkInteractions" />
 <link href="${resources}/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
 <link href="${resources}/css/fdadi.css" rel="stylesheet" type="text/css" media="screen">
 
@@ -67,7 +67,7 @@
 				<button type="button" id="addMedByPClassButton" class="btn btn-primary actionButton">Add Medication by PharmClass</button>
 				<button type="button" id="medDetails" class="btn btn-primary actionButton">Medicine Details</button>
 				<button type="button" id="adverseDetails" class="btn btn-primary actionButton">Adverse Reactions</button>
-				<button type="button" id="interactionDetails" class="btn btn-primary actionButton">Drug Interactions</button>
+				<button type="button" id="interactionDetails" class="btn btn-primary actionButton">Check for Drug Interactions</button>
 				<button type="button" id="recalls" class="btn btn-primary actionButton">Recalls</button>
 			</div>
 		</div>
@@ -227,21 +227,32 @@
 
 	            showDetails(form);
 			});
-			$('#interactionDetails').click(function() {
-		        var form = document.createElement("form");
-			    form.setAttribute("method", "post");
-			    form.setAttribute("action", '${medDetails}');
-			    
-			    var attributes = ["showSideEffects", "showUsage", "showIndications", "showInteractions", "showCounterindications"];
-	            for(att in attributes){
-	            	var newHiddenField = document.createElement("input");
-	            	newHiddenField.setAttribute("type", "hidden");
-	            	newHiddenField.setAttribute("name", attributes[att]);
-	            	newHiddenField.setAttribute("value", attributes[att] == 'showInteractions');
-	            	form.appendChild(newHiddenField);
-	            }
 
-	            showDetails(form);
+			$('#interactionDetails').click(function(){
+				checkedMeds = '';
+	            $("#medListBox li.active").each(function(idx, li) {
+					checkedMeds += $(li).text() + ',';
+		        });
+	            if(checkedMeds.length > 1){
+	            	$.post( "${checkInteractions}", { medList: checkedMeds }, function( data ) {
+	            	    if(data == 'true'){
+	            	    	message = "The selected medications have interactions with each other.";
+	            	    	title = "Warning";
+	            	    }else{
+	            	    	message = "The selected medications do not interact with each other.";
+	            	    	title = "All clear";
+	            	    }
+	            	    bootbox.dialog({
+	    			        message: message,
+	    				    title: title
+	    			    });
+	            	}).fail(function(error){
+	            		bootbox.dialog({
+	    			        message: "There was an error connecting to the server.",
+	    				    title: "Error"
+	    			    });
+	            	});
+	            }
 			});
 			
 			$('#recalls').click(function(){
