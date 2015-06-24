@@ -43,9 +43,9 @@
 		</div>
 	</nav>
 	<div class="container fdadi-template">
-		<div class="row">
+		<div class="row" style="padding-bottom:10px;">
 			<div class="appName">
-				<p class="text-center">Medication Information and Drug Interactions</p>
+				<h2>Medication Information and Drug Interactions</h2>
 			</div>
 		</div>
 		<div class="row">
