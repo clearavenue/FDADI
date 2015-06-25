@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class Drug {
+
+	private static final Logger logger = LoggerFactory.getLogger(Drug.class);
 
 	private String brandName, genericName, sideEffects, usage, interactions, indications, counterindications;
 
@@ -61,7 +65,9 @@ public class Drug {
 		for (final String s : names) {
 			String json;
 			try {
+				logger.info("Drug name: " + s);
 				json = ApiQueries.getLabel(s);
+				logger.info("JSON: " + json);
 				final Drug drug = new Drug(json);
 				out.add(drug);
 			} catch (final UnirestException e) {

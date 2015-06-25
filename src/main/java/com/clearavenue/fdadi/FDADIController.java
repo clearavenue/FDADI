@@ -164,7 +164,7 @@ public class FDADIController {
 		final UserProfile user = userDAO.findByUserId(loggedInUsername);
 
 		final String medParam = req.getParameter("meds");
-		final String[] meds = medParam.split(",");
+		final String[] meds = medParam.split("---,---");
 
 		for (final String medication : meds) {
 			userDAO.addUserMedication(user, new UserMedication(medication));
@@ -198,7 +198,7 @@ public class FDADIController {
 		}
 
 		final String pharmClassesParam = req.getParameter("pharmclasses");
-		final String[] pharmClasses = pharmClassesParam.split(",");
+		final String[] pharmClasses = pharmClassesParam.split("---,---");
 
 		final List<String> medications = new ArrayList<String>();
 
@@ -224,7 +224,7 @@ public class FDADIController {
 		}
 
 		final String medlist = StringUtils.defaultString(req.getParameter("medlist"));
-		final String[] drugNames = medlist.split(",");
+		final String[] drugNames = medlist.split("---,---");
 		final List<Drug> drugs = Drug.getDrugs(drugNames);
 		map.addAttribute("medList", drugs);
 
@@ -238,7 +238,7 @@ public class FDADIController {
 	@RequestMapping(value = "/recalls", method = RequestMethod.POST)
 	public String recalls(HttpServletRequest req, ModelMap map) throws UnirestException {
 		final String medlist = StringUtils.defaultString(req.getParameter("medlist"));
-		final String[] drugNames = medlist.split(",");
+		final String[] drugNames = medlist.split("---,---");
 		final List<List<RecallEvent>> list = new ArrayList<List<RecallEvent>>();
 		for (final String drug : drugNames) {
 			final List<RecallEvent> recalls = ApiQueries.getRecallStatus(drug);
@@ -260,7 +260,7 @@ public class FDADIController {
 		}
 
 		final String medlist = StringUtils.defaultString(req.getParameter("medlist"));
-		final String[] drugNames = medlist.split(",");
+		final String[] drugNames = medlist.split("---,---");
 
 		final UserProfile user = userDAO.findByUserId(loggedInUsername);
 		for (final String drugName : drugNames) {
@@ -274,7 +274,7 @@ public class FDADIController {
 	@ResponseBody
 	public String checkInteractions(HttpServletRequest req, HttpServletResponse res) throws UnirestException {
 		final String medlist = StringUtils.defaultString(req.getParameter("medList"));
-		final String[] drugNames = medlist.split(",");
+		final String[] drugNames = medlist.split("---,---");
 		final List<String> drugs = Arrays.asList(drugNames);
 
 		final HashMap<String, ArrayList<String>> interactions = DrugInteractions.findInteractions(drugs);

@@ -158,7 +158,7 @@
 	            hiddenField.setAttribute("name", "medlist");
 	            checkedMeds = '';
 	            $("#medListBox li.active").each(function(idx, li) {
-					checkedMeds += $(li).text() + ',';
+					checkedMeds += $(li).text() + '---,---';
 		        });
 
 	            if(checkedMeds.length > 1){
@@ -183,7 +183,7 @@
 	            hiddenField.setAttribute("name", "medlist");
 	            checkedMeds = '';
 	            $("#medListBox li.active").each(function(idx, li) {
-					checkedMeds += $(li).text() + ',';
+					checkedMeds += $(li).text() + '---,---';
 		        });
 
 	            if(checkedMeds.length > 1){
@@ -231,7 +231,7 @@
 			$('#interactionDetails').click(function(){
 				checkedMeds = '';
 	            $("#medListBox li.active").each(function(idx, li) {
-					checkedMeds += $(li).text() + ',';
+					checkedMeds += $(li).text() + '---,---';
 		        });
 	            if(checkedMeds.length > 1){
 	            	$.post( "${checkInteractions}", { medList: checkedMeds }, function( data ) {
@@ -263,7 +263,7 @@
 	            hiddenField.setAttribute("name", "medlist");
 	            checkedMeds = '';
 	            $("#medListBox li.active").each(function(idx, li) {
-					checkedMeds += $(li).text() + ',';
+					checkedMeds += $(li).text() + '---,---';
 		        });
 
 	            if(checkedMeds.length > 1){

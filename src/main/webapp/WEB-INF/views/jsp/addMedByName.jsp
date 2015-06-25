@@ -90,10 +90,10 @@
 		makeCheckedListBox();
 		
 		$('#addButton').click(function() {
-			var checkedItems = [];
+			var checkedItems = '';
 	        $("#medListBox li.active").each(function(idx, li) {
-	            checkedItems.push($(li).text());
-	        });
+			    checkedItems += $(li).text() + '---,---';
+		    });
 
 	        var form = document.createElement("form");
 		    form.setAttribute("method", "post");
@@ -101,7 +101,7 @@
             var hiddenField = document.createElement("input");
             hiddenField.setAttribute("type", "hidden");
             hiddenField.setAttribute("name", "meds");
-            hiddenField.setAttribute("value", checkedItems.toString());
+            hiddenField.setAttribute("value", checkedItems);
             form.appendChild(hiddenField);
     	    document.body.appendChild(form);
     	    form.submit();
