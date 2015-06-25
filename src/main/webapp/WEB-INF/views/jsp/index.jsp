@@ -194,6 +194,23 @@
 	            }
 			};
 			
+			function detailsOnly(section){
+				var form = document.createElement("form");
+			    form.setAttribute("method", "post");
+			    form.setAttribute("action", '${medDetails}');
+			    
+			    var attributes = ["showSideEffects", "showUsage", "showIndications", "showInteractions", "showCounterindications"];
+	            for(att in attributes){
+	            	var newHiddenField = document.createElement("input");
+	            	newHiddenField.setAttribute("type", "hidden");
+	            	newHiddenField.setAttribute("name", attributes[att]);
+	            	newHiddenField.setAttribute("value", attributes[att] == section);
+	            	form.appendChild(newHiddenField);
+	            }
+
+	            showDetails(form);
+			}
+			
 			$('#medDetails').click(function() {
 		        var form = document.createElement("form");
 			    form.setAttribute("method", "post");
@@ -212,20 +229,7 @@
 			});
 			
 			$('#adverseDetails').click(function() {
-		        var form = document.createElement("form");
-			    form.setAttribute("method", "post");
-			    form.setAttribute("action", '${medDetails}');
-			    
-			    var attributes = ["showSideEffects", "showUsage", "showIndications", "showInteractions", "showCounterindications"];
-	            for(att in attributes){
-	            	var newHiddenField = document.createElement("input");
-	            	newHiddenField.setAttribute("type", "hidden");
-	            	newHiddenField.setAttribute("name", attributes[att]);
-	            	newHiddenField.setAttribute("value", attributes[att] == 'showSideEffects');
-	            	form.appendChild(newHiddenField);
-	            }
-
-	            showDetails(form);
+		        detailsOnly('showSideEffects');
 			});
 
 			$('#interactionDetails').click(function(){
@@ -237,17 +241,39 @@
 	            	$.post( "${checkInteractions}", { medList: checkedMeds }, function( data ) {
 	            	    if(data == 'true'){
 	            	    	message = '<p class="text-danger">The selected medications have interactions with each other.</p>';
+	            	    	buttonClass = "btn-primary";
+	            	    	otherButtonClass = "hidden";
 	            	    }else{
-	            	    	message = '<p class="text-danger">The selected medications do not interact with each other.</p>';
+	            	    	message = '<p class="text-success">The selected medications do not interact with each other.</p>';
+	            	    	buttonClass = "hidden";
+	            	    	otherButtonClass = "btn-primary";
 	            	    }
 	            	    bootbox.dialog({
 	    			        message: message,
-	    				    title: "Check for Interactions Result"
+	    				    title: "Check for Interactions Result",
+	    				    buttons: {
+	    				        details: {
+	    				            label: "Details",
+	    				    	    className: buttonClass,
+	    				    	    callback: function(){
+	    				    	    	detailsOnly('showInteractions');
+	    				    	    }
+	    				        },
+	    				        ignore: {
+	    				        	label: "Ignore",
+	    				        	className: buttonClass
+	    				        },
+	    				        ok: {
+	    				        	label: "Ok",
+	    				        	className: otherButtonClass
+	    				        }
+	    				    }
 	    			    });
 	            	}).fail(function(error){
 	            		bootbox.dialog({
 	    			        message: "There was an error connecting to the server.",
 	    				    title: "Error"
+	    				    
 	    			    });
 	            	});
 	            }
