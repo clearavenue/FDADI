@@ -92,7 +92,7 @@
 		</div>
 		
 		<div class="aboutBox centerDiv">
-			<p class="text-center">myMedications is an App where people can add medications to a list and find out information concerning the medications. The information included are details about the medications selected, adverse reactions, drug interactions, and recalls.</p>
+			<p class="text-center">myMedications allows users to resarch information concerning the medications they take, including adverse reactions, drug interactions, and recalls.</p>
 		</div>
 	    <div class="messageBox">			
 			<p class="text-center"><span class="glyphicon glyphicon-warning-sign"></span> DISCLAIMER: This website is for demonstration purposes. Information in this website should not be taken as medical advice.</p>
