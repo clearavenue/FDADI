@@ -28,6 +28,7 @@
 	background-color: lightgoldenrodyellow;
 	padding-top: 10px;
 	padding-bottom: 5px;
+	margin-top: 15px;
 }
 
 .aboutBox {
@@ -38,7 +39,10 @@
 	padding-top: 10px;
 	padding-bottom: 5px;
 	margin-bottom: 10px;
+	font-size: medium;
+	max-width: 600px !important;
 }
+
 .appName {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
