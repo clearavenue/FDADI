@@ -93,11 +93,7 @@
 	<script src="${resources}/js/bootbox.min.js" type="text/javascript"></script>
 	<script>
 		$('#backButton').click(function() {
-			window.location.href = $
-			{
-				index
-			}
-			;
+			window.location.href = '${index}';
 		});
 
 		$('#disclaimerButton').click(function() {

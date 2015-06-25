@@ -46,8 +46,8 @@
 		</div>
 		<div class="row centerDiv">
 			<div class="messageBox">
-				<h5 class="text-center"><strong>New Users:</strong> Enter a username &amp; password and select Register.</h5>
-				<h5 class="text-center"><strong>Current Users:</strong> Enter your username &amp; password and select Login.</h5>
+				<p class="h5 text-center"><strong>New Users:</strong> Enter a username &amp; password and select Register.</p>
+				<p class="h5 text-center"><strong>Current Users:</strong> Enter your username &amp; password and select Login.</p>
 			</div>
 		</div>
 		<div class="row centerDiv">
