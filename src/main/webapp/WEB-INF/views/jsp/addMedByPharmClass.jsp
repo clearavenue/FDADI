@@ -91,7 +91,7 @@
 		
 		$('#getButton').click(function() {
 			var checkedItems = '';
-	        $("#medListBox li.active").each(function(idx, li) {
+	        $("#pharmListBox li.active").each(function(idx, li) {
 				checkedItems += $(li).text() + '---,---';
 		    });
 
