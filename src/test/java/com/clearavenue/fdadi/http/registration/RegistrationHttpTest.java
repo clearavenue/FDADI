@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.mongodb.morphia.Datastore;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,7 +17,6 @@ import com.clearavenue.data.MongoDB;
 import com.clearavenue.data.UserProfileDAO;
 import com.clearavenue.data.objects.UserProfile;
 
-@Ignore
 public class RegistrationHttpTest {
 
 	static WebDriver driver;
