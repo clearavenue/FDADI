@@ -37,7 +37,9 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="${faq}">FAQ</a></li>
 					<li><a href="#" id="disclaimerButton">Disclaimer</a></li>
-					<li><a href="${logout}">Logout</a></li>
+					<c:if test="${loggedIn}">
+					    <li><a href="${logout}">Logout</a></li>
+					</c:if>
 				</ul>
 			</div>			
 		</div>

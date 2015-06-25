@@ -86,7 +86,9 @@ public class FDADIController {
 	}
 
 	@RequestMapping(value = "/faq", method = RequestMethod.GET)
-	public String faq() {
+	public String faq(HttpServletRequest req, ModelMap map) {
+		final String loggedInUsername = (String) req.getSession().getAttribute("username");
+		map.addAttribute("loggedIn", !StringUtils.isBlank(loggedInUsername));
 		return "faq";
 	}
 
