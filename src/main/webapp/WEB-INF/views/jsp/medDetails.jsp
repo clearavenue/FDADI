@@ -32,7 +32,7 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-				    <li><a href="#" id="disclaimerButton">Disclaimer</a></li>
+				    <li><a href="${index}" id="disclaimerButton">Disclaimer</a></li>
 					<li><a href="${logout}">logout</a></li>
 				</ul>
 			</div>
