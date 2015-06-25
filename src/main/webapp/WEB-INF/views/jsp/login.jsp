@@ -8,7 +8,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<c:url value="/resources" var="resources"/>
+<c:url value="/resources" var="resources" />
+<c:url value="/faq" var="faq" />
 
 <link href="${resources}/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="${resources}/css/fdadi.css" rel="stylesheet" media="screen">
@@ -30,6 +31,12 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="${index}"><img class="img-responsive" src="${resources}/img/clearAvenue_highres.jpg" alt="clearAvenue logo"/></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="${faq}">FAQ</a></li>
+				    <li><a href="#" id="disclaimerButton">Disclaimer</a></li>
+				</ul>
 			</div>
 		</div>
 	</nav>

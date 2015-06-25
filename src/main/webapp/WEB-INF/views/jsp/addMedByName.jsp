@@ -12,6 +12,7 @@
 <c:url value="/processAddMedByName" var="processAddMedByName" />
 <c:url value="/resources" var="resources" />
 <c:url value="/logout" var="logout" />
+<c:url value="/faq" var="faq" />
 
 <link href="${resources}/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
 <link href="${resources}/css/fdadi.css" rel="stylesheet" type="text/css" media="screen">
@@ -36,8 +37,9 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
+					<li><a href="${faq}">FAQ</a></li>
 				    <li><a href="#" id="disclaimerButton">Disclaimer</a></li>
-					<li><a href='${logout}'>logout</a></li>
+					<li><a href='${logout}'>Logout</a></li>
 				</ul>
 			</div>			
 		</div>

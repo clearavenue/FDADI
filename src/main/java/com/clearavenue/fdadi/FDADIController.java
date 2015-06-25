@@ -83,6 +83,11 @@ public class FDADIController {
 		return "index";
 	}
 
+	@RequestMapping(value = "/faq", method = RequestMethod.GET)
+	public String faq() {
+		return "faq";
+	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(final ModelMap map) {
 		if (StringUtils.isNotEmpty(errMsg)) {
