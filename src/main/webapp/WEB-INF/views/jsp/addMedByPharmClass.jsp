@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>FDADI - ${username} - Add Med By PharmClass</title>
+<title>myMedications - ${username} - Add Med By PharmClass</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

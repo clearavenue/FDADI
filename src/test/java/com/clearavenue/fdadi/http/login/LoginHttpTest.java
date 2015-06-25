@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -20,6 +21,7 @@ import com.clearavenue.data.MongoDB;
 import com.clearavenue.data.UserProfileDAO;
 import com.clearavenue.data.objects.UserProfile;
 
+@Ignore
 public class LoginHttpTest {
 
 	static WebDriver driver;
@@ -36,7 +38,7 @@ public class LoginHttpTest {
 		DesiredCapabilities capabilities = DesiredCapabilities.htmlUnitWithJs();
 		capabilities.setBrowserName("firefox");
 		driver = new HtmlUnitDriver(capabilities);
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 		driver.get("https://agile.clearavenue.com/FDADI");
 	}
@@ -44,7 +46,7 @@ public class LoginHttpTest {
 	@Test
 	public void validLoginPageTest() {
 
-		String expected = "FDADI Login";
+		String expected = "myMedications Login";
 		String actual = driver.getTitle();
 
 		assertEquals(expected, actual);
@@ -62,7 +64,7 @@ public class LoginHttpTest {
 		element = driver.findElement(By.id("loginButton"));
 		element.click();
 
-		String expected = "FDADI - loginhttptestuser";
+		String expected = "myMedications - loginhttptestuser";
 		String actual = driver.getTitle();
 
 		assertEquals(expected, actual);

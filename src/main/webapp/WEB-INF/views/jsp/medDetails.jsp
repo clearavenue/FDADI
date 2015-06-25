@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>FDADI - Medication information</title>
+<title>myMedications - Medication information</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

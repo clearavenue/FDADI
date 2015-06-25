@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.openqa.selenium.By;
@@ -22,14 +23,15 @@ import com.clearavenue.data.UserProfileDAO;
 import com.clearavenue.data.objects.UserMedication;
 import com.clearavenue.data.objects.UserProfile;
 
+@Ignore
 public class MedicationListHttpTest {
-	
+
 	private static final Datastore mongo = MongoDB.instance().getDatabase();
 	private static final UserProfileDAO dao = new UserProfileDAO(mongo);
 
 	private static final String testUserName = "test";
 	private static final String testUserPassword = "testertester";
-	
+
 	static WebDriver driver;
 	static List<UserMedication> medsTestList = new ArrayList<UserMedication>();
 
@@ -42,29 +44,27 @@ public class MedicationListHttpTest {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
 		driver.get("http://52.0.199.20:8080/FDADI");
-		
-		//Fill the List for the meds
+
+		// Fill the List for the meds
 		medsTestList.add(new UserMedication("Eye Allergy Relief"));
 		medsTestList.add(new UserMedication("ABILIFY"));
-		
+
 	}
 
-	
 	@Test
 	public void validFilledMedRegisterTest() {
-		
-		//Create user profile
+
+		// Create user profile
 		UserProfile newUser = new UserProfile(testUserName, testUserPassword);
-		
-		//Create Medications for user
+
+		// Create Medications for user
 		UserMedication userMedAbilify = new UserMedication("ABILIFY");
 		UserMedication userMedEyeAllergy = new UserMedication("Eye Allergy Relief");
-		
-		//Add medications to the user
+
+		// Add medications to the user
 		dao.addUserMedication(newUser, userMedAbilify);
 		dao.addUserMedication(newUser, userMedEyeAllergy);
-		
-		
+
 		WebElement element = driver.findElement(By.id("username"));
 		element.sendKeys(testUserName);
 
@@ -74,34 +74,31 @@ public class MedicationListHttpTest {
 		element = driver.findElement(By.id("registerButton"));
 		element.click();
 
-		String expected = "FDADI - test";
+		String expected = "myMedications - test";
 		String actual = driver.getTitle();
 
 		assertEquals(expected, actual);
-		
+
 	}
-	
-	//@Test
-	public void verifyMedicationList(){
+
+	// @Test
+	public void verifyMedicationList() {
 		UserProfile newUser = new UserProfile(testUserName, testUserPassword);
-		
-//		List<UserMedication> allMedications = dao.get(testUserName).getMedications();
-		
+
+		// List<UserMedication> allMedications = dao.get(testUserName).getMedications();
+
 		System.out.println("all - " + newUser.getMedications().size() + "  meds - " + medsTestList.size());
-		if (newUser.getMedications().size() == medsTestList.size()){
+		if (newUser.getMedications().size() == medsTestList.size()) {
 
 			medsTestList.containsAll(newUser.getMedications());
-		}
-		else{
+		} else {
 			Assert.fail("Verify Medication List Test Failed: Lists are not the same size.");
 		}
 	}
-	
-	
+
 	@After
 	public void teardown() {
-		mongo.findAndDelete(mongo.createQuery(UserProfile.class)
-				.field("userId").equal("test"));
+		mongo.findAndDelete(mongo.createQuery(UserProfile.class).field("userId").equal("test"));
 		driver.quit();
 	}
 }
