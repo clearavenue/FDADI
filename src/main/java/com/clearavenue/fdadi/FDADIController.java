@@ -2,6 +2,7 @@ package com.clearavenue.fdadi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -57,6 +58,7 @@ public class FDADIController {
 
 		final UserProfile user = userDAO.findByUserId(loggedInUsername);
 		final List<UserMedication> medications = user.getMedications();
+		Collections.sort(medications);
 		map.addAttribute("medList", medications);
 
 		final boolean showAlert = Boolean.parseBoolean(StringUtils.defaultString((String) session.getAttribute("showAlert"), "true"));

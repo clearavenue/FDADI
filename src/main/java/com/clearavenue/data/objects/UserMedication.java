@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.mongodb.morphia.annotations.Embedded;
 
 @Embedded
-public class UserMedication {
+public class UserMedication implements Comparable<UserMedication> {
 
 	private String medicationName;
 
@@ -46,4 +46,10 @@ public class UserMedication {
 	public String toString() {
 		return medicationName;
 	}
+
+	@Override
+	public int compareTo(UserMedication o) {
+		return medicationName.compareTo(o.medicationName);
+	}
+
 }
