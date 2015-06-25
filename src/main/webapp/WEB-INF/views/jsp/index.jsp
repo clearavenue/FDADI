@@ -234,10 +234,12 @@
 
 			$('#interactionDetails').click(function(){
 				checkedMeds = '';
+				numCheckedMeds = 0;
 	            $("#medListBox li.active").each(function(idx, li) {
 					checkedMeds += $(li).text() + '---,---';
+					numCheckedMeds++;
 		        });
-	            if(checkedMeds.length > 1){
+	            if(numCheckedMeds > 1){
 	            	$.post( "${checkInteractions}", { medList: checkedMeds }, function( data ) {
 	            	    if(data == 'true'){
 	            	    	message = '<p class="text-danger">The selected medications have interactions with each other.</p>';
