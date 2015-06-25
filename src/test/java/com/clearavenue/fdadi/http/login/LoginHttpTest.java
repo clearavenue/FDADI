@@ -51,6 +51,28 @@ public class LoginHttpTest {
 	}
 
 	@Test
+	public void validFaqPageTest(){
+		driver.findElement(By.cssSelector("a[href*='faq']")).click();
+		
+		String expected = "myMedications FAQ";
+		String actual = driver.getTitle();
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test 
+	public void validDisclaimerClickTest(){
+		
+		//This check only checks for URL containing '#' because actual URL contains sessionId which would be different each time
+		driver.findElement(By.id("disclaimerButton")).click();
+		
+		String expected = "#";
+		String actual = driver.getCurrentUrl();
+		
+		assertTrue(actual.contains(expected));
+	}
+	
+	@Test
 	public void validLoginTest() {
 
 		WebElement element = driver.findElement(By.name("username"));
