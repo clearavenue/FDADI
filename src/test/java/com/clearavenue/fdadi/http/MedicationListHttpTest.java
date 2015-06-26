@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.openqa.selenium.By;
@@ -33,35 +34,37 @@ public class MedicationListHttpTest {
 	static WebDriver driver;
 	static List<UserMedication> medsTestList = new ArrayList<UserMedication>();
 
+	static {
+		// Fill the List for the meds
+		medsTestList.add(new UserMedication("Eye Allergy Relief"));
+		medsTestList.add(new UserMedication("ABILIFY"));
+	}
+
+	@BeforeClass
+	public static void addTestUser() {
+		dao.save(new UserProfile(testUserName, testUserPassword));
+	}
+
 	@Before
 	public void init() {
-
 		DesiredCapabilities capabilities = DesiredCapabilities.htmlUnitWithJs();
 		capabilities.setBrowserName("firefox");
 		driver = new HtmlUnitDriver(capabilities);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
 		driver.get("https://agile.clearavenue.com/FDADI");
-
-		// Fill the List for the meds
-		medsTestList.add(new UserMedication("Eye Allergy Relief"));
-		medsTestList.add(new UserMedication("ABILIFY"));
-
 	}
 
 	@Test
 	public void validFilledMedRegisterTest() {
-
-		// Create user profile
-		UserProfile newUser = new UserProfile(testUserName, testUserPassword);
+		UserProfile user = dao.findByUserId(testUserName);
 
 		// Create Medications for user
 		UserMedication userMedAbilify = new UserMedication("ABILIFY");
 		UserMedication userMedEyeAllergy = new UserMedication("Eye Allergy Relief");
 
 		// Add medications to the user
-		dao.addUserMedication(newUser, userMedAbilify);
-		dao.addUserMedication(newUser, userMedEyeAllergy);
+		dao.addUserMedication(user, userMedAbilify, userMedEyeAllergy);
 
 		WebElement element = driver.findElement(By.id("username"));
 		element.sendKeys(testUserName);
@@ -69,7 +72,7 @@ public class MedicationListHttpTest {
 		element = driver.findElement(By.id("pwd"));
 		element.sendKeys(testUserPassword);
 
-		element = driver.findElement(By.id("registerButton"));
+		element = driver.findElement(By.id("loginButton"));
 		element.click();
 
 		String expected = "myMedications - test";
@@ -96,7 +99,7 @@ public class MedicationListHttpTest {
 
 	@After
 	public void teardown() {
-		mongo.findAndDelete(mongo.createQuery(UserProfile.class).field("userId").equal("test"));
+		mongo.findAndDelete(mongo.createQuery(UserProfile.class).field("userId").equal(testUserName));
 		driver.quit();
 	}
 }

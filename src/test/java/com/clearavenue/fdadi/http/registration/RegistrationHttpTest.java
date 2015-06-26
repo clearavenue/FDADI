@@ -82,5 +82,6 @@ public class RegistrationHttpTest {
 	@After
 	public void cleanup() {
 		mongo.findAndDelete(mongo.createQuery(UserProfile.class).field("userId").equal(testUserId));
+		driver.quit();
 	}
 }
