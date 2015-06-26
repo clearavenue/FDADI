@@ -75,7 +75,7 @@ public class Drug {
 
 	/**
 	 * Queries the FDA api for all drugs in the supplied list, and returns a List of them. If, for any drug in the list, a label could not be found, it is ignored.
-	 *
+	 * 
 	 * @param names
 	 *            List of brand or generic names of drugs to search for
 	 * @return List<Drug> containing a Drug object for every drug that was successfully found.
@@ -85,9 +85,7 @@ public class Drug {
 		for (final String s : names) {
 			String json;
 			try {
-				logger.info("Drug name: " + s);
 				json = ApiQueries.getLabel(s);
-				logger.info("JSON: " + json);
 				final Drug drug = new Drug(json);
 				out.add(drug);
 			} catch (final UnirestException e) {

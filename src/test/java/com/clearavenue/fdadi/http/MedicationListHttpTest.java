@@ -41,7 +41,7 @@ public class MedicationListHttpTest {
 		driver = new HtmlUnitDriver(capabilities);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
-		driver.get("http://52.0.199.20:8080/FDADI");
+		driver.get("https://agile.clearavenue.com/FDADI");
 
 		// Fill the List for the meds
 		medsTestList.add(new UserMedication("Eye Allergy Relief"));
