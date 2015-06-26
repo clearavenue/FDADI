@@ -3,6 +3,7 @@ package com.clearavenue.fdadi.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +16,20 @@ public class Drug {
 
 	private String brandName, genericName, sideEffects, usage, interactions, indications, counterindications;
 
+	/**
+	 * Parses the supplied JSON and constructs a Drug object. If the supplied JSON is not properly formatted, then all fields will be empty.
+	 * 
+	 * @param json
+	 *            Result of FDA Label api query containing a single drug's label info.
+	 */
 	public Drug(String json) {
-		final JSONObject data = new JSONObject(json);
+		JSONObject data;
+		try {
+			data = new JSONObject(json);
+		} catch (final JSONException e) {
+			data = new JSONObject();
+		}
+
 		if (data.has("openfda")) {
 			final JSONObject openfda = data.getJSONObject("openfda");
 			brandName = openfda.getJSONArray("brand_name").getString(0);
@@ -60,6 +73,13 @@ public class Drug {
 
 	}
 
+	/**
+	 * Queries the FDA api for all drugs in the supplied list, and returns a List of them. If, for any drug in the list, a label could not be found, it is ignored.
+	 *
+	 * @param names
+	 *            List of brand or generic names of drugs to search for
+	 * @return List<Drug> containing a Drug object for every drug that was successfully found.
+	 */
 	public static List<Drug> getDrugs(String... names) {
 		final List<Drug> out = new ArrayList<Drug>();
 		for (final String s : names) {
@@ -71,8 +91,9 @@ public class Drug {
 				final Drug drug = new Drug(json);
 				out.add(drug);
 			} catch (final UnirestException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (final JSONException e) {
+				// Drug was not found. Simply don't add it to the list.
 			}
 		}
 		return out;
