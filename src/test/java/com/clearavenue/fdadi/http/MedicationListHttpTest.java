@@ -1,13 +1,16 @@
 package com.clearavenue.fdadi.http;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Transformer;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -56,7 +59,7 @@ public class MedicationListHttpTest {
 	}
 
 	@Test
-	public void validFilledMedRegisterTest() {
+	public void validMedRegisterTest() {
 		UserProfile user = dao.findByUserId(testUserName);
 
 		// Create Medications for user
@@ -80,21 +83,19 @@ public class MedicationListHttpTest {
 
 		assertEquals(expected, actual);
 
-	}
+		List<WebElement> items = driver.findElements(By.className("list-group-item"));
+		Collection<String> medications = CollectionUtils.collect(items, new Transformer<WebElement, String>() {
 
-	// @Test
-	public void verifyMedicationList() {
-		UserProfile newUser = new UserProfile(testUserName, testUserPassword);
+			@Override
+			public String transform(WebElement input) {
+				return input.getText();
+			}
+		});
 
-		// List<UserMedication> allMedications = dao.get(testUserName).getMedications();
-
-		System.out.println("all - " + newUser.getMedications().size() + "  meds - " + medsTestList.size());
-		if (newUser.getMedications().size() == medsTestList.size()) {
-
-			medsTestList.containsAll(newUser.getMedications());
-		} else {
-			Assert.fail("Verify Medication List Test Failed: Lists are not the same size.");
+		for (UserMedication med : medsTestList) {
+			assertTrue(medications.contains(med.getMedicationName()));
 		}
+
 	}
 
 	@After

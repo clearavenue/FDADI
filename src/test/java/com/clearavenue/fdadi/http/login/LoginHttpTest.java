@@ -25,9 +25,12 @@ public class LoginHttpTest {
 	static WebDriver driver;
 	static UserProfileDAO dao = new UserProfileDAO(MongoDB.instance().getDatabase());
 
+	static final String testUserName = "loginhttptestuser";
+	static final String testUserPwd = "loginhttptestpwd";
+
 	@BeforeClass
 	public static void addTestUser() {
-		dao.save(new UserProfile("loginhttptestuser", "loginhttptestpwd"));
+		dao.save(new UserProfile(testUserName, testUserPwd));
 	}
 
 	@Before
@@ -61,15 +64,15 @@ public class LoginHttpTest {
 	@Test
 	public void validLoginTest() {
 		WebElement element = driver.findElement(By.name("username"));
-		element.sendKeys("loginhttptestuser");
+		element.sendKeys(testUserName);
 
 		element = driver.findElement(By.name("pwd"));
-		element.sendKeys("loginhttptestpwd");
+		element.sendKeys(testUserPwd);
 
 		element = driver.findElement(By.id("loginButton"));
 		element.click();
 
-		String expected = "myMedications - loginhttptestuser";
+		String expected = String.format("myMedications - %s", testUserName);
 		String actual = driver.getTitle();
 
 		assertEquals(expected, actual);
@@ -78,7 +81,7 @@ public class LoginHttpTest {
 	@Test
 	public void invalidLoginTest() {
 		WebElement element = driver.findElement(By.name("username"));
-		element.sendKeys("loginhttptestuser");
+		element.sendKeys(testUserName);
 
 		element = driver.findElement(By.name("pwd"));
 		element.sendKeys("badpassword");
@@ -102,6 +105,6 @@ public class LoginHttpTest {
 
 	@AfterClass
 	public static void removeTestUser() {
-		dao.delete(dao.findByUserId("loginhttptestuser"));
+		dao.delete(dao.findByUserId(testUserName));
 	}
 }
