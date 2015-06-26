@@ -5,7 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.TimeUnit;
 
+import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -28,18 +30,17 @@ public class RegistrationHttpTest {
 
 	@Before
 	public void init() {
-
 		final DesiredCapabilities capabilities = DesiredCapabilities.htmlUnitWithJs();
 		capabilities.setBrowserName("firefox");
 		driver = new HtmlUnitDriver(capabilities);
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 		driver.get("https://agile.clearavenue.com/FDADI");
 
 		mongo.findAndDelete(mongo.createQuery(UserProfile.class).field("userId").equal(testUserId));
 	}
 
-	// @Test
+	@Test
 	public void validRegistrationTest() {
 		WebElement element = driver.findElement(By.name("username"));
 		element.sendKeys(testUserId);
@@ -52,11 +53,10 @@ public class RegistrationHttpTest {
 
 		final String expected = "myMedications - registrationtestuser";
 		final String actual = driver.getTitle();
-		System.out.println(actual);
 		assertEquals(expected, actual);
 	}
 
-	// @Test
+	@Test
 	public void invalidRegisterTest() {
 		final UserProfile newuser = new UserProfile(testUserId, testUserPwd);
 		dao.save(newuser);
@@ -71,8 +71,16 @@ public class RegistrationHttpTest {
 		element.click();
 
 		final String url = driver.getCurrentUrl();
-		System.out.println(url);
 		assertTrue(url.contains("loginError"));
 
+		element = driver.findElement(By.id("warning"));
+		WebElement panelBody = element.findElement(By.className("panel-body"));
+		WebElement div = panelBody.findElement(By.tagName("div"));
+		assertEquals("Registration failed: Username is already taken.", div.getText());
+	}
+
+	@After
+	public void cleanup() {
+		mongo.findAndDelete(mongo.createQuery(UserProfile.class).field("userId").equal(testUserId));
 	}
 }

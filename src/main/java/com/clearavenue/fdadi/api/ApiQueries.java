@@ -19,7 +19,7 @@ public class ApiQueries {
 
 	/**
 	 * Queries the FDA Drug Label API to find a drug with the given name
-	 *
+	 * 
 	 * @param drugName
 	 *            Generic name OR Brand name of the drug
 	 * @return Entire contents of drug label, in JSON format, or an empty string if the drug was not found.
@@ -37,7 +37,6 @@ public class ApiQueries {
 		url = url.replaceAll("%25", "%22+AND+openfda.generic_name:%22");
 
 		url = url.replace(' ', '+');
-		logger.info("getLabel url: " + url);
 		try {
 			return makeQuery(url).getJSONObject(0).toString();
 		} catch (final JSONException e) {
@@ -48,7 +47,7 @@ public class ApiQueries {
 
 	/**
 	 * Queries the FDA Drug Label API to find a drug with the given pharmacologic class
-	 *
+	 * 
 	 * @param pharmClass
 	 *            Pharmacologic class
 	 * @param limit
@@ -80,7 +79,7 @@ public class ApiQueries {
 
 	/**
 	 * Returns value of findByPharmClass with default limit of 1000
-	 *
+	 * 
 	 * @param pharmClass
 	 *            Pharmocological class
 	 * @return Result of findByPharmClass(pharmClass, 1000)
@@ -92,7 +91,7 @@ public class ApiQueries {
 
 	/**
 	 * Queries the FDA API to determine whether the drug with the given generic or brand name is in an ongoing recall. Also searches the "product_description" field for drugName
-	 *
+	 * 
 	 * @param drugName
 	 *            Generic or brand name of drug
 	 * @param limit
@@ -124,7 +123,7 @@ public class ApiQueries {
 
 	/**
 	 * Returns the same thing as getRecallStatus(String, int) with default value of 10 as limit argument.
-	 *
+	 * 
 	 * @param drugName
 	 *            Generic or brand name of drug
 	 * @return Value of getRecallStatus(drugName, 10)
@@ -136,7 +135,7 @@ public class ApiQueries {
 
 	/**
 	 * Returns JSON array of all results of query
-	 *
+	 * 
 	 * @param url
 	 *            URL to be queried
 	 * @return JSONArray of all results returned by the query

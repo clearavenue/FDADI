@@ -32,7 +32,6 @@ public class LoginHttpTest {
 
 	@Before
 	public void init() {
-
 		DesiredCapabilities capabilities = DesiredCapabilities.htmlUnitWithJs();
 		capabilities.setBrowserName("firefox");
 		driver = new HtmlUnitDriver(capabilities);
@@ -43,7 +42,6 @@ public class LoginHttpTest {
 
 	@Test
 	public void validLoginPageTest() {
-
 		String expected = "myMedications Login";
 		String actual = driver.getTitle();
 
@@ -51,30 +49,17 @@ public class LoginHttpTest {
 	}
 
 	@Test
-	public void validFaqPageTest(){
+	public void validFaqPageTest() {
 		driver.findElement(By.cssSelector("a[href*='faq']")).click();
-		
+
 		String expected = "myMedications FAQ";
 		String actual = driver.getTitle();
-		
+
 		assertEquals(expected, actual);
 	}
-	
-	@Test 
-	public void validDisclaimerClickTest(){
-		
-		//This check only checks for URL containing '#' because actual URL contains sessionId which would be different each time
-		driver.findElement(By.id("disclaimerButton")).click();
-		
-		String expected = "#";
-		String actual = driver.getCurrentUrl();
-		
-		assertTrue(actual.contains(expected));
-	}
-	
+
 	@Test
 	public void validLoginTest() {
-
 		WebElement element = driver.findElement(By.name("username"));
 		element.sendKeys("loginhttptestuser");
 
@@ -92,7 +77,6 @@ public class LoginHttpTest {
 
 	@Test
 	public void invalidLoginTest() {
-
 		WebElement element = driver.findElement(By.name("username"));
 		element.sendKeys("loginhttptestuser");
 
@@ -104,6 +88,11 @@ public class LoginHttpTest {
 
 		String url = driver.getCurrentUrl();
 		assertTrue(url.contains("loginError"));
+
+		element = driver.findElement(By.id("warning"));
+		WebElement panelBody = element.findElement(By.className("panel-body"));
+		WebElement div = panelBody.findElement(By.tagName("div"));
+		assertEquals("Invalid login/password", div.getText());
 	}
 
 	@After
