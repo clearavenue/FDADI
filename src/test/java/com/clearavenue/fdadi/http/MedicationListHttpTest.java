@@ -13,6 +13,7 @@ import org.apache.commons.collections4.Transformer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 import org.openqa.selenium.By;
@@ -26,6 +27,7 @@ import com.clearavenue.data.UserProfileDAO;
 import com.clearavenue.data.objects.UserMedication;
 import com.clearavenue.data.objects.UserProfile;
 
+@Ignore
 public class MedicationListHttpTest {
 
 	private static final Datastore mongo = MongoDB.instance().getDatabase();

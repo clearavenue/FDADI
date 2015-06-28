@@ -30,6 +30,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import com.clearavenue.data.MongoDB;
+import com.clearavenue.data.UserProfileDAO;
 import com.clearavenue.data.objects.UserProfile;
 import com.clearavenue.fdadi.api.RecallEvent;
 
@@ -83,11 +84,14 @@ public class FDADIControllerTest {
 
 	@Test
 	public void loginTest() {
+		UserProfileDAO dao = new UserProfileDAO(MongoDB.instance().getDatabase());
+		dao.save(new UserProfile(testUserId, testUserPwd));
+
 		session.removeAttribute("username");
-		final MockHttpServletRequestBuilder request = post("/processLogin").session(session).param("username", "bill").param("pwd", "hunt");
+		final MockHttpServletRequestBuilder request = post("/processLogin").session(session).param("username", testUserId).param("pwd", testUserPwd);
 		try {
 			final ResultActions results = mockMvc.perform(request);
-			results.andExpect(request().sessionAttribute("username", Matchers.equalTo("bill")));
+			results.andExpect(request().sessionAttribute("username", Matchers.equalTo(testUserId)));
 			results.andExpect(MockMvcResultMatchers.redirectedUrl("/"));
 		} catch (final Exception e) {
 			fail("Exception: " + e.getMessage());

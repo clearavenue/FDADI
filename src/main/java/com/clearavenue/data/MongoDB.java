@@ -41,6 +41,8 @@ public class MongoDB {
 			datastore.ensureIndexes();
 
 			logger.info("Connection to database [{}] initialized", DB_NAME);
+
+			initCollections();
 		} catch (final IOException e) {
 			logger.error("Failed to init MongoDB: {}.", e.getMessage());
 		}
@@ -57,4 +59,18 @@ public class MongoDB {
 	public void close() {
 		mongoClient.close();
 	}
+
+	private void initCollections() {
+		// if there is nothing in the AllMedications and AllPharmClasses, then populate them
+		AllMedicationsDAO medDAO = new AllMedicationsDAO(getDatabase());
+		AllPharmClassesDAO pcDAO = new AllPharmClassesDAO(getDatabase());
+
+		if (medDAO.count() == 0) {
+			medDAO.initCollection();
+		}
+		if (pcDAO.count() == 0) {
+			pcDAO.initCollection();
+		}
+	}
+
 }
