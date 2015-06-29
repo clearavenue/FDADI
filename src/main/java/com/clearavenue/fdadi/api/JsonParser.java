@@ -1,19 +1,31 @@
+/*
+ *
+ */
 package com.clearavenue.fdadi.api;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class JsonParser {
+/**
+ * The Class JsonParser.
+ */
+public final class JsonParser {
 
 	/**
-	 * Returns the contents of the drug_interactions field of the supplied json
-	 * 
+	 * Do not instantiate a new json parser.
+	 */
+	private JsonParser() {
+	}
+
+	/**
+	 * Returns the contents of the drug_interactions field of the supplied json.
+	 *
 	 * @param json
 	 *            String containing the JSON data retrieved from the FDA label API
 	 * @return String describing drug interactions, or an empty string if there are none in the supplied JSON.
 	 */
-	public static String getInteractions(String json) {
+	public static String getInteractions(final String json) {
 		final StringBuilder out = new StringBuilder();
 
 		try {

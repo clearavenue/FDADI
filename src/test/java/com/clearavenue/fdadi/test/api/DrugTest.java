@@ -1,4 +1,7 @@
-package com.clearavenue.fdadi.api;
+/*
+ *
+ */
+package com.clearavenue.fdadi.test.api;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -11,15 +14,30 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.clearavenue.fdadi.api.ApiQueries;
+import com.clearavenue.fdadi.api.Drug;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+/**
+ * The Class DrugTest.
+ */
 public class DrugTest {
 
+	/** The label. */
 	private static String label;
+
+	/** The zoloft. */
 	private static Drug zoloft;
+
+	/** The blank label. */
 	private static String blankLabel;
+
+	/** The blank drug. */
 	private static Drug blankDrug;
 
+	/**
+	 * Gets the zoloft label.
+	 */
 	@BeforeClass
 	public static void getZoloftLabel() {
 		try {
@@ -33,8 +51,11 @@ public class DrugTest {
 		}
 	}
 
+	/**
+	 * Gets the adverse effects test.
+	 */
 	@Test
-	public void getAdverseEffectsTest() {
+	public final void getAdverseEffectsTest() {
 		if (StringUtils.isBlank(label)) {
 			fail("Zoloft label should not be empty");
 		}
@@ -43,8 +64,11 @@ public class DrugTest {
 		assertTrue(sideEffects.contains("Nausea"));
 	}
 
+	/**
+	 * Gets the no adverse effects test.
+	 */
 	@Test
-	public void getNoAdverseEffectsTest() {
+	public final void getNoAdverseEffectsTest() {
 		if (StringUtils.isBlank(label)) {
 			fail("Zoloft label should not be empty");
 		}
@@ -53,8 +77,11 @@ public class DrugTest {
 		assertFalse(sideEffects.contains("Leprosy"));
 	}
 
+	/**
+	 * Gets the usage test.
+	 */
 	@Test
-	public void getUsageTest() {
+	public final void getUsageTest() {
 		if (StringUtils.isBlank(label)) {
 			fail("Zoloft label should not be empty");
 		}
@@ -63,8 +90,11 @@ public class DrugTest {
 		assertTrue(usage.contains("Panic"));
 	}
 
+	/**
+	 * Gets the not usage test.
+	 */
 	@Test
-	public void getNotUsageTest() {
+	public final void getNotUsageTest() {
 		if (StringUtils.isBlank(label)) {
 			fail("Zoloft label should not be empty");
 		}
@@ -73,8 +103,11 @@ public class DrugTest {
 		assertFalse(usage.contains("Birth Control"));
 	}
 
+	/**
+	 * Gets the contraindications test.
+	 */
 	@Test
-	public void getContraindicationsTest() {
+	public final void getContraindicationsTest() {
 		if (StringUtils.isBlank(label)) {
 			fail("Zoloft label should not be empty");
 		}
@@ -83,8 +116,11 @@ public class DrugTest {
 		assertTrue(usage.contains("disulfiram"));
 	}
 
+	/**
+	 * Gets the no contraindications test.
+	 */
 	@Test
-	public void getNoContraindicationsTest() {
+	public final void getNoContraindicationsTest() {
 		if (StringUtils.isBlank(label)) {
 			fail("Zoloft label should not be empty");
 		}
@@ -93,42 +129,65 @@ public class DrugTest {
 		assertFalse(usage.contains("vitamin c"));
 	}
 
+	/**
+	 * Checks if is name blank test.
+	 */
 	@Test
-	public void isNameBlankTest() {
+	public final void isNameBlankTest() {
 		assertTrue(StringUtils.isBlank(blankDrug.getBrandName()));
 	}
 
+	/**
+	 * Checks if is generic name blank test.
+	 */
 	@Test
-	public void isGenericNameBlankTest() {
+	public final void isGenericNameBlankTest() {
 		assertTrue(StringUtils.isBlank(blankDrug.getGenericName()));
 	}
 
+	/**
+	 * Checks if is usage blank test.
+	 */
 	@Test
-	public void isUsageBlankTest() {
+	public final void isUsageBlankTest() {
 		assertTrue(StringUtils.isBlank(blankDrug.getUsage()));
 	}
 
+	/**
+	 * Checks if is interactions blank test.
+	 */
 	@Test
-	public void isInteractionsBlankTest() {
+	public final void isInteractionsBlankTest() {
 		assertTrue(StringUtils.isBlank(blankDrug.getInteractions()));
 	}
 
+	/**
+	 * Checks if is indications blank test.
+	 */
 	@Test
-	public void isIndicationsBlankTest() {
+	public final void isIndicationsBlankTest() {
 		assertTrue(StringUtils.isBlank(blankDrug.getIndications()));
 	}
 
+	/**
+	 * Checks if is counterindications blank test.
+	 */
 	@Test
-	public void isCounterindicationsBlankTest() {
+	public final void isCounterindicationsBlankTest() {
 		assertTrue(StringUtils.isBlank(blankDrug.getCounterindications()));
 	}
 
+	/**
+	 * Gets the all drugs test.
+	 *
+	 */
 	@Test
-	public void getAllDrugsTest() {
+	public final void getAllDrugsTest() {
+		final int expectedSize = 3;
 		final List<Drug> drugs = Drug.getDrugs("Zoloft", "", "Ibuprofen");
 		assertTrue(drugs.get(0).getBrandName().toLowerCase().contains("zoloft"));
 		assertTrue(StringUtils.isBlank(drugs.get(1).getBrandName()));
 		assertTrue(drugs.get(2).getBrandName().toLowerCase().contains("ibuprofen"));
-		assertEquals(drugs.size(), 3);
+		assertEquals(expectedSize, drugs.size());
 	}
 }

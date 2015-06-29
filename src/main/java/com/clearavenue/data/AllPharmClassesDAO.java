@@ -1,3 +1,6 @@
+/*
+ *
+ */
 package com.clearavenue.data;
 
 import java.util.ArrayList;
@@ -8,18 +11,35 @@ import org.mongodb.morphia.dao.BasicDAO;
 
 import com.clearavenue.data.objects.AllPharmClasses;
 
+/**
+ * The Class AllPharmClassesDAO.
+ */
 public class AllPharmClassesDAO extends BasicDAO<AllPharmClasses, String> {
 
-	public AllPharmClassesDAO(Datastore ds) {
+	/**
+	 * Instantiates a new all pharm classes dao.
+	 *
+	 * @param ds
+	 *            the ds
+	 */
+	public AllPharmClassesDAO(final Datastore ds) {
 		super(ds);
 	}
 
-	public List<String> findAll() {
+	/**
+	 * Find all.
+	 *
+	 * @return the list
+	 */
+	public final List<String> findAll() {
 		return find().asList().get(0).getPharmClassNames();
 	}
 
-	public void initCollection() {
-		List<String> pharm = new ArrayList<String>();
+	/**
+	 * Inits the collection.
+	 */
+	public final void initCollection() {
+		final List<String> pharm = new ArrayList<String>();
 		pharm.add("5-alpha Reductase Inhibitor [EPC]");
 		pharm.add("5-Lipoxygenase Inhibitor [EPC]");
 		pharm.add("Acetylcholine Release Inhibitor [EPC]");
@@ -440,7 +460,7 @@ public class AllPharmClassesDAO extends BasicDAO<AllPharmClasses, String> {
 		pharm.add("Warfarin Reversal Agent [EPC]");
 		pharm.add("Xanthine Oxidase Inhibitor [EPC]");
 
-		AllPharmClasses all = new AllPharmClasses();
+		final AllPharmClasses all = new AllPharmClasses();
 		all.getPharmClassNames().addAll(pharm);
 		save(all);
 	}

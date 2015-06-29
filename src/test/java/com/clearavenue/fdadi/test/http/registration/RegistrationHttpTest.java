@@ -1,4 +1,7 @@
-package com.clearavenue.fdadi.http.registration;
+/*
+ *
+ */
+package com.clearavenue.fdadi.test.http.registration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -19,34 +22,54 @@ import com.clearavenue.data.MongoDB;
 import com.clearavenue.data.UserProfileDAO;
 import com.clearavenue.data.objects.UserProfile;
 
+/**
+ * The Class RegistrationHttpTest.
+ */
 public class RegistrationHttpTest {
 
-	static WebDriver driver;
-	private static final Datastore mongo = MongoDB.instance().getDatabase();
-	private static final UserProfileDAO dao = new UserProfileDAO(mongo);
+	/** The driver. */
+	private static WebDriver driver;
 
-	private final String testUserId = "registrationtestuser";
-	private final String testUserPwd = "newpwd";
+	/** The Constant mongo. */
+	private static final Datastore MONGO = MongoDB.instance().getDatabase();
 
+	/** The Constant dao. */
+	private static final UserProfileDAO DAO = new UserProfileDAO(MONGO);
+
+	/** The test user id. */
+	private static final String TEST_USERID = "registrationtestuser";
+
+	/** The test user pwd. */
+	private static final String TEST_PWD = "newpwd";
+
+	/** The Constant TIMEOUT. */
+	private static final long TIMEOUT = 5;
+
+	/**
+	 * Inits the.
+	 */
 	@Before
-	public void init() {
+	public final void init() {
 		final DesiredCapabilities capabilities = DesiredCapabilities.htmlUnitWithJs();
 		capabilities.setBrowserName("firefox");
 		driver = new HtmlUnitDriver(capabilities);
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(TIMEOUT, TimeUnit.SECONDS);
 
 		driver.get("https://agile.clearavenue.com/FDADI");
 
-		mongo.findAndDelete(mongo.createQuery(UserProfile.class).field("userId").equal(testUserId));
+		MONGO.findAndDelete(MONGO.createQuery(UserProfile.class).field("userId").equal(TEST_USERID));
 	}
 
+	/**
+	 * Valid registration test.
+	 */
 	@Test
-	public void validRegistrationTest() {
+	public final void validRegistrationTest() {
 		WebElement element = driver.findElement(By.name("username"));
-		element.sendKeys(testUserId);
+		element.sendKeys(TEST_USERID);
 
 		element = driver.findElement(By.name("pwd"));
-		element.sendKeys(testUserPwd);
+		element.sendKeys(TEST_PWD);
 
 		element = driver.findElement(By.id("registerButton"));
 		element.click();
@@ -56,16 +79,19 @@ public class RegistrationHttpTest {
 		assertEquals(expected, actual);
 	}
 
+	/**
+	 * Invalid register test.
+	 */
 	@Test
-	public void invalidRegisterTest() {
-		final UserProfile newuser = new UserProfile(testUserId, testUserPwd);
-		dao.save(newuser);
+	public final void invalidRegisterTest() {
+		final UserProfile newuser = new UserProfile(TEST_USERID, TEST_PWD);
+		DAO.save(newuser);
 
 		WebElement element = driver.findElement(By.name("username"));
-		element.sendKeys(testUserId);
+		element.sendKeys(TEST_USERID);
 
 		element = driver.findElement(By.name("pwd"));
-		element.sendKeys(testUserPwd);
+		element.sendKeys(TEST_PWD);
 
 		element = driver.findElement(By.id("registerButton"));
 		element.click();
@@ -74,14 +100,17 @@ public class RegistrationHttpTest {
 		assertTrue(url.contains("loginError"));
 
 		element = driver.findElement(By.id("warning"));
-		WebElement panelBody = element.findElement(By.className("panel-body"));
-		WebElement div = panelBody.findElement(By.tagName("div"));
+		final WebElement panelBody = element.findElement(By.className("panel-body"));
+		final WebElement div = panelBody.findElement(By.tagName("div"));
 		assertEquals("Registration failed: Username is already taken.", div.getText());
 	}
 
+	/**
+	 * Cleanup.
+	 */
 	@After
-	public void cleanup() {
-		mongo.findAndDelete(mongo.createQuery(UserProfile.class).field("userId").equal(testUserId));
+	public final void cleanup() {
+		MONGO.findAndDelete(MONGO.createQuery(UserProfile.class).field("userId").equal(TEST_USERID));
 		driver.quit();
 	}
 }

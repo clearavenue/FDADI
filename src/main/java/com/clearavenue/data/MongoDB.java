@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.clearavenue.data;
 
 import java.io.IOException;
@@ -15,55 +18,85 @@ import com.clearavenue.data.objects.UserProfile;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 
-public class MongoDB {
-	private static final Logger logger = LoggerFactory.getLogger(MongoDB.class);
+/**
+ * The Class MongoDB.
+ */
+public final class MongoDB {
 
+	/** The Constant logger. */
+	private static final Logger LOGGER = LoggerFactory.getLogger(MongoDB.class);
+
+	/** The Constant INSTANCE. */
 	private static final MongoDB INSTANCE = new MongoDB();
 
+	/** The datastore. */
 	private Datastore datastore;
 
+	/** The Constant DB_NAME. */
 	public static final String DB_NAME = "fdadi";
 
-	protected MongoClient mongoClient;
+	/** The mongo client. */
+	private MongoClient mongoClient;
 
+	/**
+	 * Instantiates a new mongo db.
+	 */
 	private MongoDB() {
 		try {
-			Properties properties = new Properties();
+			final Properties properties = new Properties();
 			properties.load(getClass().getClassLoader().getResourceAsStream("myMedications.properties"));
-			String dbIP = properties.getProperty("mongoServerHost");
-			int dbPort = Integer.parseInt(properties.getProperty("mongoServerPort"));
+			final String dbIP = properties.getProperty("mongoServerHost");
+			final int dbPort = Integer.parseInt(properties.getProperty("mongoServerPort"));
 
-			logger.info("Connecting to [{}:{}]", dbIP, dbPort);
+			LOGGER.info("Connecting to [{}:{}]", dbIP, dbPort);
 			mongoClient = new MongoClient(dbIP, dbPort);
 			mongoClient.setWriteConcern(WriteConcern.ACKNOWLEDGED);
 
 			datastore = new Morphia().map(UserProfile.class, UserMedication.class, AllMedications.class, AllPharmClasses.class).createDatastore(mongoClient, DB_NAME);
 			datastore.ensureIndexes();
 
-			logger.info("Connection to database [{}] initialized", DB_NAME);
+			LOGGER.info("Connection to database [{}] initialized", DB_NAME);
 
 			initCollections();
 		} catch (final IOException e) {
-			logger.error("Failed to init MongoDB: {}.", e.getMessage());
+			if (LOGGER.isErrorEnabled()) {
+				LOGGER.error("Failed to init MongoDB: {}.", e.getMessage());
+			}
 		}
 	}
 
+	/**
+	 * Instance.
+	 *
+	 * @return the mongo db
+	 */
 	public static MongoDB instance() {
 		return INSTANCE;
 	}
 
+	/**
+	 * Gets the database.
+	 *
+	 * @return the database
+	 */
 	public Datastore getDatabase() {
 		return datastore;
 	}
 
+	/**
+	 * Close.
+	 */
 	public void close() {
 		mongoClient.close();
 	}
 
+	/**
+	 * Inits the collections.
+	 */
 	private void initCollections() {
 		// if there is nothing in the AllMedications and AllPharmClasses, then populate them
-		AllMedicationsDAO medDAO = new AllMedicationsDAO(getDatabase());
-		AllPharmClassesDAO pcDAO = new AllPharmClassesDAO(getDatabase());
+		final AllMedicationsDAO medDAO = new AllMedicationsDAO(getDatabase());
+		final AllPharmClassesDAO pcDAO = new AllPharmClassesDAO(getDatabase());
 
 		if (medDAO.count() == 0) {
 			medDAO.initCollection();

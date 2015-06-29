@@ -1,3 +1,6 @@
+/*
+ *
+ */
 package com.clearavenue.fdadi.api;
 
 import java.util.ArrayList;
@@ -7,7 +10,16 @@ import java.util.Locale;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-public class DrugInteractions {
+/**
+ * The Class DrugInteractions.
+ */
+public final class DrugInteractions {
+
+	/**
+	 * Do not instantiate a new drug interactions.
+	 */
+	private DrugInteractions() {
+	}
 
 	/**
 	 * Finds all mentions of each drug's generic and brand name within the drug interactions entry of each other drug.
@@ -17,8 +29,9 @@ public class DrugInteractions {
 	 * @return Hashmap where the keys are each drug that has an interaction with another. The value of each key is a list of the names of drugs which have an interaction with that
 	 *         key If a drug has no interactions, it will not exist as a key in the map.
 	 * @throws UnirestException
+	 *             the unirest exception
 	 */
-	public static HashMap<String, ArrayList<String>> findInteractions(List<String> drugs) throws UnirestException {
+	public static HashMap<String, ArrayList<String>> findInteractions(final List<String> drugs) throws UnirestException {
 		final HashMap<String, ArrayList<String>> out = new HashMap<>();
 
 		final String[] interactions = new String[drugs.size()];

@@ -1,4 +1,7 @@
-package com.clearavenue.fdadi.api;
+/*
+ * 
+ */
+package com.clearavenue.fdadi.test.api;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -11,12 +14,19 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import com.clearavenue.fdadi.api.DrugInteractions;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+/**
+ * The Class DrugInteractionsTest.
+ */
 public class DrugInteractionsTest {
 
+	/**
+	 * Find interactions test.
+	 */
 	@Test
-	public void findInteractionsTest() {
+	public final void findInteractionsTest() {
 		final List<String> drugs = new ArrayList<String>();
 		drugs.add("glimepiride");
 		drugs.add("methocarbamol");

@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.clearavenue.fdadi.api;
 
 import java.util.ArrayList;
@@ -5,24 +8,42 @@ import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+/**
+ * The Class Drug.
+ */
 public class Drug {
 
-	private static final Logger logger = LoggerFactory.getLogger(Drug.class);
+	/** The brand name. */
+	private String brandName;
 
-	private String brandName, genericName, sideEffects, usage, interactions, indications, counterindications;
+	/** The generic name. */
+	private String genericName;
+
+	/** The side effects. */
+	private String sideEffects;
+
+	/** The usage. */
+	private String usage;
+
+	/** The interactions. */
+	private String interactions;
+
+	/** The indications. */
+	private String indications;
+
+	/** The counterindications. */
+	private String counterindications;
 
 	/**
 	 * Parses the supplied JSON and constructs a Drug object. If the supplied JSON is not properly formatted, then all fields will be empty.
-	 * 
+	 *
 	 * @param json
 	 *            Result of FDA Label api query containing a single drug's label info.
 	 */
-	public Drug(String json) {
+	public Drug(final String json) {
 		JSONObject data;
 		try {
 			data = new JSONObject(json);
@@ -75,12 +96,12 @@ public class Drug {
 
 	/**
 	 * Queries the FDA api for all drugs in the supplied list, and returns a List of them. If, for any drug in the list, a label could not be found, it is ignored.
-	 * 
+	 *
 	 * @param names
 	 *            List of brand or generic names of drugs to search for
 	 * @return List<Drug> containing a Drug object for every drug that was successfully found.
 	 */
-	public static List<Drug> getDrugs(String... names) {
+	public static List<Drug> getDrugs(final String... names) {
 		final List<Drug> out = new ArrayList<Drug>();
 		for (final String s : names) {
 			String json;
@@ -97,31 +118,66 @@ public class Drug {
 		return out;
 	}
 
-	public String getBrandName() {
+	/**
+	 * Gets the brand name.
+	 *
+	 * @return the brand name
+	 */
+	public final String getBrandName() {
 		return brandName;
 	}
 
-	public String getGenericName() {
+	/**
+	 * Gets the generic name.
+	 *
+	 * @return the generic name
+	 */
+	public final String getGenericName() {
 		return genericName;
 	}
 
-	public String getSideEffects() {
+	/**
+	 * Gets the side effects.
+	 *
+	 * @return the side effects
+	 */
+	public final String getSideEffects() {
 		return sideEffects;
 	}
 
-	public String getUsage() {
+	/**
+	 * Gets the usage.
+	 *
+	 * @return the usage
+	 */
+	public final String getUsage() {
 		return usage;
 	}
 
-	public String getInteractions() {
+	/**
+	 * Gets the interactions.
+	 *
+	 * @return the interactions
+	 */
+	public final String getInteractions() {
 		return interactions;
 	}
 
-	public String getIndications() {
+	/**
+	 * Gets the indications.
+	 *
+	 * @return the indications
+	 */
+	public final String getIndications() {
 		return indications;
 	}
 
-	public String getCounterindications() {
+	/**
+	 * Gets the counterindications.
+	 *
+	 * @return the counterindications
+	 */
+	public final String getCounterindications() {
 		return counterindications;
 	}
 

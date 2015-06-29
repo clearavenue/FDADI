@@ -7,11 +7,15 @@
 			<level>TRACE</level>
 		</filter>
 	</appender>
-	
-	<logger name="com.gargoylesoftware.htmlunit.DefaultCssErrorHandler" level="OFF" />
-	<logger name="com.gargoylesoftware.htmlunit.javascript.StrictErrorReporter" level="OFF" />
-	<logger name="com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleSheet" level="OFF" />
- 
+
+	<logger name="com.gargoylesoftware.htmlunit.DefaultCssErrorHandler"
+		level="OFF" />
+	<logger name="com.gargoylesoftware.htmlunit.javascript.StrictErrorReporter"
+		level="OFF" />
+	<logger
+		name="com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleSheet"
+		level="OFF" />
+
 	<root>
 		<level value="INFO" />
 		<appender-ref ref="consoleAppender" />

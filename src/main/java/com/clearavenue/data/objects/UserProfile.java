@@ -1,3 +1,6 @@
+/*
+ *
+ */
 package com.clearavenue.data.objects;
 
 import java.util.ArrayList;
@@ -8,43 +11,89 @@ import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
+/**
+ * The Class UserProfile.
+ */
 @Entity
 public class UserProfile {
 
+	/** The id. */
 	@Id
 	private ObjectId id;
 
+	/** The user id. */
 	private String userId;
+
+	/** The password. */
 	private String password;
 
+	/** The medications. */
 	@Embedded
 	private final List<UserMedication> medications = new ArrayList<UserMedication>();
 
+	/**
+	 * Instantiates a new user profile.
+	 */
 	public UserProfile() {
 	}
 
-	public UserProfile(String username, String password) {
+	/**
+	 * Instantiates a new user profile.
+	 *
+	 * @param username
+	 *            the username
+	 * @param pwd
+	 *            the password
+	 */
+	public UserProfile(final String username, final String pwd) {
 		setUserId(username);
-		setPassword(password);
+		setPassword(pwd);
 	}
 
-	public String getUserId() {
+	/**
+	 * Gets the user id.
+	 *
+	 * @return the user id
+	 */
+	public final String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	/**
+	 * Sets the user id.
+	 *
+	 * @param uid
+	 *            the new user id
+	 */
+	public final void setUserId(final String uid) {
+		userId = uid;
 	}
 
-	public String getPassword() {
+	/**
+	 * Gets the password.
+	 *
+	 * @return the password
+	 */
+	public final String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	/**
+	 * Sets the password.
+	 *
+	 * @param pwd
+	 *            the new password
+	 */
+	public final void setPassword(final String pwd) {
+		password = pwd;
 	}
 
-	public List<UserMedication> getMedications() {
+	/**
+	 * Gets the medications.
+	 *
+	 * @return the medications
+	 */
+	public final List<UserMedication> getMedications() {
 		return medications;
 	}
 }

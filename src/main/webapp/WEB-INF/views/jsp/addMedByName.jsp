@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -14,8 +15,10 @@
 <c:url value="/logout" var="logout" />
 <c:url value="/faq" var="faq" />
 
-<link href="${resources}/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
-<link href="${resources}/css/fdadi.css" rel="stylesheet" type="text/css" media="screen">
+<link href="${resources}/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" media="screen">
+<link href="${resources}/css/fdadi.css" rel="stylesheet" type="text/css"
+	media="screen">
 
 <!--[if lt IE 9]>
 	<script src="${resources}/js/html5shiv.min.js"></script>
@@ -27,21 +30,25 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="${index}"><img class="img-responsive" src="${resources}/img/clearAvenue_highres.jpg" alt="clearAvenue logo"/></a>
+				<a class="navbar-brand" href="${index}"><img
+					class="img-responsive"
+					src="${resources}/img/clearAvenue_highres.jpg"
+					alt="clearAvenue logo" /></a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="${faq}">FAQ</a></li>
-				    <li><a href="#" id="disclaimerButton">Disclaimer</a></li>
+					<li><a href="#" id="disclaimerButton">Disclaimer</a></li>
 					<li><a href='${logout}'>Logout</a></li>
 				</ul>
-			</div>			
+			</div>
 		</div>
 	</nav>
 	<div class="container fdadi-template">
@@ -50,7 +57,7 @@
 				<div class="panel panel-info">
 					<div class="panel-heading">Medication List</div>
 					<div class="panel-body">
-						<div style="max-height: 500px;overflow: auto">
+						<div style="max-height: 500px; overflow: auto">
 							<ul id="medListBox" class="list-group checked-list-box">
 							</ul>
 						</div>
@@ -58,17 +65,21 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<button type="button" id="addButton" class="btn btn-primary actionButton">Add Medication</button>
-				<button type="button" id="clearButton" class="btn btn-primary actionButton">Uncheck</button>
-				<button type="button" id="cancelButton" class="btn btn-primary actionButton">Cancel</button>
+				<button type="button" id="addButton"
+					class="btn btn-primary actionButton">Add Medication</button>
+				<button type="button" id="clearButton"
+					class="btn btn-primary actionButton">Uncheck</button>
+				<button type="button" id="cancelButton"
+					class="btn btn-primary actionButton">Cancel</button>
 			</div>
 		</div>
 	</div>
 
-	<script src="${resources}/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+	<script src="${resources}/js/jquery-2.1.4.min.js"
+		type="text/javascript"></script>
 	<script src="${resources}/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="${resources}/js/checklistbox.js" type="text/javascript"></script>
-    <script src="${resources}/js/bootbox.min.js" type="text/javascript"></script>
+	<script src="${resources}/js/bootbox.min.js" type="text/javascript"></script>
 
 	<script>
 

@@ -1,3 +1,6 @@
+/*
+ *
+ */
 package com.clearavenue.fdadi;
 
 import java.util.ArrayList;
@@ -36,19 +39,43 @@ import com.clearavenue.fdadi.api.DrugInteractions;
 import com.clearavenue.fdadi.api.RecallEvent;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+/**
+ * The Class FDADIController.
+ */
 @Controller
 public class FDADIController {
 
-	private static final Logger logger = LoggerFactory.getLogger(FDADIController.class);
-	private static final Datastore mongo = MongoDB.instance().getDatabase();
-	private static final UserProfileDAO userDAO = new UserProfileDAO(mongo);
-	private static final AllMedicationsDAO allmedDAO = new AllMedicationsDAO(mongo);
-	private static final AllPharmClassesDAO allpharmDAO = new AllPharmClassesDAO(mongo);
+	/** The Constant logger. */
+	private static final Logger LOGGER = LoggerFactory.getLogger(FDADIController.class);
 
-	public String errMsg = "";
+	/** The Constant mongo. */
+	private static final Datastore MONGO = MongoDB.instance().getDatabase();
 
+	/** The Constant userDAO. */
+	private static final UserProfileDAO USER_DAO = new UserProfileDAO(MONGO);
+
+	/** The Constant allmedDAO. */
+	private static final AllMedicationsDAO ALLMED_DAO = new AllMedicationsDAO(MONGO);
+
+	/** The Constant allpharmDAO. */
+	private static final AllPharmClassesDAO ALLPHARM_DAO = new AllPharmClassesDAO(MONGO);
+
+	/** The err msg. */
+	private String errMsg = "";
+
+	/**
+	 * Index.
+	 *
+	 * @param req
+	 *            the req
+	 * @param map
+	 *            the map
+	 * @return the string
+	 * @throws UnirestException
+	 *             the unirest exception
+	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(HttpServletRequest req, final ModelMap map) throws UnirestException {
+	public final String index(final HttpServletRequest req, final ModelMap map) throws UnirestException {
 		// check if logged in and if not redirect to login
 		final HttpSession session = req.getSession();
 		final String loggedInUsername = (String) session.getAttribute("username");
@@ -56,7 +83,7 @@ public class FDADIController {
 			return "redirect:/login";
 		}
 
-		final UserProfile user = userDAO.findByUserId(loggedInUsername);
+		final UserProfile user = USER_DAO.findByUserId(loggedInUsername);
 		final List<UserMedication> medications = user.getMedications();
 		Collections.sort(medications);
 		map.addAttribute("medList", medications);
@@ -74,7 +101,9 @@ public class FDADIController {
 				final List<RecallEvent> recallList = ApiQueries.getRecallStatus(med, 1);
 				if (recallList.size() > 0) {
 					recalls.add(med);
-					logger.debug("Adding [" + med + "] to recall list.");
+					if (LOGGER.isDebugEnabled()) {
+						LOGGER.debug("Adding [" + med + "] to recall list.");
+					}
 				}
 			}
 			map.addAttribute("recallList", recalls);
@@ -85,15 +114,31 @@ public class FDADIController {
 		return "index";
 	}
 
+	/**
+	 * Faq.
+	 *
+	 * @param req
+	 *            the req
+	 * @param map
+	 *            the map
+	 * @return the string
+	 */
 	@RequestMapping(value = "/faq", method = RequestMethod.GET)
-	public String faq(HttpServletRequest req, ModelMap map) {
+	public final String faq(final HttpServletRequest req, final ModelMap map) {
 		final String loggedInUsername = (String) req.getSession().getAttribute("username");
 		map.addAttribute("loggedIn", !StringUtils.isBlank(loggedInUsername));
 		return "faq";
 	}
 
+	/**
+	 * Login.
+	 *
+	 * @param map
+	 *            the map
+	 * @return the string
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(final ModelMap map) {
+	public final String login(final ModelMap map) {
 		if (StringUtils.isNotEmpty(errMsg)) {
 			map.addAttribute("errMsg", errMsg);
 		}
@@ -101,8 +146,17 @@ public class FDADIController {
 		return "login";
 	}
 
+	/**
+	 * Process login.
+	 *
+	 * @param req
+	 *            the req
+	 * @param map
+	 *            the map
+	 * @return the string
+	 */
 	@RequestMapping(value = "/processLogin", method = RequestMethod.POST)
-	public String processLogin(HttpServletRequest req, final ModelMap map) {
+	public final String processLogin(final HttpServletRequest req, final ModelMap map) {
 		final String username = StringUtils.defaultString(req.getParameter("username"));
 		final String pwd = StringUtils.defaultString(req.getParameter("pwd"));
 
@@ -121,8 +175,17 @@ public class FDADIController {
 		return view;
 	}
 
+	/**
+	 * Register user.
+	 *
+	 * @param req
+	 *            the req
+	 * @param map
+	 *            the map
+	 * @return the string
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerUser(HttpServletRequest req, final ModelMap map) {
+	public final String registerUser(final HttpServletRequest req, final ModelMap map) {
 		final String username = StringUtils.defaultString(req.getParameter("username"));
 		final String pwd = StringUtils.defaultString(req.getParameter("pwd"));
 
@@ -139,8 +202,17 @@ public class FDADIController {
 		return view;
 	}
 
+	/**
+	 * Adds the med by name.
+	 *
+	 * @param req
+	 *            the req
+	 * @param map
+	 *            the map
+	 * @return the string
+	 */
 	@RequestMapping(value = "/addMedByName", method = RequestMethod.GET)
-	public String addMedByName(HttpServletRequest req, final ModelMap map) {
+	public final String addMedByName(final HttpServletRequest req, final ModelMap map) {
 		// check if logged in and if not redirect to login
 		final HttpSession session = req.getSession();
 		final String loggedInUsername = (String) session.getAttribute("username");
@@ -148,14 +220,23 @@ public class FDADIController {
 			return "redirect:/login";
 		}
 
-		final QueryResults<AllMedications> all = allmedDAO.find();
+		final QueryResults<AllMedications> all = ALLMED_DAO.find();
 		map.addAttribute("allMeds", all.asList().get(0).getMedicationNames());
 
 		return "addMedByName";
 	}
 
+	/**
+	 * Process add med by name.
+	 *
+	 * @param req
+	 *            the req
+	 * @param map
+	 *            the map
+	 * @return the string
+	 */
 	@RequestMapping(value = "/processAddMedByName", method = RequestMethod.POST)
-	public String processAddMedByName(HttpServletRequest req, final ModelMap map) {
+	public final String processAddMedByName(final HttpServletRequest req, final ModelMap map) {
 		// check if logged in and if not redirect to login
 		final HttpSession session = req.getSession();
 		final String loggedInUsername = (String) session.getAttribute("username");
@@ -163,20 +244,29 @@ public class FDADIController {
 			return "redirect:/login";
 		}
 
-		final UserProfile user = userDAO.findByUserId(loggedInUsername);
+		final UserProfile user = USER_DAO.findByUserId(loggedInUsername);
 
 		final String medParam = req.getParameter("meds");
 		final String[] meds = medParam.split("---,---");
 
 		for (final String medication : meds) {
-			userDAO.addUserMedication(user, new UserMedication(medication));
+			USER_DAO.addUserMedication(user, new UserMedication(medication));
 		}
 
 		return "redirect:/";
 	}
 
+	/**
+	 * Adds the med by pharm class.
+	 *
+	 * @param req
+	 *            the req
+	 * @param map
+	 *            the map
+	 * @return the string
+	 */
 	@RequestMapping(value = "/addMedByPharmClass", method = RequestMethod.GET)
-	public String addMedByPharmClass(HttpServletRequest req, final ModelMap map) {
+	public final String addMedByPharmClass(final HttpServletRequest req, final ModelMap map) {
 		// check if logged in and if not redirect to login
 		final HttpSession session = req.getSession();
 		final String loggedInUsername = (String) session.getAttribute("username");
@@ -184,14 +274,25 @@ public class FDADIController {
 			return "redirect:/login";
 		}
 
-		final QueryResults<AllPharmClasses> all = allpharmDAO.find();
+		final QueryResults<AllPharmClasses> all = ALLPHARM_DAO.find();
 		map.addAttribute("allPharmClasses", all.asList().get(0).getPharmClassNames());
 
 		return "addMedByPharmClass";
 	}
 
+	/**
+	 * Process add med by pharm class.
+	 *
+	 * @param req
+	 *            the req
+	 * @param map
+	 *            the map
+	 * @return the string
+	 * @throws UnirestException
+	 *             the unirest exception
+	 */
 	@RequestMapping(value = "/processAddMedByPharmClass", method = RequestMethod.POST)
-	public String processAddMedByPharmClass(HttpServletRequest req, final ModelMap map) throws UnirestException {
+	public final String processAddMedByPharmClass(final HttpServletRequest req, final ModelMap map) throws UnirestException {
 		// check if logged in and if not redirect to login
 		final HttpSession session = req.getSession();
 		final String loggedInUsername = (String) session.getAttribute("username");
@@ -216,8 +317,17 @@ public class FDADIController {
 		return "addMedByName";
 	}
 
+	/**
+	 * Med details.
+	 *
+	 * @param req
+	 *            the req
+	 * @param map
+	 *            the map
+	 * @return the string
+	 */
 	@RequestMapping(value = "/medDetails", method = RequestMethod.POST)
-	public String medDetails(HttpServletRequest req, ModelMap map) {
+	public final String medDetails(final HttpServletRequest req, final ModelMap map) {
 		// check if logged in and if not redirect to login
 		final HttpSession session = req.getSession();
 		final String loggedInUsername = (String) session.getAttribute("username");
@@ -237,8 +347,19 @@ public class FDADIController {
 		return "medDetails";
 	}
 
+	/**
+	 * Recalls.
+	 *
+	 * @param req
+	 *            the req
+	 * @param map
+	 *            the map
+	 * @return the string
+	 * @throws UnirestException
+	 *             the unirest exception
+	 */
 	@RequestMapping(value = "/recalls", method = RequestMethod.POST)
-	public String recalls(HttpServletRequest req, ModelMap map) throws UnirestException {
+	public final String recalls(final HttpServletRequest req, final ModelMap map) throws UnirestException {
 		final String medlist = StringUtils.defaultString(req.getParameter("medlist"));
 		final String[] drugNames = medlist.split("---,---");
 		final List<List<RecallEvent>> list = new ArrayList<List<RecallEvent>>();
@@ -252,8 +373,17 @@ public class FDADIController {
 		return "recalls";
 	}
 
+	/**
+	 * Removes the meds.
+	 *
+	 * @param req
+	 *            the req
+	 * @param map
+	 *            the map
+	 * @return the string
+	 */
 	@RequestMapping(value = "/removeMeds", method = RequestMethod.POST)
-	public String removeMeds(HttpServletRequest req, ModelMap map) {
+	public final String removeMeds(final HttpServletRequest req, final ModelMap map) {
 		// check if logged in and if not redirect to login
 		final HttpSession session = req.getSession();
 		final String loggedInUsername = (String) session.getAttribute("username");
@@ -264,17 +394,28 @@ public class FDADIController {
 		final String medlist = StringUtils.defaultString(req.getParameter("medlist"));
 		final String[] drugNames = medlist.split("---,---");
 
-		final UserProfile user = userDAO.findByUserId(loggedInUsername);
+		final UserProfile user = USER_DAO.findByUserId(loggedInUsername);
 		for (final String drugName : drugNames) {
-			userDAO.deleteUserMedication(user, new UserMedication(drugName));
+			USER_DAO.deleteUserMedication(user, new UserMedication(drugName));
 		}
 
 		return "redirect:/";
 	}
 
+	/**
+	 * Check interactions.
+	 *
+	 * @param req
+	 *            the req
+	 * @param res
+	 *            the res
+	 * @return the string
+	 * @throws UnirestException
+	 *             the unirest exception
+	 */
 	@RequestMapping(value = "/checkInteractions", method = RequestMethod.POST)
 	@ResponseBody
-	public String checkInteractions(HttpServletRequest req, HttpServletResponse res) throws UnirestException {
+	public final String checkInteractions(final HttpServletRequest req, final HttpServletResponse res) throws UnirestException {
 		final String medlist = StringUtils.defaultString(req.getParameter("medList"));
 		final String[] drugNames = medlist.split("---,---");
 		final List<String> drugs = Arrays.asList(drugNames);
@@ -284,30 +425,67 @@ public class FDADIController {
 
 	}
 
+	/**
+	 * Logout.
+	 *
+	 * @param req
+	 *            the req
+	 * @param map
+	 *            the map
+	 * @return the string
+	 */
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest req, ModelMap map) {
+	public final String logout(final HttpServletRequest req, final ModelMap map) {
 		final HttpSession session = req.getSession();
 		session.removeAttribute("username");
 		return "redirect:/";
 	}
 
-	private boolean register(String username, String pwd) {
+	/**
+	 * Register.
+	 *
+	 * @param username
+	 *            the username
+	 * @param pwd
+	 *            the pwd
+	 * @return true, if successful
+	 */
+	private boolean register(final String username, final String pwd) {
 		boolean result = false;
-		if (userDAO.save(new UserProfile(username, pwd)) != null) {
-			final UserProfile user = userDAO.findByUserId(username);
+		if (USER_DAO.save(new UserProfile(username, pwd)) != null) {
+			final UserProfile user = USER_DAO.findByUserId(username);
 			result = user.getUserId().equals(username);
 		}
 		return result;
 	}
 
-	private boolean validate(String username, String pwd) {
-		final UserProfile user = userDAO.findByUserId(username);
-		return user == null ? false : user.getPassword().equals(pwd);
+	/**
+	 * Validate.
+	 *
+	 * @param username
+	 *            the username
+	 * @param pwd
+	 *            the pwd
+	 * @return true, if successful
+	 */
+	private boolean validate(final String username, final String pwd) {
+		boolean result = false;
+		final UserProfile user = USER_DAO.findByUserId(username);
+		if (user != null) {
+			result = user.getPassword().equals(pwd);
+		}
+		return result;
 	}
 
+	/**
+	 * Clean up.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@PreDestroy
-	public void cleanUp() throws Exception {
-		logger.info("Disconnecting MongoDB");
+	public final void cleanUp() throws Exception {
+		LOGGER.info("Disconnecting MongoDB");
 		MongoDB.instance().close();
 	}
 }

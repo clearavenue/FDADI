@@ -1,3 +1,6 @@
+/*
+ *
+ */
 package com.clearavenue.data;
 
 import java.util.Arrays;
@@ -14,34 +17,60 @@ import org.mongodb.morphia.query.UpdateOperations;
 import com.clearavenue.data.objects.UserMedication;
 import com.clearavenue.data.objects.UserProfile;
 
+/**
+ * The Class UserProfileDAO.
+ */
 public class UserProfileDAO extends BasicDAO<UserProfile, String> {
 
-	public UserProfileDAO(Datastore ds) {
+	/**
+	 * Instantiates a new user profile dao.
+	 *
+	 * @param ds
+	 *            the ds
+	 */
+	public UserProfileDAO(final Datastore ds) {
 		super(ds);
 	}
 
-	public List<UserProfile> findAll() {
+	/**
+	 * Find all.
+	 *
+	 * @return the list
+	 */
+	public final List<UserProfile> findAll() {
 		return find().asList();
 	}
 
-	public UserProfile findByUserId(String userId) {
+	/**
+	 * Find by user id.
+	 *
+	 * @param userId
+	 *            the user id
+	 * @return the user profile
+	 */
+	public final UserProfile findByUserId(final String userId) {
 		if (StringUtils.isBlank(userId)) {
 			return null;
 		}
 
-		Query<UserProfile> query = getDatastore().createQuery(UserProfile.class);
+		final Query<UserProfile> query = getDatastore().createQuery(UserProfile.class);
 		query.criteria("userId").equal(userId);
-		QueryResults<UserProfile> users = find(query);
+		final QueryResults<UserProfile> users = find(query);
 		return users.get();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.mongodb.morphia.dao.BasicDAO#save(java.lang.Object)
+	 */
 	@Override
-	public Key<UserProfile> save(UserProfile entity) {
+	public final Key<UserProfile> save(final UserProfile entity) {
 		if (StringUtils.isBlank(entity.getUserId()) || StringUtils.isBlank(entity.getPassword())) {
 			return null;
 		}
 
-		UserProfile existingUser = findByUserId(entity.getUserId());
+		final UserProfile existingUser = findByUserId(entity.getUserId());
 		if (existingUser == null) {
 			return super.save(entity);
 		} else {
@@ -49,14 +78,30 @@ public class UserProfileDAO extends BasicDAO<UserProfile, String> {
 		}
 	}
 
-	public void addUserMedication(UserProfile entity, final UserMedication... medications) {
-		UpdateOperations<UserProfile> ops = getDatastore().createUpdateOperations(UserProfile.class).addAll("medications", Arrays.asList(medications), false);
+	/**
+	 * Adds the user medication.
+	 *
+	 * @param entity
+	 *            the entity
+	 * @param medications
+	 *            the medications
+	 */
+	public final void addUserMedication(final UserProfile entity, final UserMedication... medications) {
+		final UpdateOperations<UserProfile> ops = getDatastore().createUpdateOperations(UserProfile.class).addAll("medications", Arrays.asList(medications), false);
 		getDatastore().update(entity, ops);
 	}
 
-	public void deleteUserMedication(final UserProfile entity, final UserMedication... medications) {
-		for (UserMedication medication : medications) {
-			UpdateOperations<UserProfile> ops = getDatastore().createUpdateOperations(UserProfile.class).removeAll("medications", medication);
+	/**
+	 * Delete user medication.
+	 *
+	 * @param entity
+	 *            the entity
+	 * @param medications
+	 *            the medications
+	 */
+	public final void deleteUserMedication(final UserProfile entity, final UserMedication... medications) {
+		for (final UserMedication medication : medications) {
+			final UpdateOperations<UserProfile> ops = getDatastore().createUpdateOperations(UserProfile.class).removeAll("medications", medication);
 			getDatastore().update(entity, ops);
 		}
 	}

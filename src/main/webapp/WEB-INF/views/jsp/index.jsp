@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -9,15 +10,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <c:url value="/resources" var="resources" />
-<c:url value="/medDetails" var="medDetails"/>
-<c:url value="/recalls" var="recalls"/>
-<c:url value="/removeMeds" var="removeMeds"/>
+<c:url value="/medDetails" var="medDetails" />
+<c:url value="/recalls" var="recalls" />
+<c:url value="/removeMeds" var="removeMeds" />
 <c:url value="/logout" var="logout" />
 <c:url value="/checkInteractions" var="checkInteractions" />
 <c:url value="/faq" var="faq" />
 
-<link href="${resources}/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
-<link href="${resources}/css/fdadi.css" rel="stylesheet" type="text/css" media="screen">
+<link href="${resources}/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" media="screen">
+<link href="${resources}/css/fdadi.css" rel="stylesheet" type="text/css"
+	media="screen">
 
 <!--[if lt IE 9]>
 	<script src="${resources}/js/html5shiv.min.js"></script>
@@ -29,13 +32,16 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"><img class="img-responsive" src="${resources}/img/clearAvenue_highres.jpg" alt="clearAvenue logo"/></a>
+				<a class="navbar-brand" href="#"><img class="img-responsive"
+					src="${resources}/img/clearAvenue_highres.jpg"
+					alt="clearAvenue logo" /></a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
@@ -43,13 +49,14 @@
 					<li><a href="#" id="disclaimerButton">Disclaimer</a></li>
 					<li><a href="${logout}">Logout</a></li>
 				</ul>
-			</div>			
+			</div>
 		</div>
 	</nav>
 	<div class="container fdadi-template">
-		<div class="row" style="padding-bottom:10px;">
+		<div class="row" style="padding-bottom: 10px;">
 			<div class="appName">
-				<h2>Medication Information and Drug Interactions for ${username}</h2>
+				<h2>Medication Information and Drug Interactions for
+					${username}</h2>
 			</div>
 		</div>
 		<div class="row">
@@ -57,31 +64,42 @@
 				<div class="panel panel-info">
 					<div class="panel-heading">Medication List</div>
 					<div class="panel-body">
-						<div style="max-height: 500px;overflow: auto">
+						<div style="max-height: 500px; overflow: auto">
 							<ul id="medListBox" class="list-group checked-list-box">
 							</ul>
 						</div>
 						<button type="button" id="clearButton" class="btn btn-sm btn-info">Uncheck</button>
-						<button type="button" id="removeButton" class="btn btn-sm btn-info">Remove</button>
+						<button type="button" id="removeButton"
+							class="btn btn-sm btn-info">Remove</button>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-6">
-				<button type="button" id="addMedByNameButton" class="btn btn-primary actionButton">Add Medication by Name</button>
-				<button type="button" id="addMedByPClassButton" class="btn btn-primary actionButton">Add Medication by PharmClass</button>
-				<button type="button" id="medDetails" class="btn btn-primary actionButton">Medicine Details</button>
-				<button type="button" id="adverseDetails" class="btn btn-primary actionButton">Adverse Reactions</button>
-				<button type="button" id="interactionDetails" class="btn btn-primary actionButton">Check for Drug Interactions</button>
-				<button type="button" id="recalls" class="btn btn-primary actionButton">Recalls</button>
+				<button type="button" id="addMedByNameButton"
+					class="btn btn-primary actionButton">Add Medication by
+					Name</button>
+				<button type="button" id="addMedByPClassButton"
+					class="btn btn-primary actionButton">Add Medication by
+					PharmClass</button>
+				<button type="button" id="medDetails"
+					class="btn btn-primary actionButton">Medicine Details</button>
+				<button type="button" id="adverseDetails"
+					class="btn btn-primary actionButton">Adverse Reactions</button>
+				<button type="button" id="interactionDetails"
+					class="btn btn-primary actionButton">Check for Drug
+					Interactions</button>
+				<button type="button" id="recalls"
+					class="btn btn-primary actionButton">Recalls</button>
 			</div>
 		</div>
 	</div>
 
-	   	
-	<script src="${resources}/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+
+	<script src="${resources}/js/jquery-2.1.4.min.js"
+		type="text/javascript"></script>
 	<script src="${resources}/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="${resources}/js/checklistbox.js" type="text/javascript"></script>
-    <script src="${resources}/js/bootbox.min.js" type="text/javascript"></script>
+	<script src="${resources}/js/bootbox.min.js" type="text/javascript"></script>
 
 	<script>
 		var meds = [

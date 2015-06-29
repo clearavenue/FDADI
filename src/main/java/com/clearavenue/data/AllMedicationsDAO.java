@@ -1,3 +1,6 @@
+/*
+ *
+ */
 package com.clearavenue.data;
 
 import java.util.ArrayList;
@@ -8,18 +11,35 @@ import org.mongodb.morphia.dao.BasicDAO;
 
 import com.clearavenue.data.objects.AllMedications;
 
+/**
+ * The Class AllMedicationsDAO.
+ */
 public class AllMedicationsDAO extends BasicDAO<AllMedications, String> {
 
-	public AllMedicationsDAO(Datastore ds) {
+	/**
+	 * Instantiates a new all medications dao.
+	 *
+	 * @param ds
+	 *            the ds
+	 */
+	public AllMedicationsDAO(final Datastore ds) {
 		super(ds);
 	}
 
-	public List<String> findAll() {
+	/**
+	 * Find all.
+	 *
+	 * @return the list
+	 */
+	public final List<String> findAll() {
 		return find().asList().get(0).getMedicationNames();
 	}
 
-	public void initCollection() {
-		List<String> meds = new ArrayList<String>();
+	/**
+	 * Inits the collection.
+	 */
+	public final void initCollection() {
+		final List<String> meds = new ArrayList<String>();
 		meds.add("ABACAVIR SULFATE");
 		meds.add("ABILIFY");
 		meds.add("ACARBOSE");
@@ -1398,7 +1418,7 @@ public class AllMedicationsDAO extends BasicDAO<AllMedications, String> {
 		meds.add("Zyprexa");
 		meds.add("Zyvox");
 
-		AllMedications all = new AllMedications();
+		final AllMedications all = new AllMedications();
 		all.getMedicationNames().addAll(meds);
 		save(all);
 	}
