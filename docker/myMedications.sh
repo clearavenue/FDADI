@@ -1,3 +1,6 @@
+#!/bin/bash
+#S skeliton script to build deploy and run the clearAvenue myMedications docker images
+
 ## Assumes internet facing linux host with docker running and git
 ## Assumes user has correct permissions to run docker
 ## Assume user has the IP or hostname of the host running docker
@@ -19,8 +22,8 @@ docker run -p 8080:8080 --link clearavenue-mymeds-mongo:mongo --name clearavenue
 
 
 ## Stop the myMedications containers
-docker stop clearavenue-mymeds
-docker stop clearavenue-mymeds-mongo
+## docker stop clearavenue-mymeds
+## docker stop clearavenue-mymeds-mongo
 ## Remove all docker containers and images on the host
-docker rm $(docker ps -a -q)
-docker rmi $(docker images -q)
+## docker rm $(docker ps -a -q)
+## docker rmi $(docker images -q)
