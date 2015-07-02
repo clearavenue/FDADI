@@ -1,0 +1,5 @@
+mkdir clearavenue
+cd clearavenue
+docker build -t clearavenue/mymeds .
+docker run --name clearavenue-mymeds-mongo -d mongo
+docker run -p 8080:8080 --link clearavenue-mymeds-mongo:mongo --name clearavenue-mymeds -d clearavenue/mymeds
