@@ -1,6 +1,11 @@
 ## Assumes internet facing linux host with docker running and git
 ## Assumes user has correct permissions to run docker
 ## Assume user has the IP or hostname of the host running docker
+## Either run the following commands by hand as a docker user or make 
+## executable and execute the accompanying myMedications.sh script as a docker user
+## chmod +x myMedications.sh
+## ./myMedications.sh
+## open a browser to http://your.docker.host:8080/FDADI
 
 ## Make and use a working directory
 mkdir clearavenue
@@ -19,8 +24,14 @@ docker run -p 8080:8080 --link clearavenue-mymeds-mongo:mongo --name clearavenue
 
 
 ## Stop the myMedications containers
+## by hand or 
+## chmod +x stop-myMedications.sh
+## ./stop-myMedications.sh
 docker stop clearavenue-mymeds
 docker stop clearavenue-mymeds-mongo
 ## Remove all docker containers and images on the host
+## by hand or 
+## chmod +x removeAllImagesAndContainers.sh
+## ./removeAllImagesAndContainers.sh
 docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
