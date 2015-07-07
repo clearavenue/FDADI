@@ -8,7 +8,7 @@ Above is the publically-available URL of our prototype.
 
 Evidence of our approach, tools, infrastructure and related information can be found in the documents below:
 
-1. myMedications (FDADI) Tech Approach
+1. [myMedications (FDADI) Tech Approach](https://github.com/clearavenue/FDADI/blob/master/documentation/myMedications\ (FDADI)\ Tech Approach.docx)
 2. Agile Development Processes for myMedications (FDADI) Application and related documents
 
 a. Our team assigned Dr. Srini Kankanahalli as our leader. As Chief Technical Officer (CTO) of clearAvenue, Dr. Kankanahalli has full authority to authorize required resources to develop the myMedications application. Additionally, Dr. Kankanahalli, a certified scrum master, is directly responsible for assuring the quality of the prototype. See Agile Development Processes for myMedications (FDADI) Application, Section 1.1 and Section 1.2, Page 3,4
@@ -23,7 +23,7 @@ b. Our team was comprised of the following:
 7. DevOps Engineer
 8. Security and Engineer
 
-See Agile Development Processes for myMedications (FDADI) Application, Section1.2 Exhibit 1.2-1.
+See Agile Development Processes for myMedications (FDADI) Application, Section 1.2 Exhibit 1.2-1.
 
 c. When developing myMedications application, we have utilized a number of modern, open source technologies including:
 
